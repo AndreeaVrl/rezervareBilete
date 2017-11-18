@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">            
+
+   <context:component-scan base-package="it.rezervare.beans"/>
+   
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	  <property name="prefix" value="/WEB-INF/view/"/>
+	  <property name="suffix" value=".jsp"/> 
+   </bean>
+
+   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="587"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="username" value="gestiune.cercetare@gmail.com"/>
+		<property name="password" value="gestcercetare"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+    
+ 	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">Error</prop>
+            </props>
+        </property>
+    </bean> 
+   <mvc:resources mapping="/resources/**" location="/resources/theme/" cache-period="31556926"/>
+   <mvc:annotation-driven /> 
+   
+   <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	  <property name="basename" value="/WEB-INF/messages/messages" />
+	  <property name="defaultEncoding" value="UTF-8" />
+   </bean>   
+   <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+	  <property name="defaultLocale" value="en" />
+	  <property name="cookieName" value="myLocaleCookie" />
+	  <property name="cookieMaxAge" value="4800" />
+   </bean>
+   <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="mylocale" />
+   </bean>     
+   <import resource="db-config.xml"/>
+</beans> 
