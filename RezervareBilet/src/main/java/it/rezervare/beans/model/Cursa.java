@@ -30,11 +30,11 @@ public class Cursa {
 	private Set<Zbor> zboruri = new HashSet<Zbor>();
 
 	@ManyToOne
-	@JoinColumn(name = "id_aeroport")
+	@JoinColumn(name = "id_aeroport_1", referencedColumnName="id_aeroport")
 	private Aeroport aeroport_1;
 
 	@ManyToOne
-	@JoinColumn(name = "id_aeroport")
+	@JoinColumn(name = "id_aeroport_2", referencedColumnName="id_aeroport")
 	private Aeroport aeroport_2;
 
 	public Long getId() {

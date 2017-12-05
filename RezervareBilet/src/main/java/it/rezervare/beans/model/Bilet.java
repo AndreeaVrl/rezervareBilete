@@ -18,11 +18,11 @@ public class Bilet {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "id_client")
+	@JoinColumn(name = "id_client_bilet", referencedColumnName="id_client")
 	private Client clientBilet;
 
 	@ManyToOne
-	@JoinColumn(name = "id_client")
+	@JoinColumn(name = "id_client_rezervare", referencedColumnName="id_client")
 	private Client clientRezervare;
 
 	@ManyToOne
