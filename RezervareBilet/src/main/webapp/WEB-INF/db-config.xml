@@ -28,7 +28,7 @@
 			   <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 			</props>
 	    </property>
-            <property name="packagesToScan" value="beans.model"></property> 
+            <property name="packagesToScan" value="it.rezervare.beans.model"></property> 
 	</bean>
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 	    <property name="sessionFactory" ref="sessionFactory" />
