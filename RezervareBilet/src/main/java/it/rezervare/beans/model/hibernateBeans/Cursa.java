@@ -1,4 +1,4 @@
-package it.rezervare.beans.model;
+package it.rezervare.beans.model.hibernateBeans;
 
 import java.math.BigDecimal;
 import java.util.HashSet;

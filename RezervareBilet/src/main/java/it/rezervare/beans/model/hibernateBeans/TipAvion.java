@@ -1,4 +1,4 @@
-package it.rezervare.beans.model;
+package it.rezervare.beans.model.hibernateBeans;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.rezervare.beans.dao.Interfaces.ITaraDAO;
-import it.rezervare.beans.model.Localitate;
-import it.rezervare.beans.model.Tara;
+import it.rezervare.beans.model.hibernateBeans.Localitate;
+import it.rezervare.beans.model.hibernateBeans.Tara;
 
 @Transactional
 @Repository
