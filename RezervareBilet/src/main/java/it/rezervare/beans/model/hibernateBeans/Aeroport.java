@@ -16,6 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "aeroporturi")
 public class Aeroport {
+	
 	@Id
 	@GeneratedValue
 	@Column(name = "id_aeroport")
