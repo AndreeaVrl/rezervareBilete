@@ -1,7 +1,7 @@
-package it.rezervare.beans.DAO.Interfaces;
+package it.rezervare.beans.dao.Interfaces;
 
-import it.rezervare.beans.model.Localitate;
-import it.rezervare.beans.model.Tara;
+import it.rezervare.beans.model.hibernateBeans.Localitate;
+import it.rezervare.beans.model.hibernateBeans.Tara;
 
 public interface ITaraDAO {
 

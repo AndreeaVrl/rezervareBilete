@@ -1,4 +1,4 @@
-package it.rezervare.beans.DAO.Implementations;
+package it.rezervare.beans.dao.Implementations;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.rezervare.beans.DAO.Interfaces.ITaraDAO;
-import it.rezervare.beans.model.Localitate;
-import it.rezervare.beans.model.Tara;
+import it.rezervare.beans.dao.Interfaces.ITaraDAO;
+import it.rezervare.beans.model.hibernateBeans.Localitate;
+import it.rezervare.beans.model.hibernateBeans.Tara;
 
 @Transactional
 @Repository
