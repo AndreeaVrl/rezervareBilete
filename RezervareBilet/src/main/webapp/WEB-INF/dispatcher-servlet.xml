@@ -55,5 +55,6 @@
    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
         <property name="paramName" value="mylocale" />
    </bean>     
-   <import resource="db-config.xml"/>
+   <import resource="db-config.xml"/><mvc:resources location="/resources/theme/" mapping="/resources/**">
+</mvc:resources>
 </beans> 
