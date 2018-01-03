@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/rezervareBilete.css" rel="stylesheet">
     <!-- Datepicker -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
@@ -24,30 +25,30 @@
 <section>
 	<div class="row">
 		<div class="col-md-6">
-    	<form class="form-inline" action="" method="post">
+    	<form:form class="form-inline" action="getRoute" method="POST" modelAttribute="cursa">
       	<div class="form-group">
         	From
         </div>
         <br />
         <div class="form-group">
           <label for="country">Country</label>
-          <select class="form-control" id="country">
-            <option>United States</option>
-            <option>United Kingdom</option>
-            <option>France</option>
-            <option>Germany</option>
-            <option>Romania</option>
-          </select>
+          <form:select class="form-control" path="contryFrom">
+            <form:option value="">United States</form:option>
+            <form:option value="">United Kingdom</form:option>
+            <form:option value="">France</form:option>
+            <form:option value="">Germany</form:option>
+            <form:option value="">Romania</form:option>
+          </form:select>
         </div>
         <div class="form-group">
           <label for="country">Airport</label>
-          <select class="form-control" id="airport">
-            <option>Boston</option>
-            <option>Miami</option>
-            <option>London</option>
-            <option>Bremen</option>
-            <option>Romania</option>
-          </select>
+          <form:select class="form-control" path="airportFrom">
+            <form:option value="Linz">Linz</form:option>
+            <form:option value="">Miami</form:option>
+            <form:option value="">London</form:option>
+            <form:option value="">Bremen</form:option>
+            <form:option value="">Romania</form:option>
+          </form:select>
         </div>
       	<br />
         <div class="form-group">
@@ -56,27 +57,26 @@
         <br />
         <div class="form-group">
           <label for="country">Country</label>
-          <select class="form-control" id="country">
-            <option>United States</option>
-            <option>United Kingdom</option>
-            <option>France</option>
-            <option>Germany</option>
-            <option>Romania</option>
-          </select>
+          <form:select class="form-control" path="countryTo">
+            <form:option value="">United States</form:option>
+            <form:option value="">United Kingdom</form:option>
+            <form:option value="">France</form:option>
+            <form:option value="">Germany</form:option>
+            <form:option value="">Romania</form:option>
+          </form:select>
         </div>
         <div class="form-group">
           <label for="country">Airport</label>
-          <select class="form-control" id="airport">
-            <option>Boston</option>
-            <option>Miami</option>
-            <option>London</option>
-            <option>Bremen</option>
-            <option>Romania</option>
-          </select>
+          <form:select class="form-control" path="airportTo">
+            <form:option value="Lille" >Lille</form:option>
+            <form:option value="">Miami</form:option>
+            <form:option value="">London</form:option>
+            <form:option value="">Bremen</form:option>
+            <form:option value="">Romania</form:option>
+          </form:select>
         </div>
         <br />
-        <button class="btn btn-primary" name="submit" type="submit">Continue</button>
-      </form>
+        	<input class="btn btn-primary" name="submit" type="submit" value="Continue"/></form:form>
 		</div>
 	</div>
 </section>
@@ -201,7 +201,7 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
