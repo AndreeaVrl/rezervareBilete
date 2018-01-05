@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,7 +39,7 @@
             <li><a href="#about">Rute</a></li>
             <li><a href="#contact">Pachete</a></li>
             
-            
+            <!-- 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -51,6 +52,7 @@
                 <li><a href="#">One more separated link</a></li>
               </ul>
             </li>
+            -->
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="#">Logout<span class="sr-only">(current)</span></a></li>
@@ -60,200 +62,15 @@
     </nav>
 
 
-    <div class="container">
+   
+    
+    
+    
+    
+    
+    
+    
 
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
-
-    </div><!-- /.container -->
-    
-    
-    
-    
-    
-    
-    
-    
-<!-- Selectare aeroport plecare sosire -->
-<section>
-	<div class="row">
-		<div class="col-md-6">
-    	<form class="form-inline" action="" method="post">
-      	<div class="form-group">
-        	From
-        </div>
-        <br />
-        <div class="form-group">
-          <label for="country">Country</label>
-          <select class="form-control" id="country">
-            <option>United States</option>
-            <option>United Kingdom</option>
-            <option>France</option>
-            <option>Germany</option>
-            <option>Romania</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="country">Airport</label>
-          <select class="form-control" id="airport">
-            <option>Boston</option>
-            <option>Miami</option>
-            <option>London</option>
-            <option>Bremen</option>
-            <option>Romania</option>
-          </select>
-        </div>
-      	<br />
-        <div class="form-group">
-        	To
-        </div>
-        <br />
-        <div class="form-group">
-          <label for="country">Country</label>
-          <select class="form-control" id="country">
-            <option>United States</option>
-            <option>United Kingdom</option>
-            <option>France</option>
-            <option>Germany</option>
-            <option>Romania</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="country">Airport</label>
-          <select class="form-control" id="airport">
-            <option>Boston</option>
-            <option>Miami</option>
-            <option>London</option>
-            <option>Bremen</option>
-            <option>Romania</option>
-          </select>
-        </div>
-        <br />
-        <button class="btn btn-primary" name="submit" type="submit">Continue</button>
-      </form>
-		</div>
-	</div>
-</section>
-<!-- END Selectare aeroport plecare sosire -->
-<hr />
-<!-- Selectare data plecare -->
-<section>
-	<div class="row">
-		<div class="col-md-6 data-plecare">
-			<form action="" class="form-inline" method="post">
-				<div class="form-group">
-					<label for="date">Fly out date</label>
-          <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text"/>
-				</div>
-				<br />
-				<button class="btn btn-primary" name="submit" type="submit">Continue</button>
-			</form>
-		</div>
-	</div>
-</section>
-<!-- END Selectare data plecare -->
-
-<hr />
-<!-- Selectare nr pasageri -->
-<section>
-	<div class="row">
-		<div class="col-md-6">
-    	<form class="form-inline" action="" method="post">
-        <div class="form-group">
-          <label for="passengers">Passengers</label>
-          <select class="form-control" id="passengers">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <br />
-        <button class="btn btn-primary" name="submit" type="submit">Continue</button>
-      </form>
-		</div>
-	</div>
-</section>
-<!-- END Selectare nr pasageri -->
-
-<hr />
-<!-- Selectare nr pasageri -->
-<section>
-	<div class="row">
-		<div class="col-md-6">
-    	<div class="col-md-4">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title text-center">Standard</h3>
-          </div>
-          <div class="panel-body">
-            <ul class="pachet-descriere">
-            	<li>Lowest Fare</li>
-              <li class="disabled">60 day check-in</li>
-              <li class="disabled">20kg check-in bag</li>
-							<li class="disabled">Priority Boarding</li>
-							<li class="disabled">Reserved standard seat</li>
-							<li class="disabled">Flexible tickets</li>
-							<li class="disabled">Optional airport check-in</li>
-							<li class="disabled">Fast Track</li>
-            </ul>
-          </div>
-          <div class="panel-footer text-center">
-            <button class="btn btn-primary" name="submit" type="submit"> &euro; 120 </button>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title text-center">Plus</h3>
-          </div>
-          <div class="panel-body">
-            <ul class="pachet-descriere">
-            	<li>Lowest Fare</li>
-              <li>60 day check-in</li>
-              <li>20kg check-in bag</li>
-							<li>Priority Boarding</li>
-							<li>Reserved standard seat</li>
-							<li class="disabled">Flexible tickets</li>
-							<li class="disabled">Optional airport check-in</li>
-							<li class="disabled">Fast Track</li>
-            </ul>
-          </div>
-          <div class="panel-footer text-center">
-            <button class="btn btn-primary" name="submit" type="submit"> &euro; 160 </button>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title text-center">Flexi Plus</h3>
-          </div>
-          <div class="panel-body">
-            <ul class="pachet-descriere">
-            	<li>Lowest Fare</li>
-             	<li>60 day check-in</li>
-              	<li>20kg check-in bag</li>
-				<li>Priority Boarding</li>
-				<li>Reserved standard seat</li>
-				<li>Flexible tickets</li>
-				<li>Optional airport check-in</li>
-				<li>Fast Track</li>
-            </ul>
-          </div>
-          <div class="panel-footer text-center">
-            <button class="btn btn-primary" name="submit" type="submit"> &euro; 185 </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- END Selectare nr pasageri -->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
