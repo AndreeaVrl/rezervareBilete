@@ -20,7 +20,7 @@
   </head>
   <body>
     
-    <a class="btn btn-link" href="admin.jsp">admin</a><br />
+    <a class="btn btn-link" href="goToAdminPage">admin</a><br />
     
     
 <!-- Selectare aeroport plecare sosire -->
