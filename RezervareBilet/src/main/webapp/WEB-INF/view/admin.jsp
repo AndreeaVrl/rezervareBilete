@@ -37,8 +37,14 @@
           <ul class="nav navbar-nav"> 
             <li class="active"><a href="#">Airports</a></li>
             <li><a href="#">Companies</a></li>
+            <li><a href="#">Plains</a></li>
+            <li><a href="#">Flights</a></li>
+            <li><a>|</a></li>        
+            <li><a href="#">Clients</a></li>
+            <li><a href="#">Tickets</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+          	<li><a href="#">Users</a></li>
             <li><a href="#">Logout<span class="sr-only">(current)</span></a></li>
           </ul>
         </div><!--/.nav-collapse -->
