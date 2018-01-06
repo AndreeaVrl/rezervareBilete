@@ -17,6 +17,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <title>Rezervare Bilete - Admin</title>
   </head>
   <body>
     
@@ -30,39 +31,108 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Rezervere Bilete - ADMINISTRARE</a>
+          <a class="navbar-brand" href="goToAdminPage">AdminPage</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Aeroporturi</a></li>
-            <li><a href="#about">Rute</a></li>
-            <li><a href="#contact">Pachete</a></li>
-            
-            <!-- 
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-            -->
+          <ul class="nav navbar-nav"> 
+            <li class="active"><a href="#">Airports</a></li>
+            <li><a href="#">Companies</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="#">Logout<span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Logout<span class="sr-only">(current)</span></a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
 
-   
-    
+<!-- MENIU AIRPORTS -->
+<div class="container">
+	<div class="row">
+	
+		<div class="col-md-3">
+			<div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Countries</h3>
+        </div>
+        <form class="form-inline" action="" method="post">
+	        <div class="panel-body">
+	        	<div class="form-group">
+			        <select class="form-control" id="countries-sel" size="20"> <!-- trage date din tabela tari -->
+			          <option>Austria</option>
+			          <option>Belgium</option>
+			          <option>France</option>
+			          <option>Germany</option>
+			          <option>Romania</option>
+			        </select>
+			      </div>
+	        </div>
+	        <div class="panel-footer text-center">
+	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        </div>
+        </form>
+      </div>		
+		</div>
+		
+		<div class="col-md-3">
+			<div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Airports</h3>
+        </div>
+        <form class="form-inline" action="" method="post">
+	        <div class="panel-body">
+	        	<div class="form-group">
+			        <select class="form-control" id="airports-sel" size="20"> <!-- trage date din tabela aeroporturi functie de tara -->
+			          <option>Linz</option>
+			          <option>Salzburg</option>
+			        </select>
+			      </div>
+	        </div>
+	        <div class="panel-footer text-center">
+	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        </div>
+        </form>
+      </div>		
+		</div>
+		
+		<div class="col-md-6">
+			<div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Route To</h3>
+        </div>
+        <form class="form-inline" action="" method="post">
+	        <div class="panel-body">
+	        	<div class="col-md-6">
+		        	<div class="form-group">
+				        <select class="form-control" id="routes-sel" size="20"> <!-- trage date din tabela curse functie de aeroport1 -->
+				          <option>Paris</option>
+				          <option>Bucharest</option>
+				        </select>
+				      </div>
+				    </div>
+				    <div class="col-md-6">
+				    	<h4>Informations</h4>
+				    	Company:<br />
+				    	Starting price:<br />
+				    	Packages:<br />
+				    	...
+				    </div>
+	        </div>
+	        <div class="panel-footer text-center">
+	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        </div>
+        </form>
+      </div>		
+		</div>
+		
+  </div>
+</div>
     
     
     
@@ -75,21 +145,7 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 
-<!-- Include Date Range Picker -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
-<script>
-	$(document).ready(function(){
-		var date_input=$('input[name="date"]'); //our date input has the name "date"
-		var container=$('.data-plecare form').length>0 ? $('.data-plecare form').parent() : "body";
-		date_input.datepicker({
-			format: 'dd/mm/yyyy',
-			container: container,
-			todayHighlight: true,
-			autoclose: true,
-		})
-	})
-</script> 
     
         
   </body>
