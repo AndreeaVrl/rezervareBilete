@@ -49,7 +49,7 @@
 <!-- MENIU AIRPORTS -->
 <div class="container">
 	<div class="row">
-	
+		<h4>MENIU AIRPORTS</h4>
 		<div class="col-md-3">
 			<div class="panel panel-info">
         <div class="panel-heading">
@@ -114,7 +114,7 @@
 				        </select>
 				      </div>
 				    </div>
-				    <div class="col-md-6">
+				    <div class="col-md-6" id="route_info"> <!-- se actualizeaza functie de ruta aleasa -->
 				    	<h4>Informations</h4>
 				    	Company:<br />
 				    	Starting price:<br />
@@ -134,7 +134,70 @@
   </div>
 </div>
     
-    
+<!-- MENIU COMPANII/PACHETE -->
+<div class="container">
+	<div class="row">
+		<h4>MENIU COMPANII/PACHETE</h4>	
+		<div class="col-md-3">
+			<div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Companies</h3>
+        </div>
+        <form class="form-inline" action="" method="post">
+	        <div class="panel-body">
+	        	<div class="form-group">
+			        <select class="form-control" id="companies-sel" size="20"> <!-- trage date din tabela companii -->
+			          <option>Wizz-Air</option>
+			          <option>Panair</option>
+			          <option>Rayan Air</option>
+			        </select>
+			      </div>
+	        </div>
+	        <div class="panel-footer text-center">
+	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        </div>
+        </form>
+      </div>		
+		</div>
+		
+		<div class="col-md-6">
+			<div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Packages</h3>
+        </div>
+        <form class="form-inline" action="" method="post">
+	        <div class="panel-body">
+	        	<div class="col-md-6">
+		        	<div class="form-group">
+				        <select class="form-control" id="packages-sel" size="20"> <!-- trage date din tabela pachete functie de companie -->
+			          <option>Standard</option>
+			          <option>Plus</option>
+			          <option>Flexi-Plus</option>
+			        </select>
+				      </div>
+				    </div>
+				    <div class="col-md-6" id="route_info"> <!-- se actualizeaza functie de pachetul ales -->
+				    	<h4>Informations</h4>
+				    	Company:<br />
+				    	Package name:<br />
+				    	Price:<br />
+				    	Facilities:<br />
+				    	...
+				    </div>
+	        </div>
+	        <div class="panel-footer text-center">
+	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        </div>
+        </form>
+      </div>		
+		</div>
+		
+  </div>
+</div>   
     
     
     

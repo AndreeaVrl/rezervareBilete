@@ -9,6 +9,6 @@ body {
 .pachet-descriere .disabled {
 	color: #999;
 }
-#countries-sel, #airports-sel, #routes-sel {
+#countries-sel, #airports-sel, #routes-sel, #companies-sel, #packages-sel {
 	width: 100%;
 }
