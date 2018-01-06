@@ -37,7 +37,7 @@
           <ul class="nav navbar-nav"> 
             <li class="active"><a href="#">Airports</a></li>
             <li><a href="#">Companies</a></li>
-            <li><a href="#">Plains</a></li>
+            <li><a href="#">Airliners</a></li>
             <li><a href="#">Flights</a></li>
             <li><a>|</a></li>        
             <li><a href="#">Clients</a></li>
@@ -139,11 +139,12 @@
 		
   </div>
 </div>
-    
-<!-- MENIU COMPANII/PACHETE -->
+
+<!-- MENIU COMPANIES -->
 <div class="container">
+	<hr /> 
 	<div class="row">
-		<h4>MENIU COMPANII/PACHETE</h4>	
+		<h4>MENIU COMPANIES</h4>	
 		<div class="col-md-3">
 			<div class="panel panel-info">
         <div class="panel-heading">
@@ -189,6 +190,78 @@
 				    	Company:<br />
 				    	Package name:<br />
 				    	Price:<br />
+				    	Facilities:<br />
+				    	...
+				    </div>
+	        </div>
+	        <div class="panel-footer text-center">
+	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        </div>
+        </form>
+      </div>		
+		</div>
+	
+	</div>
+</div>
+
+  	
+<!-- MENIU AIRLINERS -->
+<div class="container">
+	<hr /> 
+	<div class="row">
+		<h4>MENIU AIRLINERS</h4>	
+		<div class="col-md-3">
+			<div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Airliner Types</h3>
+        </div>
+        <form class="form-inline" action="" method="post">
+	        <div class="panel-body">
+	        	<div class="form-group">
+			        <select class="form-control" id="airlinertype-sel" size="20"> <!-- trage date din tabela tipuri_avioane -->
+			          <option>Airbus 380</option>
+			          <option>Airbus 340</option>
+			          <option>Boeing 747</option>
+			          <option>Boeing 777</option>
+			        </select>
+			      </div>
+	        </div>
+	        <div class="panel-footer text-center">
+	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        </div>
+        </form>
+      </div>		
+		</div>
+		
+		<div class="col-md-6">
+			<div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Airliners</h3>
+        </div>
+        <form class="form-inline" action="" method="post">
+	        <div class="panel-body">
+	        	<div class="col-md-6">
+		        	<div class="form-group">
+				        <select class="form-control" id="airliner-sel" size="20"> <!-- trage date din tabela avioane functie de tip avion -->
+			          <option>N930NN</option>
+			          <option>N988NA</option>
+			          <option>XA-NAK</option>
+			          <option>XA-LUS</option>
+			          <option>XB-NOR</option>
+			        </select>
+				      </div>
+				    </div>
+				    <div class="col-md-6" id="airliner_info"> <!-- se actualizeaza functie de avionul ales -->
+				    	<h4>Informations</h4>
+				    	Airliner type:<br />
+				    	Number:<br />
+				    	Crew:<br />
+				    	Bussiness class seats:<br />
+				    	Economy class seats:<br />
 				    	Facilities:<br />
 				    	...
 				    </div>
