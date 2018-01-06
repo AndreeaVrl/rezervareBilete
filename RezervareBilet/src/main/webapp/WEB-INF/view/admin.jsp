@@ -202,7 +202,7 @@
         </form>
       </div>		
 		</div>
-	
+
 	</div>
 </div>
 
@@ -278,7 +278,66 @@
   </div>
 </div>   
     
-    
+<!-- MENIU FLIGHTS -->
+<div class="container">
+	<hr /> 
+	<div class="row">
+		<h4>MENIU FLIGHTS</h4>	
+		<div class="col-md-12">
+			<div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title text-center">Flights</h3>
+        </div>
+        <form class="form-inline" action="" method="post">
+	        <div class="panel-body">
+	        	<div class="table-responsive">
+						  <table class="table table-striped table-hover">
+						  	<thead>
+									<tr>
+										<th>#</th>
+										<th>Departure</th>
+										<th>Arrival</th>
+										<th>Company</th>
+										<th>Airliner</th>
+									</tr>
+								</thead>
+						    <tbody>
+						    	<tr>
+						    		<td>1</td>
+						    		<td>Germany-Hamburg</td>
+						    		<td>Italy - Roma</td>
+						    		<td>Ryan Air</td>
+						    		<td>Boeing 747 - N988NA</td>
+						    	</tr>
+						    	<tr>
+						    		<td>2</td>
+						    		<td>Germany-Hamburg</td>
+						    		<td>Italy - Roma</td>
+						    		<td>Ryan Air</td>
+						    		<td>Boeing 747 - N988NA</td>
+						    	</tr>
+						    	<tr>
+						    		<td>3</td>
+						    		<td>Germany-Hamburg</td>
+						    		<td>Italy - Roma</td>
+						    		<td>Ryan Air</td>
+						    		<td>Boeing 747 - N988NA</td>
+						    	</tr>
+						    </tbody>
+						  </table>
+						</div>
+
+	        </div>
+	        <div class="panel-footer text-center">
+	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        </div>
+        </form>
+      </div>		
+		</div>		
+  </div>
+</div>    
     
     
 
