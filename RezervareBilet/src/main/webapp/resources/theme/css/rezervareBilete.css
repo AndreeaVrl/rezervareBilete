@@ -1,5 +1,14 @@
 /* CSS Document */
+body {
+  padding-top: 70px;
+}
+.form-group {
+		width: 100%;
+}
 
 .pachet-descriere .disabled {
 	color: #999;
+}
+#countries-sel, #airports-sel, #routes-sel, #companies-sel, #packages-sel, #airlinertype-sel, #airliner-sel {
+	width: 100%;
 }

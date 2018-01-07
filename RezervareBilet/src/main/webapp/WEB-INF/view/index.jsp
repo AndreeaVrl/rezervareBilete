@@ -18,8 +18,12 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <title>Rezervare Bilete</title>
   </head>
   <body>
+    
+    <a class="btn btn-link" href="goToAdminPage">admin</a><br />
+    
     
 <!-- Selectare aeroport plecare sosire -->
 <section>
@@ -181,12 +185,12 @@
             <ul class="pachet-descriere">
             	<li>Lowest Fare</li>
              	<li>60 day check-in</li>
-              	<li>20kg check-in bag</li>
-				<li>Priority Boarding</li>
-				<li>Reserved standard seat</li>
-				<li>Flexible tickets</li>
-				<li>Optional airport check-in</li>
-				<li>Fast Track</li>
+              <li>20kg check-in bag</li>
+							<li>Priority Boarding</li>
+							<li>Reserved standard seat</li>
+							<li>Flexible tickets</li>
+							<li>Optional airport check-in</li>
+							<li>Fast Track</li>
             </ul>
           </div>
           <div class="panel-footer text-center">

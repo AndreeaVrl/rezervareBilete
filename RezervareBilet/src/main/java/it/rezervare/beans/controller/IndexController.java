@@ -15,7 +15,15 @@ public class IndexController {
 		return model;
 	}
 	
+	@RequestMapping(value = { "/goToAdminPage"}, method = {RequestMethod.GET})
+	public ModelAndView goToAdmin(ModelAndView model){
+		System.out.println("\n ENTER goToAdminPage \n");
+		model.setViewName("admin");
+		return model;
+	}
+	
 	///TEST...TEST_NINA 2
 	//andreea
+	// test
 	
 }
