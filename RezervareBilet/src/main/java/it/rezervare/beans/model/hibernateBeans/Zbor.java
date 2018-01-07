@@ -1,5 +1,6 @@
 package it.rezervare.beans.model.hibernateBeans;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,9 +30,12 @@ public class Zbor {
 	@Column(name = "data_sosire")
 	private Date dataSosire;
 
+	@Column(name = "pret")
+	private BigDecimal pret;
+	
 	@ManyToOne
-	@JoinColumn(name = "id_pachet")
-	private Pachet pachet;
+	@JoinColumn(name = "id_companie")
+	private Companie companie;
 
 	@ManyToOne
 	@JoinColumn(name = "id_avion")
@@ -68,12 +72,12 @@ public class Zbor {
 		this.dataSosire = dataSosire;
 	}
 
-	public Pachet getPachet() {
-		return pachet;
+	public Companie getCompanie() {
+		return companie;
 	}
 
-	public void setPachet(Pachet pachet) {
-		this.pachet = pachet;
+	public void setCompanie(Companie companie) {
+		this.companie = companie;
 	}
 
 	public Avion getAvion() {
@@ -98,6 +102,14 @@ public class Zbor {
 
 	public void setBilete(Set<Bilet> bilete) {
 		this.bilete = bilete;
+	}
+
+	public BigDecimal getPret() {
+		return pret;
+	}
+
+	public void setPret(BigDecimal pret) {
+		this.pret = pret;
 	}
 
 }

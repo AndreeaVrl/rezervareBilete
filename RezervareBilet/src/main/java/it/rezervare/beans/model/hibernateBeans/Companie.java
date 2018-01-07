@@ -25,6 +25,8 @@ public class Companie {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "companie")
 	private Set<Pachet> pachete = new HashSet<Pachet>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "companie")
+	private Set<Zbor> zboruri = new HashSet<Zbor>();
 
 	public Long getId() {
 		return id;
@@ -48,6 +50,14 @@ public class Companie {
 
 	public void setPachete(Set<Pachet> pachete) {
 		this.pachete = pachete;
+	}
+
+	public Set<Zbor> getZboruri() {
+		return zboruri;
+	}
+
+	public void setZboruri(Set<Zbor> zboruri) {
+		this.zboruri = zboruri;
 	}
 
 }

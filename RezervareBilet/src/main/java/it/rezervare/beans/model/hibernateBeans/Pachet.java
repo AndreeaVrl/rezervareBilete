@@ -37,8 +37,8 @@ public class Pachet {
 	private Companie companie;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pachet")
-	private Set<Zbor> zboruri = new HashSet<Zbor>();
-
+	private Set<Bilet> bilet = new HashSet<Bilet>();
+	
 	public Long getId() {
 		return id;
 	}
@@ -79,12 +79,13 @@ public class Pachet {
 		this.companie = companie;
 	}
 
-	public Set<Zbor> getZboruri() {
-		return zboruri;
+	public Set<Bilet> getBilet() {
+		return bilet;
 	}
 
-	public void setZboruri(Set<Zbor> zboruri) {
-		this.zboruri = zboruri;
+	public void setBilet(Set<Bilet> bilet) {
+		this.bilet = bilet;
 	}
+
 
 }

@@ -1,6 +1,5 @@
 package it.rezervare.beans.model.hibernateBeans;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,9 +22,6 @@ public class Cursa {
 	@Column(name = "id_cursa")
 	private Long id;
 
-	@Column(name = "pret_standard")
-	private BigDecimal pretStandard;
-
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cursa")
 	private Set<Zbor> zboruri = new HashSet<Zbor>();
 
@@ -36,6 +32,9 @@ public class Cursa {
 	@ManyToOne
 	@JoinColumn(name = "id_aeroport_2", referencedColumnName="id_aeroport")
 	private Aeroport aeroport_2;
+	
+	@Column(name = "distanta")
+	private int distanta;
 
 	public Long getId() {
 		return id;
@@ -43,14 +42,6 @@ public class Cursa {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public BigDecimal getPretStandard() {
-		return pretStandard;
-	}
-
-	public void setPretStandard(BigDecimal pretStandard) {
-		this.pretStandard = pretStandard;
 	}
 
 	public Set<Zbor> getZboruri() {
@@ -75,6 +66,14 @@ public class Cursa {
 
 	public void setAeroport_2(Aeroport aeroport_2) {
 		this.aeroport_2 = aeroport_2;
+	}
+
+	public int getDistanta() {
+		return distanta;
+	}
+
+	public void setDistanta(int distanta) {
+		this.distanta = distanta;
 	}
 
 }

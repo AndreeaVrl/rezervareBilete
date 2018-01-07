@@ -44,6 +44,10 @@ public class Bilet {
 	@ManyToOne
 	@JoinColumn(name = "id_stare")
 	private Stare stare;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_pachete")
+	private Pachet pachet;
 
 	public Long getId() {
 		return id;
@@ -107,6 +111,14 @@ public class Bilet {
 
 	public void setStare(Stare stare) {
 		this.stare = stare;
+	}
+
+	public Pachet getPachet() {
+		return pachet;
+	}
+
+	public void setPachet(Pachet pachet) {
+		this.pachet = pachet;
 	}
 
 }
