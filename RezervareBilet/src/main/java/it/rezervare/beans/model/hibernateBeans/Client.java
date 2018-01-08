@@ -63,9 +63,6 @@ public class Client {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "client")
 	private Set<ModalitatePlata> modalitatiPlata = new HashSet<ModalitatePlata>();
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "tara")
-	private Set<Localitate> localitati = new HashSet<Localitate>();
-
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "clientBilet")
 	private Set<Bilet> bilete = new HashSet<Bilet>();
 
@@ -182,14 +179,6 @@ public class Client {
 
 	public void setModalitatiPlata(Set<ModalitatePlata> modalitatiPlata) {
 		this.modalitatiPlata = modalitatiPlata;
-	}
-
-	public Set<Localitate> getLocalitati() {
-		return localitati;
-	}
-
-	public void setLocalitati(Set<Localitate> localitati) {
-		this.localitati = localitati;
 	}
 
 	public Set<Bilet> getBilete() {
