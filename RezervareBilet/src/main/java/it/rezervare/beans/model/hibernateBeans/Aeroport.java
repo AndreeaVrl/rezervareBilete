@@ -26,8 +26,8 @@ public class Aeroport {
 	private String denumire;
 
 	@ManyToOne
-	@JoinColumn(name = "id_localitate")
-	private Localitate localitate;
+	@JoinColumn(name = "id_tara")
+	private Tara taraAeroport;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "aeroport_1")
 	private Set<Cursa> curseAeroport_1 = new HashSet<Cursa>();
@@ -50,13 +50,13 @@ public class Aeroport {
 	public void setDenumire(String denumire) {
 		this.denumire = denumire;
 	}
-
-	public Localitate getLocalitate() {
-		return localitate;
+	
+	public Tara getTara() {
+		return taraAeroport;
 	}
 
-	public void setLocalitate(Localitate localitate) {
-		this.localitate = localitate;
+	public void setTara(Tara taraAeroport) {
+		this.taraAeroport = taraAeroport;
 	}
 
 	public Set<Cursa> getCurseAeroport_1() {
