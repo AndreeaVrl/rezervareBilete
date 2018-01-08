@@ -23,11 +23,11 @@ public class Tara {
 	@Column(name = "denumire")
 	private String denumire;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "tara")
-	private Set<Localitate> localitati = new HashSet<Localitate>();
-
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taraClient")
 	private Set<Client> clienti = new HashSet<Client>();
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taraAeroport")
+	private Set<Aeroport> aeroporturi = new HashSet<Aeroport>();
 
 	public Long getId() {
 		return id;
@@ -45,12 +45,12 @@ public class Tara {
 		this.denumire = denumire;
 	}
 
-	public Set<Localitate> getLocalitati() {
-		return localitati;
+	public Set<Aeroport> getAeroporturi() {
+		return aeroporturi;
 	}
 
-	public void setLocalitati(Set<Localitate> localitati) {
-		this.localitati = localitati;
+	public void setAeroporturi(Set<Aeroport> aeroporturi) {
+		this.aeroporturi = aeroporturi;
 	}
 
 	public Set<Client> getClienti() {
