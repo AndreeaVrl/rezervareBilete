@@ -18,7 +18,7 @@ public class TipCard {
 	@Id
 	@GeneratedValue
 	@Column(name = "id_tip_card")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "denumire")
 	private String denumire;
@@ -26,11 +26,11 @@ public class TipCard {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "tipCard")
 	private Set<ModalitatePlata> modalitatiPlata = new HashSet<ModalitatePlata>();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

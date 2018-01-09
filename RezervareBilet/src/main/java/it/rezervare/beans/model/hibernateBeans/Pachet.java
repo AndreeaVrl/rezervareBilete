@@ -21,7 +21,7 @@ public class Pachet {
 	@Id
 	@GeneratedValue
 	@Column(name = "id_pachet")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "denumire")
 	private String denumire;
@@ -39,11 +39,11 @@ public class Pachet {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pachet")
 	private Set<Bilet> bilet = new HashSet<Bilet>();
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

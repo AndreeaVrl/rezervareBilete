@@ -16,11 +16,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "aeroporturi")
 public class Aeroport {
-	
+
 	@Id
 	@GeneratedValue
 	@Column(name = "id_aeroport")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "denumire")
 	private String denumire;
@@ -35,11 +35,11 @@ public class Aeroport {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "aeroport_2")
 	private Set<Cursa> curseAeroport_2 = new HashSet<Cursa>();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -50,7 +50,7 @@ public class Aeroport {
 	public void setDenumire(String denumire) {
 		this.denumire = denumire;
 	}
-	
+
 	public Tara getTara() {
 		return taraAeroport;
 	}

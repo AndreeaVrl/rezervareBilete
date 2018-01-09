@@ -6,6 +6,6 @@ import it.rezervare.beans.model.hibernateBeans.Zbor;
 
 public interface IZborDAO {
 
-	List<Zbor> getFlightList(Long idCursa);
+	List<Zbor> getFlightList(Integer idCursa);
 
 }

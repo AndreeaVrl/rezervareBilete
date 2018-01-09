@@ -20,7 +20,7 @@ public class ModalitatePlata {
 	@Id
 	@GeneratedValue
 	@Column(name = "id_mod_plata")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "card_numar")
 	private String cardNumar;
@@ -51,11 +51,11 @@ public class ModalitatePlata {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "modalitatePlata")
 	private Set<Bilet> bilete = new HashSet<Bilet>();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

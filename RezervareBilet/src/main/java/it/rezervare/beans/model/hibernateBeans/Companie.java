@@ -18,21 +18,22 @@ public class Companie {
 	@Id
 	@GeneratedValue
 	@Column(name = "id_companie")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "denumire")
 	private String denumire;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "companie")
 	private Set<Pachet> pachete = new HashSet<Pachet>();
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "companie")
 	private Set<Zbor> zboruri = new HashSet<Zbor>();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

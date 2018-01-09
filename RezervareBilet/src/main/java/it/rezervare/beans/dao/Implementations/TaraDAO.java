@@ -3,8 +3,6 @@ package it.rezervare.beans.dao.Implementations;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.rezervare.beans.dao.Interfaces.ITaraDAO;
-import it.rezervare.beans.model.hibernateBeans.Localitate;
 import it.rezervare.beans.model.hibernateBeans.Tara;
 
 @Transactional
@@ -49,41 +46,27 @@ public class TaraDAO implements ITaraDAO {
 		cr.add(Restrictions.eq("denumire", denumire));
 		return (Tara) cr.uniqueResult();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Tara> getAllCountrys(){
+	public List<Tara> getAllCountrys() {
 		System.out.println("\nENTER TaraDAO - getAllCountrys \n");
 		Session session = sessionFactory.getCurrentSession();
 		List<Tara> denumireTari = new ArrayList<>();
-		try{
+		try {
 			Criteria criteria = session.createCriteria(Tara.class);
 			denumireTari = criteria.list();
 			System.out.println("\nTarile: ");
-			for(Tara tara:denumireTari){
+			for (Tara tara : denumireTari) {
 				System.out.println(String.format("\n%-10s %-10s \n", "ID", "DENUMIRE"));
-		    	System.out.println(String.format("%-10s %-10s ", tara.getId(), tara.getDenumire() ));
+				System.out.println(String.format("%-10s %-10s ", tara.getId(), tara.getDenumire()));
 			}
-			
-		}catch(Exception e){
-			System.out.println("Exception: ["+e.toString()+"] message: ["+e.getMessage()+"]\n");
+
+		} catch (Exception e) {
+			System.out.println("Exception: [" + e.toString() + "] message: [" + e.getMessage() + "]\n");
 		}
 		System.out.println("\nEXIT TaraDAO - getAllCountrys");
 		return denumireTari;
-	}
-
-	@Override
-	public void insertLocalitate(Localitate localitate) {
-		try {
-			Session session = sessionFactory.openSession();
-			session.beginTransaction();
-			session.persist(localitate);
-			session.getTransaction().commit();
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("\n" + e.toString() + " " + e.getMessage() + "\n");
-		}
 	}
 
 }

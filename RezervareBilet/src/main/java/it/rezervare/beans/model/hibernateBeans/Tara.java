@@ -14,27 +14,29 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tari")
-public class Tara implements Serializable{
+public class Tara implements Serializable {
 
-	@Id 
+	private static final long serialVersionUID = 4934957665220869784L;
+
+	@Id
 	@GeneratedValue
 	@Column(name = "id_tara")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "denumire")
 	private String denumire;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taraClient")
 	private Set<Client> clienti = new HashSet<Client>();
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taraAeroport")
 	private Set<Aeroport> aeroporturi = new HashSet<Aeroport>();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

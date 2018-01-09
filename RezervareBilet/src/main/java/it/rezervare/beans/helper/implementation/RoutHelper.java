@@ -46,9 +46,9 @@ public class RoutHelper implements IRoutHelper{
         System.out.println("From=["+cursaRequestView.getAirportFrom()+"] to = ["+cursaRequestView.getAirportTo()+"]");
         List<LinkedList<String>> routes = new Route().depthFirst(graph, visited,cursaRequestView.getAirportTo());
         System.out.println("\n routes = ["+ routes +"] \n");
-        List<LinkedList<Long>> curseList = new ArrayList<LinkedList<Long>>();
+        List<LinkedList<Integer>> curseList = new ArrayList<LinkedList<Integer>>();
         for(LinkedList<String> ruta : routes) {
-        	LinkedList<Long> curseLinkedList = new LinkedList<>();
+        	LinkedList<Integer> curseLinkedList = new LinkedList<>();
         	for (int i=0; i< ruta.size(); i++) {
         		while((i+1) < ruta.size()) {
         			Cursa cursa = cursaDAO.getRouteByAirport(ruta.get(i), ruta.get(i+1));
@@ -61,9 +61,9 @@ public class RoutHelper implements IRoutHelper{
         List<LinkedList<List<Zbor>>> zboruriCautare = new ArrayList<>();
         Map<Integer,List<LinkedList<List<Zbor>>>> mapZboruri = new HashMap<>();
         Integer key = 1;
-        for(LinkedList<Long> cursaLista : curseList) {
+        for(LinkedList<Integer> cursaLista : curseList) {
         	LinkedList<List<Zbor>> zborGasit = new LinkedList<>();
-        	for(Long idCursa : cursaLista) {
+        	for(Integer idCursa : cursaLista) {
         		List<Zbor> listaZboruri = zborDAO.getFlightList(idCursa);
         		zborGasit.add(listaZboruri);
         	}

@@ -18,7 +18,7 @@ public class TipAvion {
 	@Id
 	@GeneratedValue
 	@Column(name = "id_tip_avion")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "denumire")
 	private String denumire;
@@ -29,11 +29,11 @@ public class TipAvion {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "locTipAvion")
 	private Set<Loc> locuri = new HashSet<Loc>();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

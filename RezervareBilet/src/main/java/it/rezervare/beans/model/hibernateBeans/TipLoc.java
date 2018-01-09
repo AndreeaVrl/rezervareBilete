@@ -19,10 +19,10 @@ public class TipLoc {
 	@Id
 	@GeneratedValue
 	@Column(name = "id_tip_loc")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "denumire")
-	private Long denumire;
+	private String denumire;
 
 	@Column(name = "taxa_rezervare")
 	private BigDecimal taxaRezervare;
@@ -30,19 +30,19 @@ public class TipLoc {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "tipLoc")
 	private Set<Loc> locuri = new HashSet<Loc>();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Long getDenumire() {
+	public String getDenumire() {
 		return denumire;
 	}
 
-	public void setDenumire(Long denumire) {
+	public void setDenumire(String denumire) {
 		this.denumire = denumire;
 	}
 

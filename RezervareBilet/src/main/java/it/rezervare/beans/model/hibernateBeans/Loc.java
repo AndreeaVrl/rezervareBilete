@@ -20,13 +20,13 @@ public class Loc {
 	@Id
 	@GeneratedValue
 	@Column(name = "id_loc")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "rand")
 	private Integer rand;
 
 	@Column(name = "coloana")
-	private Integer coloana;
+	private String coloana;
 
 	@ManyToOne
 	@JoinColumn(name = "id_tip_avion")
@@ -39,11 +39,11 @@ public class Loc {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "loc")
 	private Set<Bilet> bilete = new HashSet<Bilet>();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -55,11 +55,11 @@ public class Loc {
 		this.rand = rand;
 	}
 
-	public Integer getColoana() {
+	public String getColoana() {
 		return coloana;
 	}
 
-	public void setColoana(Integer coloana) {
+	public void setColoana(String coloana) {
 		this.coloana = coloana;
 	}
 

@@ -27,7 +27,7 @@ public class ZborDAO implements IZborDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Zbor> getFlightList (Long idCursa) {
+	public List<Zbor> getFlightList (Integer idCursa) {
 		List<Zbor> listaZboruri = new ArrayList<>();
 		System.out.println(" ENTER  ZborDAO.getFlightList() with idCursa = ["+idCursa+"] ");
 		try {

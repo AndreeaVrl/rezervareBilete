@@ -14,15 +14,15 @@ public class Bilet {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "id_loc")
-	private Long id;
+	@Column(name = "id_bilet")
+	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "id_client_bilet", referencedColumnName="id_client")
+	@JoinColumn(name = "id_client", referencedColumnName = "id_client")
 	private Client clientBilet;
 
 	@ManyToOne
-	@JoinColumn(name = "id_client_rezervare", referencedColumnName="id_client")
+	@JoinColumn(name = "id_client_rez", referencedColumnName = "id_client")
 	private Client clientRezervare;
 
 	@ManyToOne
@@ -30,7 +30,7 @@ public class Bilet {
 	private Zbor zbor;
 
 	@ManyToOne
-	@JoinColumn(name = "idLoc")
+	@JoinColumn(name = "id_loc")
 	private Loc loc;
 
 	@ManyToOne
@@ -44,16 +44,16 @@ public class Bilet {
 	@ManyToOne
 	@JoinColumn(name = "id_stare")
 	private Stare stare;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "id_pachete")
+	@JoinColumn(name = "id_pachet")
 	private Pachet pachet;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

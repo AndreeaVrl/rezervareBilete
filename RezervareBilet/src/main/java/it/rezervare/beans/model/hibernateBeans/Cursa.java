@@ -20,27 +20,27 @@ public class Cursa {
 	@Id
 	@GeneratedValue
 	@Column(name = "id_cursa")
-	private Long id;
+	private Integer id;
+
+	@Column(name = "distanta")
+	private int distanta;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cursa")
 	private Set<Zbor> zboruri = new HashSet<Zbor>();
 
 	@ManyToOne
-	@JoinColumn(name = "id_aeroport_1", referencedColumnName="id_aeroport")
+	@JoinColumn(name = "id_aeroport_1", referencedColumnName = "id_aeroport")
 	private Aeroport aeroport_1;
 
 	@ManyToOne
-	@JoinColumn(name = "id_aeroport_2", referencedColumnName="id_aeroport")
+	@JoinColumn(name = "id_aeroport_2", referencedColumnName = "id_aeroport")
 	private Aeroport aeroport_2;
-	
-	@Column(name = "distanta")
-	private int distanta;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

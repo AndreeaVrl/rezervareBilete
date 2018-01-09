@@ -22,7 +22,7 @@ public class Zbor {
 	@Id
 	@GeneratedValue
 	@Column(name = "id_zbor")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "data_plecare")
 	private Date dataPlecare;
@@ -30,9 +30,9 @@ public class Zbor {
 	@Column(name = "data_sosire")
 	private Date dataSosire;
 
-	@Column(name = "pret")
+	@Column(name = "pret_standard")
 	private BigDecimal pret;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_companie")
 	private Companie companie;
@@ -42,17 +42,17 @@ public class Zbor {
 	private Avion avion;
 
 	@ManyToOne
-	@JoinColumn(name = "id_tara")
+	@JoinColumn(name = "id_cursa")
 	private Cursa cursa;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "zbor")
 	private Set<Bilet> bilete = new HashSet<Bilet>();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

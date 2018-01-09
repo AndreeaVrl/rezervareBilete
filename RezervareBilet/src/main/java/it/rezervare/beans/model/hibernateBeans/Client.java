@@ -21,7 +21,7 @@ public class Client {
 	@Id
 	@GeneratedValue
 	@Column(name = "id_client")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "nume")
 	private String nume;
@@ -53,7 +53,7 @@ public class Client {
 	@Column(name = "pj_firma")
 	private String pjFirma;
 
-	@Column(name = "pf_codfiscal")
+	@Column(name = "pj_codfiscal")
 	private String pjCodFiscal;
 
 	@ManyToOne
@@ -69,11 +69,11 @@ public class Client {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "clientRezervare")
 	private Set<Bilet> bileteRezervate = new HashSet<Bilet>();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

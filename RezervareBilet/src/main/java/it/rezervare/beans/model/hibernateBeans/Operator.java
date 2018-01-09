@@ -18,7 +18,7 @@ public class Operator {
 	@Id
 	@GeneratedValue
 	@Column(name = "id_operator")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "nume")
 	private String nume;
@@ -32,11 +32,11 @@ public class Operator {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "operator")
 	private Set<Bilet> bilete = new HashSet<Bilet>();
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

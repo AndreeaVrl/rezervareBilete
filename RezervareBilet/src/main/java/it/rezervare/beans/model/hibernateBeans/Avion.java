@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,9 +17,8 @@ import javax.persistence.Table;
 public class Avion {
 
 	@Id
-	@GeneratedValue
 	@Column(name = "id_avion")
-	private Long id;
+	private String id;
 
 	@ManyToOne
 	@JoinColumn(name = "id_tip_avion")
@@ -29,11 +27,11 @@ public class Avion {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "avion")
 	private Set<Zbor> zboruri = new HashSet<Zbor>();
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

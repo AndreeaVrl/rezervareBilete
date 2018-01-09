@@ -2,7 +2,6 @@ package it.rezervare.beans.dao.Interfaces;
 
 import java.util.List;
 
-import it.rezervare.beans.model.hibernateBeans.Localitate;
 import it.rezervare.beans.model.hibernateBeans.Tara;
 
 public interface ITaraDAO {
@@ -11,7 +10,5 @@ public interface ITaraDAO {
 
 	Tara getTaraByDenumire(String denumire);
 	List<Tara> getAllCountrys();
-
-	void insertLocalitate(Localitate localitate);
 
 }

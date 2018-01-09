@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,9 +15,8 @@ import javax.persistence.Table;
 public class Stare {
 
 	@Id
-	@GeneratedValue
 	@Column(name = "id_stare")
-	private Long id;
+	private Byte id;
 
 	@Column(name = "denumire")
 	private String denumire;
@@ -26,11 +24,11 @@ public class Stare {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stare")
 	private Set<Bilet> bilete = new HashSet<Bilet>();
 
-	public Long getId() {
+	public Byte getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Byte id) {
 		this.id = id;
 	}
 
