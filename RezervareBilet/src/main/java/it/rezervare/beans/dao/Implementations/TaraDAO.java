@@ -1,5 +1,10 @@
 package it.rezervare.beans.dao.Implementations;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,6 +48,28 @@ public class TaraDAO implements ITaraDAO {
 		Criteria cr = sessionFactory.getCurrentSession().createCriteria(Tara.class);
 		cr.add(Restrictions.eq("denumire", denumire));
 		return (Tara) cr.uniqueResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Tara> getAllCountrys(){
+		System.out.println("\nENTER TaraDAO - getAllCountrys \n");
+		Session session = sessionFactory.getCurrentSession();
+		List<Tara> denumireTari = new ArrayList<>();
+		try{
+			Criteria criteria = session.createCriteria(Tara.class);
+			denumireTari = criteria.list();
+			System.out.println("\nTarile: ");
+			for(Tara tara:denumireTari){
+				System.out.println(String.format("\n%-10s %-10s \n", "ID", "DENUMIRE"));
+		    	System.out.println(String.format("%-10s %-10s ", tara.getId(), tara.getDenumire() ));
+			}
+			
+		}catch(Exception e){
+			System.out.println("Exception: ["+e.toString()+"] message: ["+e.getMessage()+"]\n");
+		}
+		System.out.println("\nEXIT TaraDAO - getAllCountrys");
+		return denumireTari;
 	}
 
 	@Override
