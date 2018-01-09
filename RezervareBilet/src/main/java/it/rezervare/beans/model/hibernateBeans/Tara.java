@@ -1,5 +1,6 @@
 package it.rezervare.beans.model.hibernateBeans;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tari")
-public class Tara {
+public class Tara implements Serializable{
 
 	@Id
 	@GeneratedValue
