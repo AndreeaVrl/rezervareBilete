@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Table(name = "tari")
 public class Tara implements Serializable{
 
-	@Id
+	@Id 
 	@GeneratedValue
 	@Column(name = "id_tara")
 	private Long id;
