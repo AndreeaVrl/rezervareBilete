@@ -74,13 +74,14 @@
 			      </div>
 	        </div>
 	        <div class="panel-footer text-center">
-	        	<button class="btn btn-primary" name="submit_edit" type="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<!-- divul cu modala este la sfarsitul fisierului -->
+	        	<button class="btn btn-primary" name="submit_edit" type="button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_plus" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true" onClick="showAddCountryInput();"></span></button>
 	        	<button class="btn btn-primary" name="submit_remove" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
-	        <form:input path="denumire" id="addCountryInputId" style="display: none;"/>
-	        <button class="btn btn-primary" name="submit_plus" id="confirmCountryButton" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-	        <button class="btn btn-primary" name="submit_remove" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        <!--<form:input path="denumire" id="addCountryInputId" style="display: none;"/>
+	        	<button class="btn btn-primary" name="submit_plus" id="confirmCountryButton" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>-->
         </form:form>
       </div>		
 		</div>
@@ -371,6 +372,26 @@
 	}
 </script>
 
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Country edit</h4>
+      </div>
+      <div class="modal-body">
+        AICI TRAGI DATELE CU AJAX
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END Modal -->
     
         
   </body>
