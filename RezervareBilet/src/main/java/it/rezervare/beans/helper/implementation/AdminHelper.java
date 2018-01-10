@@ -43,7 +43,18 @@ public class AdminHelper implements IAdminHelper {
 	
 	@Override
 	public ModelAndView addCountry(Tara tara, ModelAndView model, HttpServletRequest request) {
-		
+		System.out.println("ENTER ADD COUNTRY");
+		if(tara != null) {
+			System.out.println(tara.getId());
+			System.out.println(tara.getDenumire());
+			
+			Tara countryDb = taraDAO.getCountryById(tara.getId());
+			countryDb.setDenumire(tara.getDenumire());
+			taraDAO.updateCountry(countryDb);
+			System.out.println("Country updated");
+		} else {
+			System.out.println("Tara is null");
+		}
 		
 		return model;
 	}

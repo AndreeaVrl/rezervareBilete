@@ -9,6 +9,11 @@ public interface ITaraDAO {
 	public void inserTara(Tara tara);
 
 	Tara getTaraByDenumire(String denumire);
+	
 	List<Tara> getAllCountrys();
+
+	void updateCountry(Tara tara);
+
+	Tara getCountryById(Integer id);
 
 }

@@ -33,7 +33,7 @@ public class IndexController {
 		return model;
 	}
 
-	@RequestMapping(value = { "/goToAdminPage" }, method = { RequestMethod.GET })
+	@RequestMapping(value = { "/goToAdminPage" }, method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView goToAdmin(@ModelAttribute("tara") Tara tara, ModelAndView model, HttpServletRequest request) {
 		System.out.println("\n ENTER goToAdminPage \n");
 		return adminHelper.loadAdminPage(model, request);

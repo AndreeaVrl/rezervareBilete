@@ -66,16 +66,16 @@
         <form:form class="form-inline" action="" id="countriesForm" modelAttribute="tara" method="post">
 	        <div class="panel-body">
 	        	<div class="form-group">
-			        <select class="form-control" id="countries-sel" size="20"> <!-- trage date din tabela tari -->
+			        <form:select class="form-control" id="countries-sel" size="20" path="denumire"> <!-- trage date din tabela tari -->
 			        	<c:forEach items="${countriesList}" var="country">
-			        		<option>${country.denumire}</option>
+			        		<form:option value="${country.id}">${country.denumire}</form:option>
 			        	</c:forEach>
-			        </select>
+			        </form:select>
 			      </div>
 	        </div>
 	        <div class="panel-footer text-center">
 	        	<!-- divul cu modala este la sfarsitul fisierului -->
-	        	<button class="btn btn-primary" name="submit_edit" type="button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_edit" type="button" data-toggle="modal" data-target="#myModal" id="editCountryModal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_plus" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true" onClick="showAddCountryInput();"></span></button>
 	        	<button class="btn btn-primary" name="submit_remove" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
@@ -360,8 +360,9 @@
 		document.getElementById("countriesForm").submit();
 		
 	}
-	
+
 	$(document).ready(function(){
+		<%--	
 		$('#confirmCountryButton').click(function(){
 			var countryName = $('#addCountryInputId').val();
 			countryName = jquery.trim(countryName);
@@ -369,7 +370,40 @@
 				alert("we did it" + countryName);
 			}
 		})
-	}
+		--%>
+		
+		$('#editCountryModal').click(function(){
+		<%--$(document).on("click", ".editCountryModal", function () { --%>
+			console.log("in modal jq");
+			var selectedCountryId = $( "#countries-sel option:selected" ).val();
+			var selectedCountry = $( "#countries-sel option:selected" ).text();
+			console.log(selectedCountryId);
+			console.log(selectedCountry);
+			$("#addCountryInputId").val(selectedCountryId);
+			$("#addCountryInputDenumire").val(selectedCountry);
+		})
+		
+		$('#saveCountryChanges').click(function() {
+			var countryIdChange = $('#addCountryInputId').val();
+			var countryNameChange = $('#addCountryInputDenumire').val();
+			
+			$.ajax({
+				type: 'POST',
+				url: '${pageContext.request.contextPath}/addCountry',
+				data: { id: countryIdChange,
+					denumire: countryNameChange},
+				dataType : 'json',
+				success: function(data) {
+					console.log("SUCCES");
+					console.log(data);
+				}
+			})
+			$( "#countries-sel option:selected" ).text(countryNameChange);
+			console.log("SUCCES2");
+			$('#myModal').modal('hide');
+			
+			})
+	})
 </script>
 
 
@@ -381,13 +415,16 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Country edit</h4>
       </div>
-      <div class="modal-body">
-        AICI TRAGI DATELE CU AJAX
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      <form:form class="form-inline" action="" id="countriesForm" modelAttribute="tara" method="post">
+      	<div class="modal-body">
+			<form:input path="id" id="addCountryInputId" style="display: none;"/>
+			<form:input path="denumire" id="addCountryInputDenumire"/>
+      	</div>
+      	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	<button type="button" class="btn btn-primary" id="saveCountryChanges">Save changes</button>
+      	</div>
+	  </form:form>
     </div>
   </div>
 </div>

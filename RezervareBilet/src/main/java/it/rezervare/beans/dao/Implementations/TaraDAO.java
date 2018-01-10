@@ -69,4 +69,17 @@ public class TaraDAO implements ITaraDAO {
 		return denumireTari;
 	}
 
+	@Override
+	public void updateCountry(Tara tara) {
+		sessionFactory.getCurrentSession().saveOrUpdate(tara);
+	}
+	
+	@Override
+	public Tara getCountryById(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		Criteria cr = session.createCriteria(Tara.class);
+		cr.add(Restrictions.eq("id", id));
+		return (Tara) cr.uniqueResult();
+	}
+
 }
