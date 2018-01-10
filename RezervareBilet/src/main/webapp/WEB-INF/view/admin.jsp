@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,24 +63,25 @@
         <div class="panel-heading">
           <h3 class="panel-title text-center">Countries</h3>
         </div>
-        <form class="form-inline" action="" method="post">
+        <form:form class="form-inline" action="" id="countriesForm" modelAttribute="tara" method="post">
 	        <div class="panel-body">
 	        	<div class="form-group">
 			        <select class="form-control" id="countries-sel" size="20"> <!-- trage date din tabela tari -->
-			          <option>Austria</option>
-			          <option>Belgium</option>
-			          <option>France</option>
-			          <option>Germany</option>
-			          <option>Romania</option>
+			        	<c:forEach items="${countriesList}" var="country">
+			        		<option>${country.denumire}</option>
+			        	</c:forEach>
 			        </select>
 			      </div>
 	        </div>
 	        <div class="panel-footer text-center">
-	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_edit" type="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_plus" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true" onClick="showAddCountryInput();"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
-        </form>
+	        <form:input path="denumire" id="addCountryInputId" style="display: none;"/>
+	        <button class="btn btn-primary" name="submit_plus" id="confirmCountryButton" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        <button class="btn btn-primary" name="submit_remove" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        </form:form>
       </div>		
 		</div>
 		
@@ -346,6 +349,27 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 
+<script>
+	function showAddCountryInput(){
+		document.getElementById("addCountryInputId").style.display = "inline";
+	}
+	
+	function submitNewCountry(){
+		document.getElementById("countriesForm").action("addCountry");
+		document.getElementById("countriesForm").submit();
+		
+	}
+	
+	$(document).ready(function(){
+		$('#confirmCountryButton').click(function(){
+			var countryName = $('#addCountryInputId').val();
+			countryName = jquery.trim(countryName);
+			if(countryName != ''){
+				alert("we did it" + countryName);
+			}
+		})
+	}
+</script>
 
     
         
