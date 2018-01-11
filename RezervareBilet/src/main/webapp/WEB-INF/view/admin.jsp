@@ -74,14 +74,10 @@
 			      </div>
 	        </div>
 	        <div class="panel-footer text-center">
-	        	<!-- divul cu modala este la sfarsitul fisierului -->
-	        	<button class="btn btn-primary" name="submit_edit" type="button" data-toggle="modal" data-target="#myModal" id="editCountryModal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_plus" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true" onClick="showAddCountryInput();"></span></button>
+	        	<button class="btn btn-primary" name="submit_edit" type="button" data-toggle="modal" data-target="#myEditCountryModal" id="editCountryModal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_add" type="button" data-toggle="modal" data-target="#myAddCountryModal" id="addCountryModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_remove" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
-	        <!--<form:input path="denumire" id="addCountryInputId" style="display: none;"/>
-	        	<button class="btn btn-primary" name="submit_plus" id="confirmCountryButton" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_remove" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>-->
         </form:form>
       </div>		
 		</div>
@@ -101,9 +97,9 @@
 			      </div>
 	        </div>
 	        <div class="panel-footer text-center">
-	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_edit" type="button" data-toggle="modal" data-target="#myEditAirportModal" id="editAirportModal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_add" type="button" data-toggle="modal" data-target="#myAddAirportModal" id="addAirportModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
         </form>
       </div>		
@@ -134,7 +130,7 @@
 	        </div>
 	        <div class="panel-footer text-center">
 	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_add" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
         </form>
@@ -166,7 +162,7 @@
 	        </div>
 	        <div class="panel-footer text-center">
 	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_add" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
         </form>
@@ -200,7 +196,7 @@
 	        </div>
 	        <div class="panel-footer text-center">
 	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_add" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
         </form>
@@ -234,7 +230,7 @@
 	        </div>
 	        <div class="panel-footer text-center">
 	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_add" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
         </form>
@@ -272,7 +268,7 @@
 	        </div>
 	        <div class="panel-footer text-center">
 	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_add" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
         </form>
@@ -334,7 +330,7 @@
 	        </div>
 	        <div class="panel-footer text-center">
 	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_plus" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_add" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
         </form>
@@ -407,24 +403,84 @@
 </script>
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- Modal Edit Country -->
+<div class="modal fade" id="myEditCountryModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Country edit</h4>
+        <h4 class="modal-title">Country edit</h4>
       </div>
       <form:form class="form-inline" action="" id="countriesForm" modelAttribute="tara" method="post">
       	<div class="modal-body">
-			<form:input path="id" id="addCountryInputId" style="display: none;"/>
-			<form:input path="denumire" id="addCountryInputDenumire"/>
+					<form:input path="id" id="addCountryInputId" style="display: none;"/>
+					<form:input path="denumire" id="addCountryInputDenumire"/>
       	</div>
       	<div class="modal-footer">
         	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         	<button type="button" class="btn btn-primary" id="saveCountryChanges">Save changes</button>
       	</div>
-	  </form:form>
+	  	</form:form>
+    </div>
+  </div>
+</div>
+<!-- END Modal -->
+
+<!-- Modal Add Country -->
+<div class="modal fade" id="myAddCountryModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Country add</h4>
+      </div>
+      	<div class="modal-body">
+					add country
+      	</div>
+      	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	<button type="button" class="btn btn-primary" id="saveCountryChanges">Save changes</button>
+      	</div>
+    </div>
+  </div>
+</div>
+<!-- END Modal -->
+
+<!-- Modal Edit Airport -->
+<div class="modal fade" id="myEditAirportModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Airport edit</h4>
+      </div>
+      	<div class="modal-body">
+					edit airport
+      	</div>
+      	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	<button type="button" class="btn btn-primary" id="saveCountryChanges">Save changes</button>
+      	</div>
+    </div>
+  </div>
+</div>
+<!-- END Modal -->
+
+<!-- Modal Add Airport -->
+<div class="modal fade" id="myAddAirportModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Airport add</h4>
+      </div>
+      	<div class="modal-body">
+					add airport
+      	</div>
+      	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	<button type="button" class="btn btn-primary" id="saveCountryChanges">Save changes</button>
+      	</div>
     </div>
   </div>
 </div>
