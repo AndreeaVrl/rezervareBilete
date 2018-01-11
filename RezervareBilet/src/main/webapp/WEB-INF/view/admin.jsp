@@ -129,9 +129,9 @@
 				    </div>
 	        </div>
 	        <div class="panel-footer text-center">
-	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_add" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_edit" type="button" data-toggle="modal" data-target="#myEditRouteModal" id="editRouteModal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_add" type="button" data-toggle="modal" data-target="#myAddRouteModal" id="editRouteModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
         </form>
       </div>		
@@ -485,7 +485,46 @@
   </div>
 </div>
 <!-- END Modal -->
-    
+ 
+<!-- Modal Edit Airport -->
+<div class="modal fade" id="myEditRouteModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Route edit</h4>
+      </div>
+      	<div class="modal-body">
+					edit route
+      	</div>
+      	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	<button type="button" class="btn btn-primary" id="saveCountryChanges">Save changes</button>
+      	</div>
+    </div>
+  </div>
+</div>
+<!-- END Modal -->
+
+<!-- Modal Add Airport -->
+<div class="modal fade" id="myAddRouteModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Route add</h4>
+      </div>
+      	<div class="modal-body">
+					add route
+      	</div>
+      	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	<button type="button" class="btn btn-primary" id="saveCountryChanges">Save changes</button>
+      	</div>
+    </div>
+  </div>
+</div>
+<!-- END Modal -->   
         
   </body>
 </html>
