@@ -112,4 +112,10 @@ public class Zbor {
 		this.pret = pret;
 	}
 
+	@Override
+	public String toString() {
+		return "Zbor [id=" + id + ", dataPlecare=" + dataPlecare + ", dataSosire=" + dataSosire + ", pret=" + pret
+				+ ", companie=" + companie + ", cursa=" + cursa.getId() + "]";
+	}
+
 }

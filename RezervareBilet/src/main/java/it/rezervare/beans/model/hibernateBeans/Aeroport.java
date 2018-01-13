@@ -19,7 +19,7 @@ public class Aeroport {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "id_aeroport")
+	@Column(name = "id_aeroport") 
 	private Integer id;
 
 	@Column(name = "denumire")
@@ -39,7 +39,7 @@ public class Aeroport {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -47,7 +47,7 @@ public class Aeroport {
 		return denumire;
 	}
 
-	public void setDenumire(String denumire) {
+	public void setDenumire(final String denumire) {
 		this.denumire = denumire;
 	}
 
@@ -55,7 +55,7 @@ public class Aeroport {
 		return taraAeroport;
 	}
 
-	public void setTara(Tara taraAeroport) {
+	public void setTara(final Tara taraAeroport) {
 		this.taraAeroport = taraAeroport;
 	}
 
@@ -63,7 +63,7 @@ public class Aeroport {
 		return curseAeroport_1;
 	}
 
-	public void setCurseAeroport_1(Set<Cursa> curseAeroport_1) {
+	public void setCurseAeroport_1(final Set<Cursa> curseAeroport_1) {
 		this.curseAeroport_1 = curseAeroport_1;
 	}
 
@@ -71,8 +71,14 @@ public class Aeroport {
 		return curseAeroport_2;
 	}
 
-	public void setCurseAeroport_2(Set<Cursa> curseAeroport_2) {
+	public void setCurseAeroport_2(final Set<Cursa> curseAeroport_2) {
 		this.curseAeroport_2 = curseAeroport_2;
+	}
+
+	@Override
+	public String toString() {
+		return "Aeroport [id=" + id + ", denumire=" + denumire + ", taraAeroport=" + taraAeroport + ", curseAeroport_1="
+				+ curseAeroport_1 + ", curseAeroport_2=" + curseAeroport_2 + "]";
 	}
 
 }

@@ -31,7 +31,8 @@ public class ZborDAO implements IZborDAO {
 		List<Zbor> listaZboruri = new ArrayList<>();
 		System.out.println(" ENTER  ZborDAO.getFlightList() with idCursa = ["+idCursa+"] ");
 		try {
-			Criteria cr = sessionFactory.getCurrentSession().createCriteria(Zbor.class);
+			Criteria cr = sessionFactory.getCurrentSession().createCriteria(Zbor.class, "zbor");
+			cr.createAlias("zbor.cursa", "cursa"); 
 			cr.add(Restrictions.eq("cursa.id", idCursa));
 			listaZboruri = cr.list();
 		} catch (Exception e) {

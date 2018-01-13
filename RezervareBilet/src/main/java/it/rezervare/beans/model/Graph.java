@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class Graph {
-	private Map<String, LinkedHashSet<String>> map = new HashMap<>();
+	private final Map<String, LinkedHashSet<String>> map = new HashMap<>();
 
-    public void addEdge(String node1, String node2) {
+    public void addEdge(final String node1, final String node2) {
         LinkedHashSet<String> adjacent = map.get(node1);
         if(adjacent==null) {
             adjacent = new LinkedHashSet<>();
@@ -18,21 +18,21 @@ public class Graph {
         adjacent.add(node2);
     }
 
-    public void addTwoWayVertex(String node1, String node2) {
+    public void addTwoWayVertex(final String node1, final String node2) {
         addEdge(node1, node2);
         addEdge(node2, node1);
     }
 
-    public boolean isConnected(String node1, String node2) {
-        Set<String> adjacent = map.get(node1);
+    public boolean isConnected(final String node1, final String node2) {
+        final Set<String> adjacent = map.get(node1);
         if(adjacent==null) {
             return false;
         }
         return adjacent.contains(node2);
     }
 
-    public LinkedList<String> adjacentNodes(String last) {
-        LinkedHashSet<String> adjacent = map.get(last);
+    public LinkedList<String> adjacentNodes(final String last) {
+        final LinkedHashSet<String> adjacent = map.get(last);
         if(adjacent==null) {
             return new LinkedList<>();
         }

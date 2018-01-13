@@ -3,32 +3,32 @@ package it.rezervare.beans.model.requestBeans;
 public class CursaRequestView {
 
 	private String contryFrom;
-	private String airportFrom;
+	private Integer airportFrom;
 	private String countryTo;
-	private String airportTo;
-	
+	private Integer airportTo;
+	 
 	public String getContryFrom() {
 		return contryFrom;
 	}
-	public void setContryFrom(String contryFrom) {
+	public void setContryFrom(final String contryFrom) {
 		this.contryFrom = contryFrom;
 	}
-	public String getAirportFrom() {
+	public Integer getAirportFrom() {
 		return airportFrom;
 	}
-	public void setAirportFrom(String airportFrom) {
+	public void setAirportFrom(final Integer airportFrom) {
 		this.airportFrom = airportFrom;
 	}
 	public String getCountryTo() {
 		return countryTo;
 	}
-	public void setCountryTo(String countryTo) {
+	public void setCountryTo(final String countryTo) {
 		this.countryTo = countryTo;
 	}
-	public String getAirportTo() {
+	public Integer getAirportTo() {
 		return airportTo;
 	}
-	public void setAirportTo(String airportTo) {
+	public void setAirportTo(final Integer airportTo) {
 		this.airportTo = airportTo;
 	}
 	@Override

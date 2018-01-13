@@ -76,4 +76,9 @@ public class Cursa {
 		this.distanta = distanta;
 	}
 
+	@Override
+	public String toString() {
+		return "Cursa [id=" + id + "]";
+	}
+
 }

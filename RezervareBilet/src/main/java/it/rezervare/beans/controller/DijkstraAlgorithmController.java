@@ -12,23 +12,24 @@ import it.rezervare.beans.model.requestBeans.CursaRequestView;
 
 @Controller
 public class DijkstraAlgorithmController {
-	
-	private IDijkstraAlgorithmHelper dijkstraAlgorithmHelper;	
+	 
+	private final IDijkstraAlgorithmHelper dijkstraAlgorithmHelper;	
 	
 	@Autowired
-	public DijkstraAlgorithmController(IDijkstraAlgorithmHelper dijkstraAlgorithmHelper) {
+	public DijkstraAlgorithmController(final IDijkstraAlgorithmHelper dijkstraAlgorithmHelper) {
 		this.dijkstraAlgorithmHelper = dijkstraAlgorithmHelper;
 	}
 	
 	@RequestMapping(value = { "/getRoute"}, method = {RequestMethod.POST})
-	public ModelAndView getRout(ModelAndView model, @ModelAttribute CursaRequestView cursa) {
+	public ModelAndView getRout(final ModelAndView model, @ModelAttribute final CursaRequestView cursa) {
 		try {
-			System.out.println("\n ENTER RouteController wuth cursa = ["+ cursa.toString() +"]\n");
+			System.out.println("\n ENTER DijkstraAlgorithmController with cursa = ["+ cursa.toString() +"]\n");
 			dijkstraAlgorithmHelper.getRoutWithDijkstraAlgorithm(model, cursa);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return model;
 	}
 
 }
+ 

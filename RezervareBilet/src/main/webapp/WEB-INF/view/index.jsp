@@ -1,4 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,6 +30,11 @@
 <!-- Selectare aeroport plecare sosire -->
 <section>
 	<div class="row">
+	<c:if test="${not empty exceptie}">
+			<div  class="close" data-dismiss="alert" aria-label="close">×</div>
+			<div class="alert alert-danger"><strong>Eroare!</strong>${exceptie.message}</div>
+		<br>
+	</c:if>
 		<div class="col-md-6">
     	<form:form class="form-inline" action="getRoute" method="POST" modelAttribute="cursa">
       	<div class="form-group">
@@ -47,7 +54,7 @@
         <div class="form-group">
           <label for="country">Airport</label>
           <form:select class="form-control" path="airportFrom">
-            <form:option value="Linz">Linz</form:option>
+            <form:option value="1">Linz</form:option>
             <form:option value="">Miami</form:option>
             <form:option value="">London</form:option>
             <form:option value="">Bremen</form:option>
@@ -72,21 +79,48 @@
         <div class="form-group">
           <label for="country">Airport</label>
           <form:select class="form-control" path="airportTo">
-            <form:option value="Lille" >Lille</form:option>
+            <form:option value="23" >Lille</form:option>
             <form:option value="">Miami</form:option>
             <form:option value="">London</form:option>
             <form:option value="">Bremen</form:option>
             <form:option value="">Romania</form:option>
           </form:select>
-        </div>
+         </div>
+			<label for="date">Fly out date</label>
+			<input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text"/>
         <br />
+			<input id="retur" type="checkbox">Retur <br>
         	<input class="btn btn-primary" name="submit" type="submit" value="Continue"/></form:form>
 		</div>
 	</div>
 </section>
-<!-- END Selectare aeroport plecare sosire -->
-<hr />
-<!-- Selectare data plecare -->
+<c:if test="${not empty zboruriCautare}">
+	<hr />
+	<!-- afisare zboruri  -->
+	<section>
+		<div id="cautare">
+			<c:forEach items="${zboruriCautare}" var="zbor">
+			<c:set var="nrListe" value="1"/>
+				<input type="radio" name="zborCautat" value="${zbor.key}">
+				<c:forEach items="${zbor.value}" var="zborCautare" varStatus = "status">
+					<c:choose>
+						<c:when test="${status.first}">
+							${zborCautare.cursa.aeroport_1.denumire}-${zborCautare.cursa.aeroport_2.denumire}
+							<c:set var="nrListe" value="2"/>
+						</c:when>
+						<c:otherwise>
+							<c:if test="${nrListe eq 2}">
+								-${zborCautare.cursa.aeroport_2.denumire}
+							</c:if>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</c:forEach>
+		</div>
+	</section>
+</c:if>
+<!-- END Selectare date plecare sosire  -->
+<!-- Selectare data plecare 
 <section>
 	<div class="row">
 		<div class="col-md-6 data-plecare">
@@ -101,7 +135,7 @@
 		</div>
 	</div>
 </section>
-<!-- END Selectare data plecare -->
+END Selectare data plecare -->
 
 <hr />
 <!-- Selectare nr pasageri -->

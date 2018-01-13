@@ -1,11 +1,5 @@
 package it.rezervare.beans.helper.implementation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -15,9 +9,6 @@ import it.rezervare.beans.dao.Interfaces.ICursaDAO;
 import it.rezervare.beans.dao.Interfaces.IZborDAO;
 import it.rezervare.beans.helper.helperinterface.IRoutHelper;
 import it.rezervare.beans.model.Graph;
-import it.rezervare.beans.model.Route;
-import it.rezervare.beans.model.hibernateBeans.Cursa;
-import it.rezervare.beans.model.hibernateBeans.Zbor;
 import it.rezervare.beans.model.requestBeans.CursaRequestView;
 
 @Service
@@ -36,7 +27,7 @@ public class RoutHelper implements IRoutHelper{
 	@Override
 	public ModelAndView getRout(ModelAndView model, CursaRequestView cursaRequestView) {
 		Graph graph = new Graph();
-		List<Cursa> allRaces = cursaDAO.getAllFlights();
+		/*List<Cursa> allRaces = cursaDAO.getAllFlights();
 		for(Cursa cursaInLista : allRaces) {
 			graph.addEdge(cursaInLista.getAeroport_1().getDenumire(), cursaInLista.getAeroport_2().getDenumire());
 		}
@@ -74,7 +65,7 @@ public class RoutHelper implements IRoutHelper{
         System.out.println("map = [" + mapZboruri + "]");
         model.addObject("map", mapZboruri);
         model.addObject("cursa", new CursaRequestView());
-        model.setViewName("index");
+        model.setViewName("index");*/
         return model;
 	}
 

@@ -2,11 +2,12 @@ package it.rezervare.beans.model;
 
 public class Node {
 
+	private Integer id;
 	private String airportName;
     public Node() {
     	
     }
-    public Node(String name) {
+    public Node(final String name) {
         this.airportName = name;
     }
 
@@ -14,28 +15,34 @@ public class Node {
 		return airportName;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.airportName = name;
 	}
 	@Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Node other = (Node) obj;
+        final Node other = (Node) obj;
         if (airportName == null) {
             if (other.airportName != null)
                 return false;
-        } else if (!airportName.equals(other.airportName))
+        } else if (!airportName.equals(other.airportName)) 
             return false;
         return true;
     }
 	@Override
 	public String toString() {
-		return "Node [airportName=" + airportName + "]";
+		return "Node [airportName=" + airportName + "] id =[" + id + "]" ;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(final Integer id) {
+		this.id = id;
 	}
 
 }
