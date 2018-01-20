@@ -31,8 +31,8 @@
 <section>
 	<div class="row">
 	<c:if test="${not empty exceptie}">
-			<div  class="close" data-dismiss="alert" aria-label="close">�</div>
-			<div class="alert alert-danger"><strong>Eroare!</strong>${exceptie.message}</div>
+			<div  class="close" data-dismiss="alert" aria-label="close">×</div>
+			<div class="alert alert-danger"><strong>Eroare!</strong>${exceptie}</div>
 		<br>
 	</c:if>
 		<div class="col-md-6">
@@ -86,11 +86,21 @@
             <form:option value="">Romania</form:option>
           </form:select>
          </div>
+         <div class="form-group">
 			<label for="date">Fly out date</label>
-			<input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text"/>
-        <br />
-			<input id="retur" type="checkbox">Retur <br>
-        	<input class="btn btn-primary" name="submit" type="submit" value="Continue"/></form:form>
+			<form:input class="form-control" path="departureDate" placeholder="DD/MM/YYYY" type="text"/>
+		 </div>
+         <br />
+         <div class="form-group" id="flyBackDate">
+			<label for="date">Fly back date</label>
+			<form:input class="form-control" path="flyBack"  placeholder="DD/MM/YYYY" type="text"/>
+		 </div>
+         <div class="form-group" >
+         	<label for="retur"> </label>
+			<form:checkbox path="retur"/>Retur <br>
+		 </div>
+        	<input class="btn btn-primary" name="submit" type="submit" value="Continue"/>
+        </form:form>
 		</div>
 	</div>
 </section>
@@ -106,18 +116,58 @@
 					<c:choose>
 						<c:when test="${status.first}">
 							${zborCautare.cursa.aeroport_1.denumire}-${zborCautare.cursa.aeroport_2.denumire}
+							(Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€)
 							<c:set var="nrListe" value="2"/>
 						</c:when>
 						<c:otherwise>
 							<c:if test="${nrListe eq 2}">
 								-${zborCautare.cursa.aeroport_2.denumire}
+								(Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€)
 							</c:if>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
-			</c:forEach>
+				Pret zbor: ${pretCursa}€
+				</c:forEach>
 		</div>
 	</section>
+</c:if>
+<c:if test="${not empty cursaRequestView && cursaRequestView.retur}">
+	<hr />
+	<c:choose>
+		<c:when test="${empty zboruriCautareRetur}">
+			<div  class="close" data-dismiss="alert" aria-label="close">×</div>
+			<div class="alert alert-info"><strong>Atentie!</strong>Nu au fost gasite zboruri de retur!</div>
+		<br>
+		</c:when>
+		<c:otherwise>
+			<!-- afisare zboruri  -->
+			<section>
+				<div id="cautare">
+					<c:forEach items="${zboruriCautareRetur}" var="zbor">
+					<c:set var="nrListe" value="1"/>
+						<input type="radio" name="zborCautat" value="${zbor.key}">
+						<c:forEach items="${zbor.value}" var="zborCautare" varStatus = "status">
+							<c:choose>
+								<c:when test="${status.first}">
+									${zborCautare.cursa.aeroport_1.denumire}-${zborCautare.cursa.aeroport_2.denumire}
+									(Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€)
+									<c:set var="nrListe" value="2"/>
+								</c:when>
+								<c:otherwise>
+									<c:if test="${nrListe eq 2}">
+										-${zborCautare.cursa.aeroport_2.denumire}
+										(Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€)
+									</c:if>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						Pret zbor: ${pretCursaRetur}€
+						</c:forEach>
+				</div>
+			</section>
+		</c:otherwise>
+	</c:choose>
 </c:if>
 <!-- END Selectare date plecare sosire  -->
 <!-- Selectare data plecare 
@@ -235,6 +285,12 @@ END Selectare data plecare -->
     </div>
   </div>
 </section>
+<section>
+	<div>
+		<a class="btn btn-link" href="goToLoginPage"><input type="button" value="LogIn"/></a>
+		
+	</div>
+</section>
 <!-- END Selectare nr pasageri -->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -246,14 +302,28 @@ END Selectare data plecare -->
 
 <script>
 	$(document).ready(function(){
-		var date_input=$('input[name="date"]'); //our date input has the name "date"
+		var date_input=$('input[name="departureDate"]'); //our date input has the name "date"
 		var container=$('.data-plecare form').length>0 ? $('.data-plecare form').parent() : "body";
 		date_input.datepicker({
 			format: 'dd/mm/yyyy',
 			container: container,
 			todayHighlight: true,
 			autoclose: true,
-		})
+		});
+		$('#flyBack').datepicker({
+			format: 'dd/mm/yyyy',
+			container: container,
+			todayHighlight: true,
+			autoclose: true,
+		});
+		$('#flyBackDate').hide();
+		$('#retur1').change( function(){
+			if($(this).is(':checked')) {
+				$('#flyBackDate').show();
+			} else {
+				$('#flyBackDate').hide();
+			}
+		});
 	})
 </script> 
     

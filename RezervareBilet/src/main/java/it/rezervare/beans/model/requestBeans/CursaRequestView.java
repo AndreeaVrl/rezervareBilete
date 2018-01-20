@@ -1,11 +1,16 @@
 package it.rezervare.beans.model.requestBeans;
 
+import java.util.Date;
+
 public class CursaRequestView {
 
 	private String contryFrom;
 	private Integer airportFrom;
 	private String countryTo;
 	private Integer airportTo;
+	private Date departureDate;
+	private Date flyBack;
+	private Boolean retur;
 	 
 	public String getContryFrom() {
 		return contryFrom;
@@ -31,9 +36,27 @@ public class CursaRequestView {
 	public void setAirportTo(final Integer airportTo) {
 		this.airportTo = airportTo;
 	}
+	public Date getDepartureDate() {
+		return departureDate;
+	}
+	public void setDepartureDate(final Date departureDate) {
+		this.departureDate = departureDate;
+	}
 	@Override
 	public String toString() {
 		return "CursaRequestView [contryFrom=" + contryFrom + ", airportFrom=" + airportFrom + ", countryTo="
-				+ countryTo + ", airportTo=" + airportTo + "]";
+				+ countryTo + ", airportTo=" + airportTo + ", departureDate=" + departureDate + ", flyBack=" + flyBack +"]";
+	}
+	public Date getFlyBack() {
+		return flyBack;
+	}
+	public void setFlyBack(final Date flyBack) {
+		this.flyBack = flyBack;
+	}
+	public Boolean getRetur() {
+		return retur;
+	}
+	public void setRetur(final Boolean retur) {
+		this.retur = retur;
 	}
 }
