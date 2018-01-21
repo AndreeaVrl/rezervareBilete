@@ -40,14 +40,14 @@ public class AdminHelper implements IAdminHelper {
 		System.out.println("\n\nexit AdminHelper - loadAdminPage\n\n");
 		return model;
 	}
-	
+
 	@Override
-	public ModelAndView addCountry(Tara tara, ModelAndView model, HttpServletRequest request) {
-		System.out.println("ENTER ADD COUNTRY");
-		if(tara != null) {
+	public ModelAndView editCountry(Tara tara, ModelAndView model, HttpServletRequest request) {
+		System.out.println("ENTER EDIT COUNTRY");
+		if (tara != null) {
 			System.out.println(tara.getId());
 			System.out.println(tara.getDenumire());
-			
+
 			Tara countryDb = taraDAO.getCountryById(tara.getId());
 			countryDb.setDenumire(tara.getDenumire());
 			taraDAO.updateCountry(countryDb);
@@ -55,8 +55,17 @@ public class AdminHelper implements IAdminHelper {
 		} else {
 			System.out.println("Tara is null");
 		}
-		
+
 		return model;
+	}
+
+	@Override
+	public Tara addCountry(Tara tara, ModelAndView model, HttpServletRequest request) {
+		System.out.println("ENTER ADD COUNTRY");
+		System.out.println(tara.getDenumire());
+		taraDAO.inserTara(tara);
+		System.out.println("ID of newest country:" + tara.getId());
+		return tara;
 	}
 
 }

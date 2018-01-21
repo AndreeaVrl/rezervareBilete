@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,6 +33,10 @@ public class Operator {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "operator")
 	private Set<Bilet> bilete = new HashSet<Bilet>();
+
+	@ManyToOne
+	@JoinColumn(name = "id_drept")
+	private Drept dreptOperator;
 
 	public Integer getId() {
 		return id;
@@ -70,6 +76,14 @@ public class Operator {
 
 	public void setBilete(Set<Bilet> bilete) {
 		this.bilete = bilete;
+	}
+
+	public Drept getDreptOperator() {
+		return dreptOperator;
+	}
+
+	public void setDreptOperator(Drept dreptOperator) {
+		this.dreptOperator = dreptOperator;
 	}
 
 }

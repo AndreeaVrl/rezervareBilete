@@ -10,6 +10,8 @@ public interface IAdminHelper {
 
 	ModelAndView loadAdminPage(ModelAndView model, HttpServletRequest request);
 
-	ModelAndView addCountry(Tara tara, ModelAndView model, HttpServletRequest request);
+	ModelAndView editCountry(Tara tara, ModelAndView model, HttpServletRequest request);
+
+	Tara addCountry(Tara tara, ModelAndView model, HttpServletRequest request);
 
 }

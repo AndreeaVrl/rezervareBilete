@@ -24,6 +24,9 @@ public class TipLoc {
 	@Column(name = "denumire")
 	private String denumire;
 
+	@Column(name = "denumire_long")
+	private String denumireLong;
+
 	@Column(name = "taxa_rezervare")
 	private BigDecimal taxaRezervare;
 
@@ -44,6 +47,14 @@ public class TipLoc {
 
 	public void setDenumire(String denumire) {
 		this.denumire = denumire;
+	}
+
+	public String getDenumireLong() {
+		return denumireLong;
+	}
+
+	public void setDenumireLong(String denumireLong) {
+		this.denumireLong = denumireLong;
 	}
 
 	public BigDecimal getTaxaRezervare() {

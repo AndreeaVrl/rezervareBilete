@@ -44,4 +44,11 @@ public class IndexController {
 			final HttpServletRequest request) {
 		return fromToRoute.chooseCountry(model, tara, request);
 	}
+	
+	@RequestMapping(value = { "/goToLocuri" }, method = { RequestMethod.GET })
+	public ModelAndView goToLocuri(final ModelAndView model) {
+		model.setViewName("locuri");
+		return model;
+	}
+	
 }
