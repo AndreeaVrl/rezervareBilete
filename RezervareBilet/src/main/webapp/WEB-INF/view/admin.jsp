@@ -74,7 +74,7 @@
 			      </div>
 	        </div>
 	        <div class="panel-footer text-center">
-	        	<button class="btn btn-primary" name="submit_edit" type="button" data-toggle="modal" data-target="#myEditCountryModal" id="editCountryModal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary disabled" name="submit_edit" type="button" data-toggle="modal" data-target="#myEditCountryModal" id="editCountryModal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_add" type="button" data-toggle="modal" data-target="#myAddCountryModal" id="addCountryModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_remove" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
@@ -347,8 +347,18 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 
 <script>
+	<%-- setup things--%>
+	$("#editCountryModal").attr("disabled", true);
+	
+	
+	$("#countries-sel").append($("#countries-sel option").remove().sort(function(a, b) {
+	    var at = $(a).text(), bt = $(b).text();
+	    return (at > bt)?1:((at < bt)?-1:0);
+	}));
+	<%-- setup things--%>
+
 	function showAddCountryInput(){
-		document.getElementById("addCountryInputId").style.display = "inline";
+		document.getElementById("editCountryInputId").style.display = "inline";
 	}
 	
 	function submitNewCountry(){
@@ -358,30 +368,63 @@
 	}
 
 	$(document).ready(function(){
-		<%--	
-		$('#confirmCountryButton').click(function(){
-			var countryName = $('#addCountryInputId').val();
-			countryName = jquery.trim(countryName);
-			if(countryName != ''){
-				alert("we did it" + countryName);
-			}
-		})
-		--%>
+		<%-- JQQ --%>
+		<%-- add country --%>
 		
+		$('#saveAddCountryChanges').click(function() {
+			var newCountryName = $('#addCountryInputDenumire').val();
+			var newCountryId;
+			$.ajax({
+				type: 'POST',
+				url: '${pageContext.request.contextPath}/addCountry',
+				data: {denumire: newCountryName},
+				dataType : 'json',
+				success: function(data) {
+					console.log("SUCCESS id: " + data.id);
+					newCountryId=data.id;
+					console.log("tara:" + newCountryId + "name:" + newCountryName);
+					$('#countries-sel').append($('<option>', {
+					    value: 1,
+					    text: newCountryName
+					}));
+					console.log("added country to select");
+					
+					$("#countries-sel").append($("#countries-sel option").remove().sort(function(a, b) {
+					    var at = $(a).text(), bt = $(b).text();
+					    return (at > bt)?1:((at < bt)?-1:0);
+					}));
+				}
+			})
+
+			
+			$('#myAddCountryModal').modal('hide');
+			<%-- TODO add country to list
+			$( "#countries-sel option:selected" ).text(newCountryName);
+			$('#myEditCountryModal').modal('hide');
+			--%>
+		})
+		
+		<%-- add country --%>
+		
+		<%-- edit country --%>
 		$('#editCountryModal').click(function(){
-		<%--$(document).on("click", ".editCountryModal", function () { --%>
 			console.log("in modal jq");
 			var selectedCountryId = $( "#countries-sel option:selected" ).val();
 			var selectedCountry = $( "#countries-sel option:selected" ).text();
 			console.log(selectedCountryId);
 			console.log(selectedCountry);
-			$("#addCountryInputId").val(selectedCountryId);
-			$("#addCountryInputDenumire").val(selectedCountry);
+			$("#editCountryInputId").val(selectedCountryId);
+			$("#editCountryInputDenumire").val(selectedCountry);
 		})
 		
-		$('#saveCountryChanges').click(function() {
-			var countryIdChange = $('#addCountryInputId').val();
-			var countryNameChange = $('#addCountryInputDenumire').val();
+		$("#countries-sel").change(function() {
+			$("#editCountryModal").removeClass("disabled");
+			$("#editCountryModal").attr("disabled", false);
+		})
+		
+		$('#saveEditCountryChanges').click(function() {
+			var countryIdChange = $('#editCountryInputId').val();
+			var countryNameChange = $('#editCountryInputDenumire').val();
 			
 			$.ajax({
 				type: 'POST',
@@ -395,10 +438,11 @@
 				}
 			})
 			$( "#countries-sel option:selected" ).text(countryNameChange);
-			console.log("SUCCES2");
-			$('#myModal').modal('hide');
-			
-			})
+			$('#myEditCountryModal').modal('hide');
+		})
+		<%-- edit country --%>
+		
+		
 	})
 </script>
 
@@ -411,14 +455,14 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Country edit</h4>
       </div>
-      <form:form class="form-inline" action="" id="countriesForm" modelAttribute="tara" method="post">
+      <form:form class="form-inline" id="countriesForm" modelAttribute="tara" method="post">
       	<div class="modal-body">
-					<form:input path="id" id="addCountryInputId" style="display: none;"/>
-					<form:input path="denumire" id="addCountryInputDenumire"/>
+					<form:input path="id" id="editCountryInputId" style="display: none;"/>
+					<form:input path="denumire" id="editCountryInputDenumire"/>
       	</div>
       	<div class="modal-footer">
         	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        	<button type="button" class="btn btn-primary" id="saveCountryChanges">Save changes</button>
+        	<button type="button" class="btn btn-primary" id="saveEditCountryChanges">Save changes</button>
       	</div>
 	  	</form:form>
     </div>
@@ -435,11 +479,13 @@
         <h4 class="modal-title">Country add</h4>
       </div>
       	<div class="modal-body">
-					add country
+			<form:form class="form-inline" id="countriesForm" modelAttribute="tara" method="post">
+				<form:input path="denumire" id="addCountryInputDenumire"/>
+			</form:form>
       	</div>
       	<div class="modal-footer">
         	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        	<button type="button" class="btn btn-primary" id="saveCountryChanges">Save changes</button>
+        	<button type="button" class="btn btn-primary" id="saveAddCountryChanges">Save changes</button>
       	</div>
     </div>
   </div>
