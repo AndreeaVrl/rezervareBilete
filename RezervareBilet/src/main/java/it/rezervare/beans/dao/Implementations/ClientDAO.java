@@ -4,6 +4,7 @@ package it.rezervare.beans.dao.Implementations;
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,34 @@ public class ClientDAO implements IClientDAO {
 	@Override
 	public void updateUser(final Client client){
 		sessionFactory.getCurrentSession().update(client);
+	}
+	
+	@Override
+	public Client getClientByEmail(final String email) throws ApplicationException {
+		System.out.println("Enter ClientDAO.getClientByEmail()");
+		Client client = null;
+		try {
+			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Client.class);
+			criteria.add(Restrictions.eq("email", StringUtils.trimAllWhitespace(email)));
+			client = (Client) criteria.uniqueResult();
+		} catch(final Exception e) {
+			throw new ApplicationException("A aparut o problema, reveniti mai tarziu!");
+		}
+		System.out.println("Exit ClientDAO.getClientByEmail() with client = ["+client+"]");
+		return client;
+	}
+	
+	@Override
+	public void insertClient(final Client client) throws ApplicationException {
+		try {
+			final Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			session.persist(client);
+			session.getTransaction().commit();
+			session.close();
+		} catch (final Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException("A aparut o problema, reveniti mai tarziu!");
+		}
 	}
 }

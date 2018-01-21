@@ -288,6 +288,7 @@ END Selectare data plecare -->
 <section>
 	<div>
 		<a class="btn btn-link" href="goToLoginPage"><input type="button" value="LogIn"/></a>
+		<a class="btn btn-link" href="goToCreateNewAccount"><input type="button" value="CreateNewAccount"/></a>
 		
 	</div>
 </section>

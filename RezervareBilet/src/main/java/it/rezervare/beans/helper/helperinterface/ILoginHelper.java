@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import it.rezervare.beans.model.hibernateBeans.Client;
 import it.rezervare.beans.model.requestBeans.UserRequestBean;
 
 public interface ILoginHelper {
@@ -15,5 +16,7 @@ public interface ILoginHelper {
 	ModelAndView changePassword(ModelAndView model, UserRequestBean loginBean, HttpServletRequest request);
 
 	ModelAndView goToChangePasswordPage(ModelAndView model, HttpServletRequest request);
+
+	ModelAndView createNewAccount(ModelAndView model, Client clientBean, HttpServletRequest request);
 }
  

@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import beans.exception.ApplicationException;
+import beans.exception.ExceptionsMessages;
 import it.rezervare.beans.constants.ApplicationConstants;
 import it.rezervare.beans.dao.Interfaces.IClientDAO;
 import it.rezervare.beans.dao.Interfaces.IOperatorDAO;
@@ -19,6 +20,7 @@ import it.rezervare.beans.model.hibernateBeans.Operator;
 import it.rezervare.beans.model.hibernateBeans.Tara;
 import it.rezervare.beans.model.requestBeans.CursaRequestView;
 import it.rezervare.beans.model.requestBeans.UserRequestBean;
+import it.rezervare.beans.utils.MD5Utils;
 
 @Service
 @Lazy
@@ -141,6 +143,37 @@ public class LoginHelper implements ILoginHelper {
 			model.addObject("exceptie", e.getMessage());
 		}
 		System.out.println("\nEXIT LoginHelper - changePassword()\n");
+		return model;
+	}
+
+	@Override
+	public ModelAndView createNewAccount(final ModelAndView model, final Client clientBean, final HttpServletRequest request) {
+		System.out.println("\nENTER LoginHelper - createNewAccount()");
+		System.out.println(clientBean.getNume());
+		System.out.println(clientBean.getPrenume());
+		System.out.println(clientBean.getEmail());
+		System.out.println(clientBean.getParola());
+		
+		
+		try {
+			clientBean.setParola(MD5Utils.convertStringToMD5(clientBean.getParola()));
+			System.out.println(clientBean.getParola());
+			final Client clientExistent = clientDAO.getClientByEmail(clientBean.getEmail());
+			if(clientExistent != null) {
+				System.out.println("Email-ul exista deja");
+				clientBean.setParola("");
+				throw new ApplicationException(ExceptionsMessages.EMAIL_ALREADY_USED);
+			}
+			
+			clientDAO.insertClient(clientBean);
+			model.addObject("clientBean", new Client());
+			model.addObject("succes", "Contul a fost creat cu success");
+		} catch (final ApplicationException e) {
+			model.addObject("clientBean", clientBean != null ? clientBean : new Client());
+			model.addObject("exceptie", e.getMessage());
+		}
+		
+		model.setViewName("newaccount");
 		return model;
 	}
 }

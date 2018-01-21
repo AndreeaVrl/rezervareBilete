@@ -12,4 +12,8 @@ public interface IClientDAO {
 
 	Client getClientByEmail(UserRequestBean userRequestBean) throws ApplicationException;
 
+	Client getClientByEmail(String email) throws ApplicationException;
+
+	void insertClient(Client client) throws ApplicationException;
+
 }
