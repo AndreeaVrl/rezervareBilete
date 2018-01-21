@@ -57,8 +57,8 @@ public class TaraDAO implements ITaraDAO {
 			Criteria criteria = session.createCriteria(Tara.class);
 			denumireTari = criteria.list();
 			System.out.println("\nTarile: ");
+			System.out.println(String.format("\n%-10s %-10s \n", "ID", "DENUMIRE"));
 			for (Tara tara : denumireTari) {
-				System.out.println(String.format("\n%-10s %-10s \n", "ID", "DENUMIRE"));
 				System.out.println(String.format("%-10s %-10s ", tara.getId(), tara.getDenumire()));
 			}
 
