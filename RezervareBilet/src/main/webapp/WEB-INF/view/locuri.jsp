@@ -28,13 +28,13 @@
 	<div class="row">
 		<h4>REPREZENTARE LOCURI AVION</h4>
 		<div class="col-md-6">
-			<table class="table">
+			<table class="table locuri">
 				<thead>
 					<tr><!-- cap de coloana - A, B, C ... -->
-						<th>&nbsp;</th>
 						<th>A</th>
 						<th>B</th>
 						<th>C</th>
+						<th>&nbsp;</th>
 						<th>D</th>
 						<th>E</th>
 						<th>F</th>
@@ -42,7 +42,6 @@
 				</thead>
 				<tbody>
 					<tr>
-						<th>1</th><!-- cap de rand - 1, 2, 3 ... -->
 						<td>
 							<div data-toggle="buttons">
 								<label class="btn btn-success"><!-- btn-default in cazul unui loc rezervat deja -->
@@ -60,29 +59,30 @@
 							</div>
 						</td>
 						<td>&nbsp;</td>
+						<th>1</th><!-- cap de rand - 1, 2, 3 ... -->
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 					</tr>
 					<tr>
+						<td>
+							<div data-toggle="buttons">
+								<label class="btn btn-warning">
+									<input type="checkbox" autocomplete="off">
+									<span class="glyphicon glyphicon-ok"></span>
+								</label>
+							</div>
+						</td>
+						<td>
+							<div data-toggle="buttons">
+								<label class="btn btn-warning">
+									<input type="checkbox" autocomplete="off">
+									<span class="glyphicon glyphicon-ok"></span>
+								</label>
+							</div>
+						</td>
+						<td>&nbsp;</td>
 						<th>2</th><!-- cap de rand - 1, 2, 3 ... -->
-						<td>
-							<div data-toggle="buttons">
-								<label class="btn btn-warning">
-									<input type="checkbox" autocomplete="off">
-									<span class="glyphicon glyphicon-ok"></span>
-								</label>
-							</div>
-						</td>
-						<td>
-							<div data-toggle="buttons">
-								<label class="btn btn-warning">
-									<input type="checkbox" autocomplete="off">
-									<span class="glyphicon glyphicon-ok"></span>
-								</label>
-							</div>
-						</td>
-						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 						<td>
 							<div data-toggle="buttons">
@@ -102,24 +102,24 @@
 						</td>
 					</tr>
 					<tr>
+						<td>
+							<div data-toggle="buttons">
+								<label class="btn btn-warning">
+									<input type="checkbox" autocomplete="off">
+									<span class="glyphicon glyphicon-ok"></span>
+								</label>
+							</div>
+						</td>
+						<td>
+							<div data-toggle="buttons">
+								<label class="btn btn-warning">
+									<input type="checkbox" autocomplete="off">
+									<span class="glyphicon glyphicon-ok"></span>
+								</label>
+							</div>
+						</td>
+						<td>&nbsp;</td>
 						<th>3</th><!-- cap de rand - 1, 2, 3 ... -->
-						<td>
-							<div data-toggle="buttons">
-								<label class="btn btn-warning">
-									<input type="checkbox" autocomplete="off">
-									<span class="glyphicon glyphicon-ok"></span>
-								</label>
-							</div>
-						</td>
-						<td>
-							<div data-toggle="buttons">
-								<label class="btn btn-warning">
-									<input type="checkbox" autocomplete="off">
-									<span class="glyphicon glyphicon-ok"></span>
-								</label>
-							</div>
-						</td>
-						<td>&nbsp;</td>
 						<td>&nbsp;</td>
 						<td>
 							<div data-toggle="buttons">
@@ -139,6 +139,30 @@
 						</td>
 					</tr>
 					<tr>
+						<td>
+							<div data-toggle="buttons">
+								<label class="btn btn-success">
+									<input type="checkbox" autocomplete="off">
+									<span class="glyphicon glyphicon-ok"></span>
+								</label>
+							</div>
+						</td>
+						<td>
+							<div data-toggle="buttons">
+								<label class="btn btn-success">
+									<input type="checkbox" autocomplete="off">
+									<span class="glyphicon glyphicon-ok"></span>
+								</label>
+							</div>
+						</td>
+						<td>
+							<div data-toggle="buttons">
+								<label class="btn btn-success">
+									<input type="checkbox" autocomplete="off">
+									<span class="glyphicon glyphicon-ok"></span>
+								</label>
+							</div>
+						</td>
 						<th>4</th><!-- cap de rand - 1, 2, 3 ... -->
 						<td>
 							<div data-toggle="buttons">
@@ -158,30 +182,6 @@
 						</td>
 						<td>
 							<div data-toggle="buttons">
-								<label class="btn btn-success">
-									<input type="checkbox" autocomplete="off">
-									<span class="glyphicon glyphicon-ok"></span>
-								</label>
-							</div>
-						</td>
-						<td>
-							<div data-toggle="buttons">
-								<label class="btn btn-success">
-									<input type="checkbox" autocomplete="off">
-									<span class="glyphicon glyphicon-ok"></span>
-								</label>
-							</div>
-						</td>
-						<td>
-							<div data-toggle="buttons">
-								<label class="btn btn-success">
-									<input type="checkbox" autocomplete="off">
-									<span class="glyphicon glyphicon-ok"></span>
-								</label>
-							</div>
-						</td>
-						<td>
-							<div data-toggle="buttons">
 								<label class="btn btn-default">
 									<span class="glyphicon glyphicon-remove"></span>
 								</label>
@@ -189,7 +189,6 @@
 						</td>
 					</tr>
 					<tr>
-						<th>5</th><!-- cap de rand - 1, 2, 3 ... -->
 						<td>
 							<div data-toggle="buttons">
 								<label class="btn btn-info">
@@ -213,6 +212,7 @@
 								</label>
 							</div>
 						</td>
+						<th>5</th><!-- cap de rand - 1, 2, 3 ... -->
 						<td>
 							<div data-toggle="buttons">
 								<label class="btn btn-info">
@@ -238,31 +238,31 @@
 							</div>
 						</td>
 					</tr><tr>
+						<td>
+							<div data-toggle="buttons">
+								<label class="btn btn-info">
+									<input type="checkbox" autocomplete="off">
+									<span class="glyphicon glyphicon-ok"></span>
+								</label>
+							</div>
+						</td>
+						<td>
+							<div data-toggle="buttons">
+								<label class="btn btn-info">
+									<input type="checkbox" autocomplete="off">
+									<span class="glyphicon glyphicon-ok"></span>
+								</label>
+							</div>
+						</td>
+						<td>
+							<div data-toggle="buttons">
+								<label class="btn btn-info">
+									<input type="checkbox" autocomplete="off">
+									<span class="glyphicon glyphicon-ok"></span>
+								</label>
+							</div>
+						</td>
 						<th>6</th><!-- cap de rand - 1, 2, 3 ... -->
-						<td>
-							<div data-toggle="buttons">
-								<label class="btn btn-info">
-									<input type="checkbox" autocomplete="off">
-									<span class="glyphicon glyphicon-ok"></span>
-								</label>
-							</div>
-						</td>
-						<td>
-							<div data-toggle="buttons">
-								<label class="btn btn-info">
-									<input type="checkbox" autocomplete="off">
-									<span class="glyphicon glyphicon-ok"></span>
-								</label>
-							</div>
-						</td>
-						<td>
-							<div data-toggle="buttons">
-								<label class="btn btn-info">
-									<input type="checkbox" autocomplete="off">
-									<span class="glyphicon glyphicon-ok"></span>
-								</label>
-							</div>
-						</td>
 						<td>
 							<div data-toggle="buttons">
 								<label class="btn btn-info">

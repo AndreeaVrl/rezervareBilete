@@ -6,3 +6,8 @@
 .btn.active span.glyphicon {				
 	opacity: 1;				
 }
+
+.locuri td, .locuri th {
+  text-align: center;
+  vertical-align: middle;
+}
