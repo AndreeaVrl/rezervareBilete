@@ -12,12 +12,14 @@ public class ApplicationException extends Exception implements Serializable{
 	private String message;
 	
 	
-	public ApplicationException(String message) { super(message); }
+	public ApplicationException(final String message) { 
+		this.message = message;
+	}
 	
 	public String getMessage() {
 		return message;
 	}
-	public void setMessage(String message) {
+	public void setMessage(final String message) {
 		this.message = message;
 	}
 }

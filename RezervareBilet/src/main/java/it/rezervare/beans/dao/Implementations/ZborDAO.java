@@ -1,6 +1,7 @@
 package it.rezervare.beans.dao.Implementations;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -21,21 +22,22 @@ public class ZborDAO implements IZborDAO {
 	final private SessionFactory sessionFactory;
 
 	@Autowired
-	private ZborDAO(SessionFactory sessionFactory) {
+	private ZborDAO(final SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Zbor> getFlightList (Integer idCursa) {
+	public List<Zbor> getFlightList (final Integer idCursa, final Date date) {
 		List<Zbor> listaZboruri = new ArrayList<>();
-		System.out.println(" ENTER  ZborDAO.getFlightList() with idCursa = ["+idCursa+"] ");
+		System.out.println(" ENTER  ZborDAO.getFlightList() with idCursa = ["+idCursa+"] date = ["+date+"]");
 		try {
-			Criteria cr = sessionFactory.getCurrentSession().createCriteria(Zbor.class, "zbor");
+			final Criteria cr = sessionFactory.getCurrentSession().createCriteria(Zbor.class, "zbor");
 			cr.createAlias("zbor.cursa", "cursa"); 
 			cr.add(Restrictions.eq("cursa.id", idCursa));
+			cr.add(Restrictions.eq("zbor.dataPlecare", date));
 			listaZboruri = cr.list();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		System.out.println(" Exit ZborDAO.getFlightList() with listaZboruri = ["+listaZboruri+"] ");

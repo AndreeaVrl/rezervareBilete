@@ -16,17 +16,17 @@ import it.rezervare.beans.model.requestBeans.CursaRequestView;
 
 @Controller
 public class IndexController {
-	private IFromToHelper fromToRoute;
-	private IAdminHelper adminHelper;
+	private final IFromToHelper fromToRoute;
+	private final IAdminHelper adminHelper;
 
 	@Autowired
-	public IndexController(IFromToHelper fromToRoute, IAdminHelper adminHelper) {
+	public IndexController(final IFromToHelper fromToRoute, final IAdminHelper adminHelper) {
 		this.fromToRoute = fromToRoute;
 		this.adminHelper = adminHelper;
-	}
+	} 
 
 	@RequestMapping(value = { "/" }, method = { RequestMethod.GET })
-	public ModelAndView login(ModelAndView model) {
+	public ModelAndView login(final ModelAndView model) {
 		System.out.println("\n ENTER IndexController \n");
 		model.addObject("cursa", new CursaRequestView());
 		model.setViewName("index");
@@ -34,14 +34,14 @@ public class IndexController {
 	}
 
 	@RequestMapping(value = { "/goToAdminPage" }, method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView goToAdmin(@ModelAttribute("tara") Tara tara, ModelAndView model, HttpServletRequest request) {
+	public ModelAndView goToAdmin(@ModelAttribute("tara") final Tara tara, final ModelAndView model, final HttpServletRequest request) {
 		System.out.println("\n ENTER goToAdminPage \n");
 		return adminHelper.loadAdminPage(model, request);
 	}
 
 	@RequestMapping(value = { "/index" }, method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView chooseCountry(ModelAndView model, @ModelAttribute("tara") Tara tara,
-			HttpServletRequest request) {
+	public ModelAndView chooseCountry(final ModelAndView model, @ModelAttribute("tara") final Tara tara,
+			final HttpServletRequest request) {
 		return fromToRoute.chooseCountry(model, tara, request);
 	}
 }
