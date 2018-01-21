@@ -13,6 +13,7 @@ body {
 	width: 100%;
 }
 
+/* formular login */
 .form-signin {
   max-width: 330px;
   padding: 15px;
@@ -46,4 +47,12 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+/* checkbox rezervare locuri */
+.btn span.glyphicon {    			
+	opacity: 0;				
+}
+.btn.active span.glyphicon {				
+	opacity: 1;				
 }
