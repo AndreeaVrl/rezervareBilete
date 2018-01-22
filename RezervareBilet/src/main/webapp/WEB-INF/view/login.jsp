@@ -36,14 +36,14 @@
 	
 	<div class="container">
 
-      <form class="form-signin" method="POST" action="login" id="loginForm">
+      <form:form class="form-signin" method="POST" action="login" id="loginForm">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="userName" class="sr-only">Email address</label>
         <input type="text" id="userName" class="form-control" placeholder="Username"  value="${loginBean.userName}" required autofocus>
         <label for="password" class="sr-only">Password</label>
         <input type="password" id="password" class="form-control" placeholder="Password" value="${loginBean.password}" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="login" value="Log In">Log in</button>
-      </form>
+      </form:form>
 
     </div> <!-- /container -->
     
