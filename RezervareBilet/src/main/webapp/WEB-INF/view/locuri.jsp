@@ -34,7 +34,7 @@
 						<th>A</th>
 						<th>B</th>
 						<th>C</th>
-						<th>&nbsp;</th>
+						<th>&nbsp;</th><!-- gol-mijloc -->
 						<th>D</th>
 						<th>E</th>
 						<th>F</th>
@@ -44,8 +44,8 @@
 					<tr>
 						<td>
 							<div data-toggle="buttons">
-								<label class="btn btn-success"><!-- btn-default in cazul unui loc rezervat deja -->
-									<input type="checkbox" autocomplete="off"><!-- nu se mai afiseaza in cazul unui loc rezervat deja -->
+								<label class="btn btn-success"><!-- btn-default in cazul unui loc cumparat deja -->
+									<input type="checkbox" autocomplete="off"><!-- nu se mai afiseaza in cazul unui loc cumparat deja -->
 									<span class="glyphicon glyphicon-ok"></span>
 								</label>
 							</div>
@@ -291,6 +291,41 @@
 					<!-- se continua popularea cu date -->
 				</tbody>
 			</table>
+		</div>
+		<div class="col-md-6">
+			<h3>Seat Information</h3>
+			<ul class="list-group">
+			  	<li class="list-group-item">
+			  		<label class="btn btn-success">
+						<span class="glyphicon glyphicon-ok"></span>
+					</label>
+					Extra leg room seats
+				</li>
+			  	<li class="list-group-item">
+			  		<label class="btn btn-warning">
+						<span class="glyphicon glyphicon-ok"></span>
+					</label>
+			  		Fron seats
+			  	</li>
+			  	<li class="list-group-item">
+			  		<label class="btn btn-info">
+						<span class="glyphicon glyphicon-ok"></span>
+					</label>
+					Standard
+				</li>
+			  	<li class="list-group-item">
+			  		<label class="btn btn-default">
+						<span class="glyphicon glyphicon-remove"></span>
+					</label>
+					Reserved
+				</li>
+			  	<li class="list-group-item">
+				  	
+						<span class="glyphicon glyphicon-ok"></span>
+					
+			  		Selected seat
+			  	</li>
+			</ul>
 		</div>
 	</div>
 </div>
