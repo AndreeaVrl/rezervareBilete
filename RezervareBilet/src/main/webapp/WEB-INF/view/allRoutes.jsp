@@ -126,25 +126,21 @@
 		<script type="text/javascript">
 			$(document).ready( function() {
 				$('#createComp').click( function(){
-					//var zborAles = $('input[name=zborCautat]:checked').val();
-					console.log("zborAles=["+zborAles+"]");
-					console.log("createComp val=["+$('#companii').val()+"]");
-					<c:set var="zborAles" value="$('input[name=zborCautat]:checked').val()"/>     
+					var zborAles = $('input[name=zborCautat]:checked').val();
+					console.log("zborAles="+zborAles);
 					<c:forEach items="${allRoutesMap}" var="zbor">
-					<c:set var="mapKey" value="${zbor.key}"/>
-					console.log("zbor.key=["+${mapKey}+"] zborAles = ["+${zborAles}+"]"+"compare = "+${mapKey eq zborAles});
-						<c:if test="${mapKey eq zborAles}">
-							console.log("map1");
-							<c:forEach items="${zbor.value}" var="zboruriCautare" >
-								console.log("zboruriCautare=["+zboruriCautare+"]");
-								var value = $('#companii').val() +";"+ $( "#zboruriCautare.companie.id" ).val();
-								$('#companii').val(value);
+						var mapKey = ${zbor.key};
+						console.log("zbor= "+zborAles+"mapKey="+mapKey+"comparare="+${zborAles.intValue ==+ mapKey.intValue}+"comparare="+${zborAles eq zbor.key});
+						<c:forEach items="${zbor.value}" var="zboruriCautare" >
+							<c:forEach items="${zboruriCautare}" var="zborCautare">
+								console.log("aici");
 							</c:forEach>
-						</c:if>
+						</c:forEach>
 					</c:forEach>
-					console.log("createComp.val=["+$('#companii').val()+"]");
 				});		
 			});
+			
+			
 		</script>
 	</body>
 </html>
