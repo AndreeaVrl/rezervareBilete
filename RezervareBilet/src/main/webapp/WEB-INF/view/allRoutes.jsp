@@ -36,7 +36,7 @@
 										<c:choose>
 											<c:when test="${first eq 1}">
 												${zboruriCautare[0].cursa.aeroport_1.denumire}-${zboruriCautare[0].cursa.aeroport_2.denumire}
-												<select id="${zboruriCautare[0].cursa.id}">
+												<select id="${zboruriCautare[0].cursa.id}-${zbor.key}">
 													<c:forEach items="${zboruriCautare}" var="zborCautare">
 														<option value="${zborCautare.companie.id}"/>
 														Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€
@@ -45,7 +45,7 @@
 											</c:when>
 											<c:otherwise>
 												-${zboruriCautare[0].cursa.aeroport_2.denumire}
-												<select id="${zboruriCautare[0].cursa.id}">
+												<select id="${zboruriCautare[0].cursa.id}-${zbor.key}">
 													<c:forEach items="${zboruriCautare}" var="zborCautare">
 														<option value="${zborCautare.companie.id}"/>
 														Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€
@@ -90,7 +90,7 @@
 											<c:choose>
 												<c:when test="${first eq 1}">
 													${zboruriCautare[0].cursa.aeroport_1.denumire}-${zboruriCautare[0].cursa.aeroport_2.denumire}
-													<select>
+													<select id="${zboruriCautare[0].cursa.id}-${zbor.key}">
 														<c:forEach items="${zboruriCautare}" var="zborCautare">
 															<option value="${zborCautare.companie.id}"/>
 															Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€
@@ -99,7 +99,7 @@
 												</c:when>
 												<c:otherwise>
 													-${zboruriCautare[0].cursa.aeroport_2.denumire}
-													<select>
+													<select id="${zboruriCautare[0].cursa.id}-${zbor.key}">
 														<c:forEach items="${zboruriCautare}" var="zborCautare">
 															<option value="${zborCautare.companie.id}"/>
 															Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€
@@ -130,17 +130,30 @@
 					console.log("zborAles="+zborAles);
 					<c:forEach items="${allRoutesMap}" var="zbor">
 						var mapKey = ${zbor.key};
-						console.log("zbor= "+zborAles+"mapKey="+mapKey+"comparare="+${zborAles.intValue ==+ mapKey.intValue}+"comparare="+${zborAles eq zbor.key});
-						<c:forEach items="${zbor.value}" var="zboruriCautare" >
-							<c:forEach items="${zboruriCautare}" var="zborCautare">
-								console.log("aici");
+						if( zborAles == mapKey) {
+							<c:set var="flag" value="1"/>
+							<c:forEach items="${zbor.value}" var="zboruriCautare"  >
+							var idCursaSelect = ${zboruriCautare[0].cursa.id}+"-"+mapKey;
+							console.log("idCursa="+idCursaSelect);
+								<c:choose>
+									<c:when test="${flag eq 1}">
+										var value = $("#"+idCursaSelect).val();
+										$('#companii').val(value);
+										console.log("value to append1="+value);
+										<c:set var="flag" value="0"/>
+									</c:when>
+									<c:otherwise>
+										var value = $('#companii').val() +";"+ $("#"+idCursaSelect).val();
+										console.log("value to append="+value);
+										$('#companii').val(value);
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
-						</c:forEach>
+						}
 					</c:forEach>
+					console.log("value=["+$('#companii').val()+"]");
 				});		
 			});
-			
-			
 		</script>
 	</body>
 </html>
