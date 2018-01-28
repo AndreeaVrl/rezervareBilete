@@ -10,7 +10,8 @@ public interface ICursaDAO {
 
 	List<CursaDijkstraAlgoritm> getAllFlights() throws ApplicationException;
 
-	Cursa getRouteByAirport(String airportFrom, String airportTo) throws ApplicationException; 
+	Cursa getRouteByAirport(String airportFrom, String airportTo) throws ApplicationException;
 
-	
+	List<Cursa> getAll() throws ApplicationException;
+
 }

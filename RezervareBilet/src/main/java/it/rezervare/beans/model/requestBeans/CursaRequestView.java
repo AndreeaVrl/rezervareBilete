@@ -42,11 +42,6 @@ public class CursaRequestView {
 	public void setDepartureDate(final Date departureDate) {
 		this.departureDate = departureDate;
 	}
-	@Override
-	public String toString() {
-		return "CursaRequestView [contryFrom=" + contryFrom + ", airportFrom=" + airportFrom + ", countryTo="
-				+ countryTo + ", airportTo=" + airportTo + ", departureDate=" + departureDate + ", flyBack=" + flyBack +"]";
-	}
 	public Date getFlyBack() {
 		return flyBack;
 	}
@@ -58,5 +53,10 @@ public class CursaRequestView {
 	}
 	public void setRetur(final Boolean retur) {
 		this.retur = retur;
+	}
+	@Override
+	public String toString() {
+		return "CursaRequestView [contryFrom=" + contryFrom + ", airportFrom=" + airportFrom + ", countryTo="
+				+ countryTo + ", airportTo=" + airportTo + ", departureDate=" + departureDate +"]";
 	}
 }

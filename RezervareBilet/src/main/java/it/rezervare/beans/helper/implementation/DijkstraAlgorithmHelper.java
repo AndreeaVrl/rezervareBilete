@@ -69,7 +69,8 @@ public class DijkstraAlgorithmHelper implements IDijkstraAlgorithmHelper {
 				edgesList.add(edge);
 			}
 			if(allRaces.isEmpty() || edgesList.isEmpty()) {
-				throw new ApplicationException("Ne pare rau, inca nu gestionam zborul solicitat!");
+				model.addObject("atentie","Ne pare rau, inca nu gestionam zborul solicitat!");
+				throw new ApplicationException();
 			}
 			final Graphs graph = new Graphs(nodesList, edgesList);
 	        final DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
@@ -143,7 +144,7 @@ public class DijkstraAlgorithmHelper implements IDijkstraAlgorithmHelper {
         for(final Cursa cursainLista : curseList) {
         	final List<Zbor> listaZboruri = zborDAO.getFlightList(cursainLista.getId(), date);
         	if(CollectionUtils.isEmpty(listaZboruri)) {
-        		throw new ApplicationException("Ne pare rau, nu a fost gasit nicun zbor pentru datele specificate!");
+        		throw new ApplicationException();
         	}
     		final Zbor zborIeftin = Collections.min(listaZboruri, new ZborComparator());
     		zborCautat.add(zborIeftin);

@@ -35,7 +35,7 @@ public class ZborDAO implements IZborDAO {
 			final Criteria cr = sessionFactory.getCurrentSession().createCriteria(Zbor.class, "zbor");
 			cr.createAlias("zbor.cursa", "cursa"); 
 			cr.add(Restrictions.eq("cursa.id", idCursa));
-			cr.add(Restrictions.eq("zbor.dataPlecare", date));
+//			cr.add(Restrictions.eq("zbor.dataPlecare", date));
 			listaZboruri = cr.list();
 		} catch (final Exception e) {
 			e.printStackTrace();

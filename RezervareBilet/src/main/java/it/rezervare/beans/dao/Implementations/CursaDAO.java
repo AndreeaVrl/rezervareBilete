@@ -47,6 +47,23 @@ public class CursaDAO implements ICursaDAO{
 		return allFlights;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Cursa> getAll() throws ApplicationException {
+		System.out.println(" ENTER CursaDAO getAllFlights() ");
+		List<Cursa> allFlights = new ArrayList<>();
+		try {
+			final Criteria cr = sessionFactory.getCurrentSession().createCriteria(Cursa.class);
+			allFlights = cr.list();
+		} catch(final Exception ex) {
+			ex.printStackTrace();
+			throw new ApplicationException("Nu exista zboruri inregistrate!");
+		}
+		System.out.println(" EXIT CursaDAO getAllFlights() ");
+		return allFlights;
+	}
+	
+	
 	@Override
 	public Cursa getRouteByAirport(final String airportFrom, final String airportTo) throws ApplicationException {
 		System.out.println(" ENTER CursaDAO.getRouteByAirport with airportFrom = ["+ airportFrom +"] airportTo = ["+airportTo+"]");

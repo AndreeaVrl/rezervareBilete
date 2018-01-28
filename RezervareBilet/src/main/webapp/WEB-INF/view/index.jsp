@@ -25,8 +25,9 @@
   <body>
     
     <a class="btn btn-link" href="goToAdminPage">admin</a><br />
-    
-    
+  	<c:out value="${requestScope['javax.servlet.forward.request_uri']}"/>  
+    <c:out value="${flag}"/>
+    <c:out value="${flag eq 1}"/>
 <!-- Selectare aeroport plecare sosire -->
 <section>
 	<div class="row">
@@ -36,7 +37,7 @@
 		<br>
 	</c:if>
 		<div class="col-md-6">
-    	<form:form class="form-inline" action="getRoute" method="POST" modelAttribute="cursa">
+    	<form:form class="form-inline" id="getRouteForm" method="POST" modelAttribute="cursa">
       	<div class="form-group">
         	From
         </div>
@@ -99,39 +100,50 @@
          	<label for="retur"> </label>
 			<form:checkbox path="retur"/>Retur <br>
 		 </div>
-        	<input class="btn btn-primary" name="submit" type="submit" value="Continue"/>
+        	<input class="btn btn-primary" name="submit" id="submit" type="submit" value="Afiseaza zborul optim"/>
+			<input class="btn btn-primary" name="optim" id="optim" type="submit" value="Afiseaza toate zborurile"/>
         </form:form>
 		</div>
 	</div>
 </section>
-<c:if test="${not empty zboruriCautare}">
-	<hr />
-	<!-- afisare zboruri  -->
-	<section>
-		<div id="cautare">
-			<c:forEach items="${zboruriCautare}" var="zbor">
-			<c:set var="nrListe" value="1"/>
-				<input type="radio" name="zborCautat" value="${zbor.key}">
-				<c:forEach items="${zbor.value}" var="zborCautare" varStatus = "status">
-					<c:choose>
-						<c:when test="${status.first}">
-							${zborCautare.cursa.aeroport_1.denumire}-${zborCautare.cursa.aeroport_2.denumire}
-							(Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€)
-							<c:set var="nrListe" value="2"/>
-						</c:when>
-						<c:otherwise>
-							<c:if test="${nrListe eq 2}">
-								-${zborCautare.cursa.aeroport_2.denumire}
-								(Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€)
-							</c:if>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				Pret zbor: ${pretCursa}€
-				</c:forEach>
-		</div>
-	</section>
+<c:if test="${(not empty zboruriCautare or not empty zboruriCautareRetur)}">
+<h4>Zboruri recomandate</h4>
 </c:if>
+<c:choose>
+	<c:when test="${not empty zboruriCautare}">
+		<hr />
+		<!-- afisare zboruri  -->
+		<section>
+			<div id="cautare">
+				<c:forEach items="${zboruriCautare}" var="zbor">
+				<c:set var="nrListe" value="1"/>
+					<input type="radio" name="zborCautat" value="${zbor.key}">
+					<c:forEach items="${zbor.value}" var="zborCautare" varStatus = "status">
+						<c:choose>
+							<c:when test="${status.first}">
+								${zborCautare.cursa.aeroport_1.denumire}-${zborCautare.cursa.aeroport_2.denumire}
+								(Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€)
+								<c:set var="nrListe" value="2"/>
+							</c:when>
+							<c:otherwise>
+								<c:if test="${nrListe eq 2}">
+									-${zborCautare.cursa.aeroport_2.denumire}
+									(Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€)
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					Pret zbor: ${pretCursa}€
+					</c:forEach>
+			</div>
+		</section>
+	</c:when>
+	<c:when test="${fn:contains(requestScope['javax.servlet.forward.request_uri'], 'getRoute')}">
+		<div  class="close" data-dismiss="alert" aria-label="close">×</div>
+		<div class="alert alert-info"><strong>Atentie!</strong>Ne pare rau, nu a fost gasit nicun zbor pentru datele specificate!</div>
+	</c:when>
+</c:choose>
+
 <c:if test="${not empty cursaRequestView && cursaRequestView.retur}">
 	<hr />
 	<c:choose>
@@ -169,24 +181,9 @@
 		</c:otherwise>
 	</c:choose>
 </c:if>
-<!-- END Selectare date plecare sosire  -->
-<!-- Selectare data plecare 
-<section>
-	<div class="row">
-		<div class="col-md-6 data-plecare">
-			<form action="" class="form-inline" method="post">
-				<div class="form-group">
-					<label for="date">Fly out date</label>
-          <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text"/>
-				</div>
-				<br />
-				<button class="btn btn-primary" name="submit" type="submit">Continue</button>
-			</form>
-		</div>
-	</div>
-</section>
-END Selectare data plecare -->
-
+<c:if test="${flag eq 1}">
+	<jsp:include page="allRoutes.jsp" flush="true" />
+</c:if>
 <hr />
 <!-- Selectare nr pasageri -->
 <section>
@@ -325,6 +322,13 @@ END Selectare data plecare -->
 				$('#flyBackDate').hide();
 			}
 		});
+		$("#optim").on("click", function(){
+			$('#getRouteForm').attr('action', "getAllRoutes");
+		});
+		$('#submit').click(function(){
+		   $('#getRouteForm').attr('action', 'getRoute');
+		});
+
 	})
 </script> 
     

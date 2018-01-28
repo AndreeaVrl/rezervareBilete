@@ -11,7 +11,9 @@ public class ApplicationException extends Exception implements Serializable{
 	
 	private String message;
 	
-	
+	public ApplicationException() {
+		
+	}
 	public ApplicationException(final String message) { 
 		this.message = message;
 	}
