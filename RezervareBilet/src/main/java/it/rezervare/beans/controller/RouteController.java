@@ -3,6 +3,8 @@ package it.rezervare.beans.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -27,10 +29,10 @@ public class RouteController {
 	}
 
 	@RequestMapping(value = { "/getAllRoutes"}, method = {RequestMethod.POST})
-	public ModelAndView getRout(final ModelAndView model, @ModelAttribute final CursaRequestView cursa){
+	public ModelAndView getRout(final ModelAndView model, @ModelAttribute final CursaRequestView cursa, final HttpServletRequest request){
 		try {
 			System.out.println("\n ENTER RouteController wuth cursa = ["+ cursa.toString() +"]\n");
-			routHelper.getRout(model, cursa);
+			routHelper.getRout(model, cursa, request);
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}

@@ -11,7 +11,7 @@ public class CursaRequestView {
 	private Date departureDate;
 	private Date flyBack;
 	private Boolean retur;
-	 
+	
 	public String getContryFrom() {
 		return contryFrom;
 	}
@@ -53,10 +53,5 @@ public class CursaRequestView {
 	}
 	public void setRetur(final Boolean retur) {
 		this.retur = retur;
-	}
-	@Override
-	public String toString() {
-		return "CursaRequestView [contryFrom=" + contryFrom + ", airportFrom=" + airportFrom + ", countryTo="
-				+ countryTo + ", airportTo=" + airportTo + ", departureDate=" + departureDate +"]";
 	}
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import beans.exception.ApplicationException;
+import beans.exception.ExceptionsMessages;
 import it.rezervare.beans.constants.Query;
 import it.rezervare.beans.dao.Interfaces.ICursaDAO;
 import it.rezervare.beans.model.CursaDijkstraAlgoritm;
@@ -41,7 +42,7 @@ public class CursaDAO implements ICursaDAO{
 			allFlights = query.list();
 		} catch(final Exception ex) {
 			ex.printStackTrace();
-			throw new ApplicationException("Nu exista zboruri inregistrate!");
+			throw new ApplicationException(ExceptionsMessages.GENERIC_ERROR);
 		}
 		System.out.println(" EXIT CursaDAO getAllFlights() ");
 		return allFlights;
@@ -57,7 +58,7 @@ public class CursaDAO implements ICursaDAO{
 			allFlights = cr.list();
 		} catch(final Exception ex) {
 			ex.printStackTrace();
-			throw new ApplicationException("Nu exista zboruri inregistrate!");
+			throw new ApplicationException(ExceptionsMessages.GENERIC_ERROR);
 		}
 		System.out.println(" EXIT CursaDAO getAllFlights() ");
 		return allFlights;
@@ -77,7 +78,7 @@ public class CursaDAO implements ICursaDAO{
 			cursa = (Cursa) cr.uniqueResult();
 		} catch(final Exception ex) {
 			ex.printStackTrace();
-			throw new ApplicationException("Ne pare rau, a aparut o problema! Reveniti mai tarziu!");
+			throw new ApplicationException(ExceptionsMessages.GENERIC_ERROR);
 		}
 		System.out.println(" EXIT CursaDAO.getRouteByAirport() ");
 		return cursa;

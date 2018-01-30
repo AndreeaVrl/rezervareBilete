@@ -1,6 +1,7 @@
 package it.rezervare.beans.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import it.rezervare.beans.helper.helperinterface.IAdminHelper;
 import it.rezervare.beans.helper.helperinterface.IFromToHelper;
 import it.rezervare.beans.model.hibernateBeans.Tara;
 import it.rezervare.beans.model.requestBeans.CursaRequestView;
+import it.rezervare.beans.model.requestBeans.FlightChosenRequestBean;
 
 @Controller
 public class IndexController {
@@ -26,9 +28,13 @@ public class IndexController {
 	} 
 
 	@RequestMapping(value = { "/" }, method = { RequestMethod.GET })
-	public ModelAndView login(final ModelAndView model) {
+	public ModelAndView login(final ModelAndView model, final HttpServletRequest request) {
 		System.out.println("\n ENTER IndexController \n");
+		final HttpSession session = request.getSession();
+		session.removeAttribute("zboruriCautareRetur");
+		session.removeAttribute("zboruriCautare");
 		model.addObject("cursa", new CursaRequestView());
+		model.addObject("flightChosen",new FlightChosenRequestBean());
 		model.setViewName("index");
 		return model;
 	}
