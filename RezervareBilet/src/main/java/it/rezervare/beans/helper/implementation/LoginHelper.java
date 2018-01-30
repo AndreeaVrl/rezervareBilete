@@ -19,6 +19,7 @@ import it.rezervare.beans.model.hibernateBeans.Client;
 import it.rezervare.beans.model.hibernateBeans.Operator;
 import it.rezervare.beans.model.hibernateBeans.Tara;
 import it.rezervare.beans.model.requestBeans.CursaRequestView;
+import it.rezervare.beans.model.requestBeans.FlightChosenRequestBean;
 import it.rezervare.beans.model.requestBeans.UserRequestBean;
 import it.rezervare.beans.utils.MD5Utils;
 
@@ -61,6 +62,7 @@ public class LoginHelper implements ILoginHelper {
 		try {
 			final HttpSession session = request.getSession();
 			model.addObject("cursa", new CursaRequestView());
+			model.addObject("flightChosen",new FlightChosenRequestBean());
 			final Client isClientUer = (Client) session.getAttribute(ApplicationConstants.CLIENT);
 			final Operator isOperatorUser = (Operator) session.getAttribute(ApplicationConstants.OPERATOR);
 			if(isClientUer == null && isOperatorUser == null) {

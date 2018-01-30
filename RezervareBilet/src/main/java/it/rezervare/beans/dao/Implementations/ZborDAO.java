@@ -12,6 +12,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import beans.exception.ApplicationException;
+import beans.exception.ExceptionsMessages;
 import it.rezervare.beans.dao.Interfaces.IZborDAO;
 import it.rezervare.beans.model.hibernateBeans.Zbor;
 
@@ -28,7 +30,7 @@ public class ZborDAO implements IZborDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Zbor> getFlightList (final Integer idCursa, final Date date) {
+	public List<Zbor> getFlightList (final Integer idCursa, final Date date) throws ApplicationException {
 		List<Zbor> listaZboruri = new ArrayList<>();
 		System.out.println(" ENTER  ZborDAO.getFlightList() with idCursa = ["+idCursa+"] date = ["+date+"]");
 		try {
@@ -39,6 +41,7 @@ public class ZborDAO implements IZborDAO {
 			listaZboruri = cr.list();
 		} catch (final Exception e) {
 			e.printStackTrace();
+			throw new ApplicationException(ExceptionsMessages.GENERIC_ERROR);
 		}
 		System.out.println(" Exit ZborDAO.getFlightList() with listaZboruri = ["+listaZboruri+"] ");
 		return listaZboruri;

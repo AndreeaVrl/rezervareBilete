@@ -1,13 +1,14 @@
 package it.rezervare.beans.helper.implementation;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -19,7 +20,6 @@ import beans.exception.ApplicationException;
 import it.rezervare.beans.dao.Interfaces.IAeroportDAO;
 import it.rezervare.beans.dao.Interfaces.ICursaDAO;
 import it.rezervare.beans.dao.Interfaces.IZborDAO;
-import it.rezervare.beans.helper.ZborComparator;
 import it.rezervare.beans.helper.helperinterface.IDijkstraAlgorithmHelper;
 import it.rezervare.beans.model.CursaDijkstraAlgoritm;
 import it.rezervare.beans.model.Edge;
@@ -28,6 +28,7 @@ import it.rezervare.beans.model.Node;
 import it.rezervare.beans.model.hibernateBeans.Cursa;
 import it.rezervare.beans.model.hibernateBeans.Zbor;
 import it.rezervare.beans.model.requestBeans.CursaRequestView;
+import it.rezervare.beans.model.requestBeans.FlightChosenRequestBean;
 import it.rezervare.beans.utils.DijkstraAlgorithm;
 
 @Service
@@ -46,9 +47,29 @@ public class DijkstraAlgorithmHelper implements IDijkstraAlgorithmHelper {
 		this.aeroportDAO = aeroportDAO;
 	}
 	@Override
-	public ModelAndView getRoutWithDijkstraAlgorithm(final ModelAndView model, final CursaRequestView cursaRequestView) {
+	public ModelAndView getRoutWithDijkstraAlgorithm(final ModelAndView model, final CursaRequestView cursaRequestView, final HttpServletRequest request) {
 		System.out.println("ENTER DijkstraAlgorithmHelper.getRoutWithDijkstraAlgorithm()");
 		try {
+			/*final Aeroport aeroportPlecare = aeroportDAO.getAirportById(cursaRequestView.getAirportFrom());
+			final Aeroport aeroposrtSosire = aeroportDAO.getAirportById(cursaRequestView.getAirportTo());
+			final Cursa cursa = cursaDAO.getRouteByAirport(aeroportPlecare.getDenumire(), aeroposrtSosire.getDenumire());
+			if(cursa != null && !StringUtils.isEmpty(cursa.getId())) {
+				final Map<Integer,LinkedList<List<Zbor>>> zborGasit = new HashMap<>();
+				final LinkedList<List<Zbor>> linkedList = new LinkedList<>();
+				final List<Zbor> listaZboruri = zborDAO.getFlightList(cursa.getId(), cursaRequestView.getDepartureDate());
+				linkedList.add(listaZboruri);
+				zborGasit.put(1, linkedList);
+				model.addObject("zboruriCautare", zborGasit);
+			} else {
+				
+			}*/
+			final HttpSession session = request.getSession();
+			session.removeAttribute("allRoutesMap");
+			session.removeAttribute("cursaRequestView");
+			session.removeAttribute("mapZboruriRetur");
+			session.setAttribute("cursaRequestView", cursaRequestView);
+			
+			model.addObject("flightChosen",new FlightChosenRequestBean());
 			final List<Node> nodesList = aeroportDAO.getDistinctAireports();
 			if (nodesList.isEmpty()) {
 				throw new ApplicationException("Ne pare rau, lista aeroporturilor nu a fost actualizata!");
@@ -69,7 +90,6 @@ public class DijkstraAlgorithmHelper implements IDijkstraAlgorithmHelper {
 				edgesList.add(edge);
 			}
 			if(allRaces.isEmpty() || edgesList.isEmpty()) {
-				model.addObject("atentie","Ne pare rau, inca nu gestionam zborul solicitat!");
 				throw new ApplicationException();
 			}
 			final Graphs graph = new Graphs(nodesList, edgesList);
@@ -77,32 +97,24 @@ public class DijkstraAlgorithmHelper implements IDijkstraAlgorithmHelper {
 	        
 	        //cautare curse plecare
 			final LinkedList<Cursa> curseList = dijkstraGetRoutes(dijkstra,nodeFrom,nodeTo);
-	    	final Map<Integer,List<Zbor>> zborGasit = dijkstraGetRoutesFlight(curseList, cursaRequestView.getDepartureDate());
+	    	final Map<Integer,LinkedList<List<Zbor>>> zborGasit = dijkstraGetRoutesFlight(curseList, cursaRequestView.getDepartureDate());
 	    	model.addObject("zboruriCautare", zborGasit);
-			for (final Map.Entry<Integer,List<Zbor>> zbor : zborGasit.entrySet()) {
-				final BigDecimal pretTraseu = new BigDecimal("0");
-				for(final Zbor zborCautare : zbor.getValue()) {
-					final BigDecimal result = pretTraseu.add(zborCautare.getPret());
-					model.addObject("pretCursa", result);
-				}
-			}
-			//curse retur
+	    	session.removeAttribute("zboruriCautare");
+	    	session.setAttribute("zboruriCautare", zborGasit);
+
+	    	//curse retur
+	    	session.removeAttribute("zboruriCautareRetur");
 			if(cursaRequestView.getRetur()) {
 				final LinkedList<Cursa> curseListRetur = dijkstraGetRoutes(dijkstra,nodeTo,nodeFrom);
-		    	final Map<Integer,List<Zbor>> zborGasitRetur = dijkstraGetRoutesFlight(curseListRetur, cursaRequestView.getFlyBack());
+		    	final Map<Integer,LinkedList<List<Zbor>>> zborGasitRetur = dijkstraGetRoutesFlight(curseListRetur, cursaRequestView.getFlyBack());
 		    	model.addObject("zboruriCautareRetur", zborGasitRetur);
-				for (final Map.Entry<Integer,List<Zbor>> zbor : zborGasitRetur.entrySet()) {
-					final BigDecimal pretTraseu = new BigDecimal("0");
-					for(final Zbor zborCautare : zbor.getValue()) {
-						final BigDecimal result = pretTraseu.add(zborCautare.getPret());
-						model.addObject("pretCursaRetur", result);
-					}
-				}
+		    	session.setAttribute("zboruriCautareRetur", zborGasitRetur);
 			}
-			
+			model.addObject("flag", "0");
+	    	session.removeAttribute("flag");
+	    	session.setAttribute("flag", "0");
 			model.addObject("cursa", cursaRequestView);
 			model.setViewName("index");
-			model.addObject("cursa", cursaRequestView);
 		} catch (final Exception e) {
 			e.printStackTrace();
 			model.addObject("cursa", cursaRequestView);
@@ -121,7 +133,7 @@ public class DijkstraAlgorithmHelper implements IDijkstraAlgorithmHelper {
 		final LinkedList<Cursa> curseList = new LinkedList<Cursa>();
 		try {
 		if(path == null) {
-			throw new ApplicationException("Ne pare rau, inca nu gestionam zborul solicitat!");
+			throw new ApplicationException();
 		}
     	for (int i=0; i< path.size(); i++) {
     		if((i+1) < path.size()) {
@@ -136,19 +148,30 @@ public class DijkstraAlgorithmHelper implements IDijkstraAlgorithmHelper {
 		return curseList;
 	}
 	
-	private Map<Integer,List<Zbor>> dijkstraGetRoutesFlight(final LinkedList<Cursa> curseList, final Date date) throws ApplicationException{
+	private Map<Integer,LinkedList<List<Zbor>>> dijkstraGetRoutesFlight(final LinkedList<Cursa> curseList, final Date date) throws ApplicationException{
 		System.out.println("\n ENTER DijkstraAlgorithmHelper.dijkstraGetRoutesFlight() \n");
-		final Map<Integer,List<Zbor>> zborGasit = new HashMap<>();
+		final Map<Integer,LinkedList<List<Zbor>>> zborGasit = new HashMap<>();
     	final Integer key = 1;
-    	final List<Zbor> zborCautat = new LinkedList<>();
+    	final LinkedList<List<Zbor>> zborCautat = new LinkedList<>();
         for(final Cursa cursainLista : curseList) {
         	final List<Zbor> listaZboruri = zborDAO.getFlightList(cursainLista.getId(), date);
         	if(CollectionUtils.isEmpty(listaZboruri)) {
         		throw new ApplicationException();
         	}
-    		final Zbor zborIeftin = Collections.min(listaZboruri, new ZborComparator());
-    		zborCautat.add(zborIeftin);
+    		//final Zbor zborIeftin = Collections.min(listaZboruri, new ZborComparator());
+        	final ArrayList<Zbor> min =new  ArrayList<Zbor>();
+    		for(final Zbor zbor : listaZboruri){
+    		    if(min.size()==0 || zbor.getPret() == min.get(0).getPret()) {
+    		           min.add(zbor);
+    		    }
+    		    else if(zbor.getPret().compareTo(min.get(0).getPret()) < 0){
+    		           min.clear();
+    		           min.add(zbor);
+    		    }               
+    		}
+    		zborCautat.add(min);
         }
+        
         zborGasit.put(key,zborCautat);
 		System.out.println("\n EXIT DijkstraAlgorithmHelper.dijkstraGetRoutesFlight() \n");
 		return zborGasit;

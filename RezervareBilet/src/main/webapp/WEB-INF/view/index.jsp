@@ -25,9 +25,6 @@
   <body>
     
     <a class="btn btn-link" href="goToAdminPage">admin</a><br />
-  	<c:out value="${requestScope['javax.servlet.forward.request_uri']}"/>  
-    <c:out value="${flag}"/>
-    <c:out value="${flag eq 1}"/>
 <!-- Selectare aeroport plecare sosire -->
 <section>
 	<div class="row">
@@ -106,39 +103,61 @@
 		</div>
 	</div>
 </section>
-<c:if test="${(not empty zboruriCautare or not empty zboruriCautareRetur)}">
+<c:if test="${(not empty zboruriCautare or not empty zboruriCautareRetur) and flag eq 0}">
 <h4>Zboruri recomandate</h4>
 </c:if>
+
+<c:if test="${(not empty zboruriCautare or not empty zboruriCautareRetur) and flag eq 1}">
+<h4>Zboruri</h4>
+</c:if>
+
 <c:choose>
 	<c:when test="${not empty zboruriCautare}">
 		<hr />
+	<h4>Zboruri tur</h4>	
 		<!-- afisare zboruri  -->
 		<section>
 			<div id="cautare">
-				<c:forEach items="${zboruriCautare}" var="zbor">
-				<c:set var="nrListe" value="1"/>
-					<input type="radio" name="zborCautat" value="${zbor.key}">
-					<c:forEach items="${zbor.value}" var="zborCautare" varStatus = "status">
-						<c:choose>
-							<c:when test="${status.first}">
-								${zborCautare.cursa.aeroport_1.denumire}-${zborCautare.cursa.aeroport_2.denumire}
-								(Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€)
-								<c:set var="nrListe" value="2"/>
-							</c:when>
-							<c:otherwise>
-								<c:if test="${nrListe eq 2}">
-									-${zborCautare.cursa.aeroport_2.denumire}
-									(Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€)
-								</c:if>
-							</c:otherwise>
-						</c:choose>
+				<table>
+					<c:forEach items="${zboruriCautare}" var="zbor">
+						<c:set var="first" value="1"/>
+						<tr>
+						<td>
+							<input type="radio" id="departureFlight" name="departureFlight" value="${zbor.key}" />
+						</td>
+						<c:forEach items="${zbor.value}" var="zboruriCautare" >
+							<td>
+								<c:choose>
+									<c:when test="${first eq 1}">
+										${zboruriCautare[0].cursa.aeroport_1.denumire}-${zboruriCautare[0].cursa.aeroport_2.denumire}
+										<select id="${zboruriCautare[0].cursa.id}-${zbor.key}">
+											<c:forEach items="${zboruriCautare}" var="zborCautare">
+												<option value="${zborCautare.id}"/>
+												${zborCautare.dataPlecare} - ${zborCautare.dataSosire},
+												${zborCautare.companie.denumire}, ${zborCautare.pret}€ 
+											</c:forEach>
+										</select>
+									</c:when>
+									<c:otherwise>
+										-${zboruriCautare[0].cursa.aeroport_2.denumire}
+										<select id="${zboruriCautare[0].cursa.id}-${zbor.key}">
+											<c:forEach items="${zboruriCautare}" var="zborCautare">
+												<option value="${zborCautare.id}"/>
+												${zborCautare.dataPlecare} - ${zborCautare.dataSosire}
+												${zborCautare.companie.denumire}, ${zborCautare.pret}€ 
+											</c:forEach>
+										</select>
+									</c:otherwise>
+								</c:choose>
+							</td>
+						</c:forEach>
+						</tr>
 					</c:forEach>
-					Pret zbor: ${pretCursa}€
-					</c:forEach>
+				</table>
 			</div>
 		</section>
 	</c:when>
-	<c:when test="${fn:contains(requestScope['javax.servlet.forward.request_uri'], 'getRoute')}">
+	<c:when test="${empty zboruriCautare }">
 		<div  class="close" data-dismiss="alert" aria-label="close">×</div>
 		<div class="alert alert-info"><strong>Atentie!</strong>Ne pare rau, nu a fost gasit nicun zbor pentru datele specificate!</div>
 	</c:when>
@@ -152,62 +171,73 @@
 			<div class="alert alert-info"><strong>Atentie!</strong>Nu au fost gasite zboruri de retur!</div>
 		<br>
 		</c:when>
-		<c:otherwise>
+		<c:when test="${not empty zboruriCautareRetur}">
 			<!-- afisare zboruri  -->
 			<section>
+			<h4>Zboruri retur</h4>
 				<div id="cautare">
-					<c:forEach items="${zboruriCautareRetur}" var="zbor">
-					<c:set var="nrListe" value="1"/>
-						<input type="radio" name="zborCautat" value="${zbor.key}">
-						<c:forEach items="${zbor.value}" var="zborCautare" varStatus = "status">
-							<c:choose>
-								<c:when test="${status.first}">
-									${zborCautare.cursa.aeroport_1.denumire}-${zborCautare.cursa.aeroport_2.denumire}
-									(Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€)
-									<c:set var="nrListe" value="2"/>
-								</c:when>
-								<c:otherwise>
-									<c:if test="${nrListe eq 2}">
-										-${zborCautare.cursa.aeroport_2.denumire}
-										(Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€)
-									</c:if>
-								</c:otherwise>
-							</c:choose>
+					<table>
+						<c:forEach items="${zboruriCautareRetur}" var="zbor">
+							<c:set var="first" value="1"/>
+							<tr>
+							<td>
+								<input type="radio" id="returnFlight" name="returnFlight" value="${zbor.key}" />
+							</td>
+							<c:forEach items="${zbor.value}" var="zboruriCautare" >
+								<td>
+									<c:choose>
+										<c:when test="${first eq 1}">
+											${zboruriCautare[0].cursa.aeroport_1.denumire}-${zboruriCautare[0].cursa.aeroport_2.denumire}
+											<select id="-${zboruriCautare[0].cursa.id}-${zbor.key}">
+												<c:forEach items="${zboruriCautare}" var="zborCautare">
+													<option value="${zborCautare.id}"/>
+													 ${zborCautare.dataPlecare} - ${zborCautare.dataSosire},
+													 ${zborCautare.companie.denumire},${zborCautare.pret}€ <br>
+												</c:forEach>
+											</select>
+										</c:when>
+										<c:otherwise>
+											-${zboruriCautare[0].cursa.aeroport_2.denumire}
+											<select id="-${zboruriCautare[0].cursa.id}-${zbor.key}">
+												<c:forEach items="${zboruriCautare}" var="zborCautare">
+													<option value="${zborCautare.id}"/>
+													 ${zborCautare.dataPlecare} - ${zborCautare.dataSosire} <br><br>
+													${zborCautare.companie.denumire}, ${zborCautare.pret}€ <br>
+												</c:forEach>
+											</select>
+										</c:otherwise>
+									</c:choose>
+								</td>
+							</c:forEach>
+							</tr>
 						</c:forEach>
-						Pret zbor: ${pretCursaRetur}€
-						</c:forEach>
+					</table>
 				</div>
 			</section>
-		</c:otherwise>
+		</c:when>
 	</c:choose>
-</c:if>
-<c:if test="${flag eq 1}">
-	<jsp:include page="allRoutes.jsp" flush="true" />
 </c:if>
 <hr />
 <!-- Selectare nr pasageri -->
 <section>
 	<div class="row">
 		<div class="col-md-6">
-    	<form class="form-inline" action="" method="post">
+    	<form:form class="form-inline" id="getPackageForm" action="" method="post" modelAttribute="flightChosen">
         <div class="form-group">
           <label for="passengers">Passengers</label>
-          <select class="form-control" id="passengers">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
+          <form:input path="passengers" class="form-control"/>
         </div>
         <br />
-        <button class="btn btn-primary" name="submit" type="submit">Continue</button>
-      </form>
+        <form:hidden path="departureCompannies"/>
+		<form:hidden path="returnCompannies"/>
+        <form:hidden path="departurFlight"/>
+		<form:hidden path="returFlight"/>
+        <button class="btn btn-primary" name="getPackage" id="getPackage" type="submit">Alege pachetul!</button>
+      </form:form>
 		</div>
 	</div>
 </section>
 <!-- END Selectare nr pasageri -->
-
 <hr />
 <!-- Selectare nr pasageri -->
 <section>
@@ -223,11 +253,11 @@
             	<li>Lowest Fare</li>
               <li class="disabled">60 day check-in</li>
               <li class="disabled">20kg check-in bag</li>
-							<li class="disabled">Priority Boarding</li>
-							<li class="disabled">Reserved standard seat</li>
-							<li class="disabled">Flexible tickets</li>
-							<li class="disabled">Optional airport check-in</li>
-							<li class="disabled">Fast Track</li>
+				<li class="disabled">Priority Boarding</li>
+				<li class="disabled">Reserved standard seat</li>
+				<li class="disabled">Flexible tickets</li>
+				<li class="disabled">Optional airport check-in</li>
+				<li class="disabled">Fast Track</li>
             </ul>
           </div>
           <div class="panel-footer text-center">
@@ -328,7 +358,62 @@
 		$('#submit').click(function(){
 		   $('#getRouteForm').attr('action', 'getRoute');
 		});
-
+		$('#getPackage').click( function(){
+			console.log("AICIII");
+			var zborAles = $('input[name=departureFlight]:checked').val();
+			$('#departurFlight').val(zborAles);
+			console.log("departurFlight"+$('#departurFlight').val());
+			<c:forEach items="${zboruriCautare}" var="zbor">
+				var mapKey = ${zbor.key};
+				if( zborAles == mapKey) {
+					<c:set var="flag" value="1"/>
+					<c:forEach items="${zbor.value}" var="zboruriCautare"  >
+					var idCursaSelect = ${zboruriCautare[0].cursa.id}+"-"+mapKey;
+						<c:choose>
+							<c:when test="${flag eq 1}">
+								var value = $("#"+idCursaSelect).val();
+								console.log("value="+value);
+								$('#departureCompannies').val(value);
+								<c:set var="flag" value="0"/>
+							</c:when>
+							<c:otherwise>
+								var value = $('#departureCompannies').val() +";"+ $("#"+idCursaSelect).val();
+								$('#departureCompannies').val(value);
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				}
+				console.log("departureCompannies=["+$('#departureCompannies').val()+"]");
+			</c:forEach>
+			var zborA = $('input[name=returnFlight]:checked').val();
+			$('#returFlight').val(zborA);
+			console.log("zborA"+$('#returFlight').val());
+			if(zborA){
+				<c:forEach items="${zboruriCautareRetur}" var="zbor">
+					var mapKey = ${zbor.key};
+					if( zborA == mapKey) {
+						<c:set var="flag" value="1"/>
+						<c:forEach items="${zbor.value}" var="zboruriCautare"  >
+						var idCursaSelect = "-"+${zboruriCautare[0].cursa.id}+"-"+mapKey;
+							<c:choose>
+								<c:when test="${flag eq 1}">
+									var value = $("#"+idCursaSelect).val();
+									$('#returnCompannies').val(value);
+									<c:set var="flag" value="0"/>
+								</c:when>
+								<c:otherwise>
+									var value = $('#returnCompannies').val() +";"+ $("#"+idCursaSelect).val();
+									$('#returnCompannies').val(value);
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						console.log("returnCompannies"+$('#returnCompannies').val());
+					}
+				</c:forEach>
+			}
+			$('#getPackageForm').attr('action', 'getChosenFlight');
+		});	
+		
 	})
 </script> 
     

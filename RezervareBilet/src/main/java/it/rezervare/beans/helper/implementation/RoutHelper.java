@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,7 @@ import it.rezervare.beans.model.Route;
 import it.rezervare.beans.model.hibernateBeans.Cursa;
 import it.rezervare.beans.model.hibernateBeans.Zbor;
 import it.rezervare.beans.model.requestBeans.CursaRequestView;
+import it.rezervare.beans.model.requestBeans.FlightChosenRequestBean;
 
 @Service
 @Lazy
@@ -38,26 +42,32 @@ public class RoutHelper implements IRoutHelper{
 	}
 	
 	@Override
-	public ModelAndView getRout(final ModelAndView model, final CursaRequestView cursaRequestView) {
-		System.out.println("\n ENTER RoutHelper.getRout() \n");
+	public ModelAndView getRout(final ModelAndView model, final CursaRequestView cursaRequestView, final HttpServletRequest request) {
+		System.out.println("\n ENTER RoutHelper.getRout() retur = ["+cursaRequestView.getRetur()+"]\n");
+		final HttpSession session = request.getSession();
 		model.addObject("cursa", cursaRequestView);
+		session.removeAttribute("cursaRequestView");
+		session.setAttribute("cursaRequestView", cursaRequestView);
+		model.addObject("flightChosen",new FlightChosenRequestBean());
 		model.setViewName("index");
 		try {
 			//TUR
 	        final List<LinkedList<Integer>> cursePlecareList = getAllRoutes(cursaRequestView.getAirportFrom(), cursaRequestView.getAirportTo());
-	        System.out.println(" cursePlecareList = ["+ cursePlecareList +"] ");
 	        final Map<Integer,LinkedList<List<Zbor>>> mapZboruriPlecare = getAllFlights(cursePlecareList,cursaRequestView.getDepartureDate());
-	        System.out.println(" mapZboruriPlecare = ["+mapZboruriPlecare+"]");
-	        model.addObject("allRoutesMap", mapZboruriPlecare);
+	        model.addObject("zboruriCautare", mapZboruriPlecare);
+	        session.removeAttribute("zboruriCautare");
+	        session.setAttribute("zboruriCautare", mapZboruriPlecare);
 	        //RETUR
+	        session.removeAttribute("zboruriCautareRetur");
 	        if(cursaRequestView.getRetur()) {
 	        	final List<LinkedList<Integer>> curseReturList = getAllRoutes(cursaRequestView.getAirportTo(),cursaRequestView.getAirportFrom());
-		        System.out.println(" curseReturList = ["+ curseReturList +"] ");
-		        final Map<Integer,LinkedList<List<Zbor>>> mapZboruriRetur = getAllFlights(cursePlecareList,cursaRequestView.getFlyBack());
-		        System.out.println(" mapZboruriRetur = ["+mapZboruriRetur+"]");
-		        model.addObject("mapZboruriPlecare", mapZboruriRetur);
+		        final Map<Integer,LinkedList<List<Zbor>>> mapZboruriRetur = getAllFlights(curseReturList,cursaRequestView.getFlyBack());
+		        model.addObject("zboruriCautareRetur", mapZboruriRetur);
+		        session.setAttribute("zboruriCautareRetur", mapZboruriRetur);
 	        }
 	        model.addObject("flag", "1");
+	        session.removeAttribute("flag");
+	        session.setAttribute("flag", "1");
 		} catch (final Exception e) {
 			e.printStackTrace();
 			model.addObject("exceptie", e.getMessage());
@@ -99,19 +109,23 @@ public class RoutHelper implements IRoutHelper{
 		return curseList;
 	}
 	
-	private Map<Integer,LinkedList<List<Zbor>>> getAllFlights (final List<LinkedList<Integer>> curseList, final Date date) {
+	private Map<Integer,LinkedList<List<Zbor>>> getAllFlights (final List<LinkedList<Integer>> curseList, final Date date) throws ApplicationException {
 		System.out.println("\n ENTER getAllFlights() for date = ["+date+"] \n");
         final Map<Integer,LinkedList<List<Zbor>>> mapZboruri = new HashMap<>();
-        Integer key = 1;
-        for(final LinkedList<Integer> cursaLista : curseList) {
-        	final LinkedList<List<Zbor>> zborGasit = new LinkedList<>();
-        	for(final Integer idCursa : cursaLista) {
-        		//data plecare sau sosire
-        		final List<Zbor> listaZboruri = zborDAO.getFlightList(idCursa,date);
-        		zborGasit.add(listaZboruri);
-        	}
-        	mapZboruri.put(key, zborGasit);
-        	key++;
+        try {
+	        Integer key = 1;
+	        for(final LinkedList<Integer> cursaLista : curseList) {
+	        	final LinkedList<List<Zbor>> zborGasit = new LinkedList<>();
+	        	for(final Integer idCursa : cursaLista) {
+	        		//data plecare sau sosire
+	        		final List<Zbor> listaZboruri = zborDAO.getFlightList(idCursa,date);
+	        		zborGasit.add(listaZboruri);
+	        	}
+	        	mapZboruri.put(key, zborGasit);
+	        	key++;
+	        }
+        } catch (final Exception e) {
+        	throw new ApplicationException(e.getMessage());
         }
         System.out.println("\n EXIT getAllFlights() \n");
 		return mapZboruri;

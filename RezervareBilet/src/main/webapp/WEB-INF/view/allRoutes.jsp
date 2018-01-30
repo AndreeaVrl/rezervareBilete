@@ -15,11 +15,10 @@
   </head>
   <body>
 		<c:if test="${not empty allRoutesMap}">
-			<h4>Zboruri</h4>
+			<h4>Zboruri tur</h4>
 		</c:if>
 		<c:choose>
 			<c:when test="${not empty allRoutesMap}">
-				<hr />
 				<!-- afisare zboruri  -->
 				<section>
 					<div id="cautare">
@@ -28,27 +27,28 @@
 								<c:set var="first" value="1"/>
 								<tr>
 								<td>
-									<input type="radio" name="zborCautat" value="${zbor.key}">
-									<input type="hidden" id="${zbor.key}">
+									<input type="radio" name="departureFlight" value="${zbor.key}">									
 								</td>
 								<c:forEach items="${zbor.value}" var="zboruriCautare" >
 									<td>
 										<c:choose>
 											<c:when test="${first eq 1}">
 												${zboruriCautare[0].cursa.aeroport_1.denumire}-${zboruriCautare[0].cursa.aeroport_2.denumire}
-												<select id="${zboruriCautare[0].cursa.id}">
+												<select id="${zboruriCautare[0].cursa.id}-${zbor.key}">
 													<c:forEach items="${zboruriCautare}" var="zborCautare">
-														<option value="${zborCautare.companie.id}"/>
-														Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€
+														<option value="${zborCautare.id}"/>
+														${zborCautare.dataPlecare} - ${zborCautare.dataSosire},
+														${zborCautare.companie.denumire}, ${zborCautare.pret}€ 
 													</c:forEach>
 												</select>
 											</c:when>
 											<c:otherwise>
 												-${zboruriCautare[0].cursa.aeroport_2.denumire}
-												<select id="${zboruriCautare[0].cursa.id}">
+												<select id="${zboruriCautare[0].cursa.id}-${zbor.key}">
 													<c:forEach items="${zboruriCautare}" var="zborCautare">
-														<option value="${zborCautare.companie.id}"/>
-														Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€
+														<option value="${zborCautare.id}"/>
+														${zborCautare.dataPlecare} - ${zborCautare.dataSosire}
+														${zborCautare.companie.denumire}, ${zborCautare.pret}€ 
 													</c:forEach>
 												</select>
 											</c:otherwise>
@@ -74,35 +74,38 @@
 					<div class="alert alert-info"><strong>Atentie!</strong>Nu au fost gasite zboruri de retur!</div>
 				<br>
 				</c:when>
-				<c:otherwise>
+				<c:when test="${not empty mapZboruriRetur}">
+					<h4>Zboruri retur</h4>
 					<!-- afisare zboruri  -->
 					<section>
 						<div id="cautare">
 							<table>
-								<c:forEach items="${mapZboruriPlecare}" var="zbor">
+								<c:forEach items="${mapZboruriRetur}" var="zbor">
 									<c:set var="first" value="1"/>
 									<tr>
 									<td>
-										<input type="radio" name="zborCautat" value="${zbor.key}">
+										<input type="radio" name="returnFlight" value="${zbor.key}">
 									</td>
 									<c:forEach items="${zbor.value}" var="zboruriCautare" >
 										<td>
 											<c:choose>
 												<c:when test="${first eq 1}">
 													${zboruriCautare[0].cursa.aeroport_1.denumire}-${zboruriCautare[0].cursa.aeroport_2.denumire}
-													<select>
+													<select id="-${zboruriCautare[0].cursa.id}-${zbor.key}">
 														<c:forEach items="${zboruriCautare}" var="zborCautare">
-															<option value="${zborCautare.companie.id}"/>
-															Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€
+															<option value="${zborCautare.id}"/>
+															 ${zborCautare.dataPlecare} - ${zborCautare.dataSosire},
+															 ${zborCautare.companie.denumire},${zborCautare.pret}€ <br>
 														</c:forEach>
 													</select>
 												</c:when>
 												<c:otherwise>
 													-${zboruriCautare[0].cursa.aeroport_2.denumire}
-													<select>
+													<select id="-${zboruriCautare[0].cursa.id}-${zbor.key}">
 														<c:forEach items="${zboruriCautare}" var="zborCautare">
-															<option value="${zborCautare.companie.id}"/>
-															Companie: ${zborCautare.companie.denumire}, Pret: ${zborCautare.pret}€
+															<option value="${zborCautare.id}"/>
+															 ${zborCautare.dataPlecare} - ${zborCautare.dataSosire} <br><br>
+															${zborCautare.companie.denumire}, ${zborCautare.pret}€ <br>
 														</c:forEach>
 													</select>
 												</c:otherwise>
@@ -114,33 +117,12 @@
 							</table>
 						</div>
 					</section>
-				</c:otherwise>
+				</c:when>
 			</c:choose>
 		</c:if>
-		<input type="hidden" id="companii"/>
-		<input class="btn btn-primary" name="createComp" id="createComp" type="button" value="valoare"/>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-		<script type="text/javascript">
-			$(document).ready( function() {
-				$('#createComp').click( function(){
-					var zborAles = $('input[name=zborCautat]:checked').val();
-					console.log("zborAles="+zborAles);
-					<c:forEach items="${allRoutesMap}" var="zbor">
-						var mapKey = ${zbor.key};
-						console.log("zbor= "+zborAles+"mapKey="+mapKey+"comparare="+${zborAles.intValue ==+ mapKey.intValue}+"comparare="+${zborAles eq zbor.key});
-						<c:forEach items="${zbor.value}" var="zboruriCautare" >
-							<c:forEach items="${zboruriCautare}" var="zborCautare">
-								console.log("aici");
-							</c:forEach>
-						</c:forEach>
-					</c:forEach>
-				});		
-			});
-			
-			
-		</script>
 	</body>
 </html>
