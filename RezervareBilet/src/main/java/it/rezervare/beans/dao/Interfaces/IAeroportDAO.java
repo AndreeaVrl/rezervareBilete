@@ -12,4 +12,12 @@ public interface IAeroportDAO {
 
 	Aeroport getAirportById(Integer id) throws ApplicationException;
 
+	List<Aeroport> getAllAirports();
+
+	void addAirport(Aeroport aeroport);
+
+	void updateAirport(Aeroport airport);
+
+	void deleteCountry(Aeroport airport);
+
 }
