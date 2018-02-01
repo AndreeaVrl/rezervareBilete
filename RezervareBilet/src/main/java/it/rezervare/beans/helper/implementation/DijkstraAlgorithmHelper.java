@@ -111,8 +111,8 @@ public class DijkstraAlgorithmHelper implements IDijkstraAlgorithmHelper {
 		    	session.setAttribute("zboruriCautareRetur", zborGasitRetur);
 			}
 			model.addObject("flag", "0");
-	    	session.removeAttribute("flag");
-	    	session.setAttribute("flag", "0");
+	    /*	session.removeAttribute("flag");
+	    	session.setAttribute("flag", "0");*/
 			model.addObject("cursa", cursaRequestView);
 			model.setViewName("index");
 		} catch (final Exception e) {

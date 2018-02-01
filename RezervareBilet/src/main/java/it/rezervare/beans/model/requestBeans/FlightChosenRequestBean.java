@@ -6,6 +6,7 @@ public class FlightChosenRequestBean {
 	private String departureCompannies;
 	private String returnCompannies;
 	private Integer passengers;
+	private Integer packageChosen;
 	
 	public Integer getDeparturFlight() {
 		return departurFlight;
@@ -42,6 +43,12 @@ public class FlightChosenRequestBean {
 		return "FlightChosenRequestBean [departurFlight=" + departurFlight + ", returFlight=" + returFlight
 				+ ", departureCompannies=" + departureCompannies + ", returnCompannies=" + returnCompannies
 				+ ", passengers=" + passengers + "]";
+	}
+	public Integer getPackageChosen() {
+		return packageChosen;
+	}
+	public void setPackageChosen(final Integer packageChosen) {
+		this.packageChosen = packageChosen;
 	}
 
 }
