@@ -73,7 +73,7 @@ public class Client {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -81,7 +81,7 @@ public class Client {
 		return nume;
 	}
 
-	public void setNume(String nume) {
+	public void setNume(final String nume) {
 		this.nume = nume;
 	}
 
@@ -89,7 +89,7 @@ public class Client {
 		return prenume;
 	}
 
-	public void setPrenume(String prenume) {
+	public void setPrenume(final String prenume) {
 		this.prenume = prenume;
 	}
 
@@ -97,7 +97,7 @@ public class Client {
 		return dataNasterii;
 	}
 
-	public void setDataNasterii(Date dataNasterii) {
+	public void setDataNasterii(final Date dataNasterii) {
 		this.dataNasterii = dataNasterii;
 	}
 
@@ -105,7 +105,7 @@ public class Client {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
@@ -113,7 +113,7 @@ public class Client {
 		return parola;
 	}
 
-	public void setParola(String parola) {
+	public void setParola(final String parola) {
 		this.parola = parola;
 	}
 
@@ -121,7 +121,7 @@ public class Client {
 		return telefon;
 	}
 
-	public void setTelefon(String telefon) {
+	public void setTelefon(final String telefon) {
 		this.telefon = telefon;
 	}
 
@@ -129,7 +129,7 @@ public class Client {
 		return factAdresa;
 	}
 
-	public void setFactAdresa(String factAdresa) {
+	public void setFactAdresa(final String factAdresa) {
 		this.factAdresa = factAdresa;
 	}
 
@@ -137,7 +137,7 @@ public class Client {
 		return factLocalitate;
 	}
 
-	public void setFactLocalitate(String factLocalitate) {
+	public void setFactLocalitate(final String factLocalitate) {
 		this.factLocalitate = factLocalitate;
 	}
 
@@ -145,7 +145,7 @@ public class Client {
 		return factZipcode;
 	}
 
-	public void setFactZipcode(String factZipcode) {
+	public void setFactZipcode(final String factZipcode) {
 		this.factZipcode = factZipcode;
 	}
 
@@ -153,7 +153,7 @@ public class Client {
 		return pjFirma;
 	}
 
-	public void setPjFirma(String pjFirma) {
+	public void setPjFirma(final String pjFirma) {
 		this.pjFirma = pjFirma;
 	}
 
@@ -161,7 +161,7 @@ public class Client {
 		return pjCodFiscal;
 	}
 
-	public void setPjCodFiscal(String pjCodFiscal) {
+	public void setPjCodFiscal(final String pjCodFiscal) {
 		this.pjCodFiscal = pjCodFiscal;
 	}
 
@@ -169,7 +169,7 @@ public class Client {
 		return taraClient;
 	}
 
-	public void setTaraClient(Tara taraClient) {
+	public void setTaraClient(final Tara taraClient) {
 		this.taraClient = taraClient;
 	}
 
@@ -177,7 +177,7 @@ public class Client {
 		return modalitatiPlata;
 	}
 
-	public void setModalitatiPlata(Set<ModalitatePlata> modalitatiPlata) {
+	public void setModalitatiPlata(final Set<ModalitatePlata> modalitatiPlata) {
 		this.modalitatiPlata = modalitatiPlata;
 	}
 
@@ -185,7 +185,7 @@ public class Client {
 		return bilete;
 	}
 
-	public void setBilete(Set<Bilet> bilete) {
+	public void setBilete(final Set<Bilet> bilete) {
 		this.bilete = bilete;
 	}
 
@@ -193,7 +193,7 @@ public class Client {
 		return bileteRezervate;
 	}
 
-	public void setBileteRezervate(Set<Bilet> bileteRezervate) {
+	public void setBileteRezervate(final Set<Bilet> bileteRezervate) {
 		this.bileteRezervate = bileteRezervate;
 	}
 

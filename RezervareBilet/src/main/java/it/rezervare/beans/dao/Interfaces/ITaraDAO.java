@@ -16,4 +16,6 @@ public interface ITaraDAO {
 
 	Tara getCountryById(Integer id);
 
+	void deleteCountry(Tara tara);
+
 }

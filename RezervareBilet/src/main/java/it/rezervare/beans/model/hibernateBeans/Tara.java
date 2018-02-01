@@ -36,7 +36,7 @@ public class Tara implements Serializable {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -44,7 +44,7 @@ public class Tara implements Serializable {
 		return denumire;
 	}
 
-	public void setDenumire(String denumire) {
+	public void setDenumire(final String denumire) {
 		this.denumire = denumire;
 	}
 
@@ -52,7 +52,7 @@ public class Tara implements Serializable {
 		return aeroporturi;
 	}
 
-	public void setAeroporturi(Set<Aeroport> aeroporturi) {
+	public void setAeroporturi(final Set<Aeroport> aeroporturi) {
 		this.aeroporturi = aeroporturi;
 	}
 
@@ -60,7 +60,7 @@ public class Tara implements Serializable {
 		return clienti;
 	}
 
-	public void setClienti(Set<Client> clienti) {
+	public void setClienti(final Set<Client> clienti) {
 		this.clienti = clienti;
 	}
 

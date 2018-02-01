@@ -21,19 +21,20 @@ public class TaraDAO implements ITaraDAO {
 	final private SessionFactory sessionFactory;
 
 	@Autowired
-	private TaraDAO(SessionFactory sessionFactory) {
+	private TaraDAO(final SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
-	public void inserTara(Tara tara) {
+	@Override
+	public void inserTara(final Tara tara) {
 		System.out.println("\nENTER TaraDAO - inserTara() with [" + tara.getDenumire() + "]\n");
 		try {
-			Session session = sessionFactory.openSession();
+			final Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			session.persist(tara);
 			session.getTransaction().commit();
 			session.close();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			System.out.println("\n" + e.toString() + " " + e.getMessage() + "\n");
 		}
@@ -41,8 +42,8 @@ public class TaraDAO implements ITaraDAO {
 	}
 
 	@Override
-	public Tara getTaraByDenumire(String denumire) {
-		Criteria cr = sessionFactory.getCurrentSession().createCriteria(Tara.class);
+	public Tara getTaraByDenumire(final String denumire) {
+		final Criteria cr = sessionFactory.getCurrentSession().createCriteria(Tara.class);
 		cr.add(Restrictions.eq("denumire", denumire));
 		return (Tara) cr.uniqueResult();
 	}
@@ -51,18 +52,18 @@ public class TaraDAO implements ITaraDAO {
 	@Override
 	public List<Tara> getAllCountrys() {
 		System.out.println("\nENTER TaraDAO - getAllCountrys \n");
-		Session session = sessionFactory.getCurrentSession();
+		final Session session = sessionFactory.getCurrentSession();
 		List<Tara> denumireTari = new ArrayList<>();
 		try {
-			Criteria criteria = session.createCriteria(Tara.class);
+			final Criteria criteria = session.createCriteria(Tara.class);
 			denumireTari = criteria.list();
 			System.out.println("\nTarile: ");
 			System.out.println(String.format("\n%-10s %-10s \n", "ID", "DENUMIRE"));
-			for (Tara tara : denumireTari) {
+			for (final Tara tara : denumireTari) {
 				System.out.println(String.format("%-10s %-10s ", tara.getId(), tara.getDenumire()));
 			}
 
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println("Exception: [" + e.toString() + "] message: [" + e.getMessage() + "]\n");
 		}
 		System.out.println("\nEXIT TaraDAO - getAllCountrys");
@@ -70,16 +71,23 @@ public class TaraDAO implements ITaraDAO {
 	}
 
 	@Override
-	public void updateCountry(Tara tara) {
+	public void updateCountry(final Tara tara) {
 		sessionFactory.getCurrentSession().saveOrUpdate(tara);
 	}
 	
 	@Override
-	public Tara getCountryById(Integer id) {
-		Session session = sessionFactory.getCurrentSession();
-		Criteria cr = session.createCriteria(Tara.class);
+	public Tara getCountryById(final Integer id) {
+		final Session session = sessionFactory.getCurrentSession();
+		final Criteria cr = session.createCriteria(Tara.class);
 		cr.add(Restrictions.eq("id", id));
 		return (Tara) cr.uniqueResult();
+	}
+	
+	@Override
+	public void deleteCountry(final Tara country){
+		final Session session = sessionFactory.getCurrentSession();
+	    session.delete(country);
+	    session.flush() ;		
 	}
 
 }

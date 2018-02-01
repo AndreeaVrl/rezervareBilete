@@ -64,4 +64,44 @@ public class AeroportDAO implements IAeroportDAO {
 		}
 		return cursa;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Aeroport> getAllAirports() {
+		final Session session = sessionFactory.getCurrentSession();
+		List<Aeroport> airports = new ArrayList<>();
+		try {
+			final Criteria criteria = session.createCriteria(Aeroport.class);
+			airports = criteria.list();
+		} catch (final Exception e) {
+			System.out.println("Exception: [" + e.toString() + "] message: [" + e.getMessage() + "]\n");
+		}
+		return airports;
+	}
+	
+	@Override
+	public void addAirport(final Aeroport aeroport) {
+		try {
+			final Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			session.persist(aeroport);
+			session.getTransaction().commit();
+			session.close();
+		} catch (final Exception e) {
+			e.printStackTrace();
+			System.out.println("\n" + e.toString() + " " + e.getMessage() + "\n");
+		}
+	}
+	
+	@Override
+	public void updateAirport(final Aeroport airport) {
+		sessionFactory.getCurrentSession().saveOrUpdate(airport);
+	}
+	
+	@Override
+	public void deleteCountry(final Aeroport airport){
+		final Session session = sessionFactory.getCurrentSession();
+	    session.delete(airport);
+	    session.flush() ;		
+	}
 }
