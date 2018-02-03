@@ -157,7 +157,11 @@
 			</div>
 		</section>
 	</c:when>
-	<c:when test="${empty zboruriCautare }">
+	<c:when test="${empty zboruriCautare and flag eq 0 }">
+		<div  class="close" data-dismiss="alert" aria-label="close">×</div><c:out value="${flag}"/>
+		<div class="alert alert-info"><strong>Atentie</strong>Ne pare rau, nu a fost gasit nicun zbor pentru datele specificate!</div>
+	</c:when>
+	<c:when test="${empty zboruriCautare and flag eq 1 }">
 		<div  class="close" data-dismiss="alert" aria-label="close">×</div>
 		<div class="alert alert-info"><strong>Atentie!</strong>Ne pare rau, nu a fost gasit nicun zbor pentru datele specificate!</div>
 	</c:when>
@@ -217,101 +221,103 @@
 		</c:when>
 	</c:choose>
 </c:if>
+<div id="divPasageri">
 <hr />
 <!-- Selectare nr pasageri -->
-<section>
-	<div class="row">
-		<div class="col-md-6">
-    	<form:form class="form-inline" id="getPackageForm" action="" method="post" modelAttribute="flightChosen">
-        <div class="form-group">
-          <label for="passengers">Passengers</label>
-          <form:input path="passengers" class="form-control"/>
-        </div>
-        <br />
-        <form:hidden path="departureCompannies"/>
-		<form:hidden path="returnCompannies"/>
-        <form:hidden path="departurFlight"/>
-		<form:hidden path="returFlight"/>
-        <button class="btn btn-primary" name="getPackage" id="getPackage" type="submit">Alege pachetul!</button>
-      </form:form>
-		</div>
-	</div>
-</section>
-<!-- END Selectare nr pasageri -->
-<hr />
-<!-- Selectare nr pasageri -->
-<section>
-	<div class="row">
-		<div class="col-md-6">
-    	<div class="col-md-4">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title text-center">Standard</h3>
-          </div>
-          <div class="panel-body">
-            <ul class="pachet-descriere">
-            	<li>Lowest Fare</li>
-              <li class="disabled">60 day check-in</li>
-              <li class="disabled">20kg check-in bag</li>
-				<li class="disabled">Priority Boarding</li>
-				<li class="disabled">Reserved standard seat</li>
-				<li class="disabled">Flexible tickets</li>
-				<li class="disabled">Optional airport check-in</li>
-				<li class="disabled">Fast Track</li>
-            </ul>
-          </div>
-          <div class="panel-footer text-center">
-            <button class="btn btn-primary" name="submit" type="submit"> &euro; 120 </button>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title text-center">Plus</h3>
-          </div>
-          <div class="panel-body">
-            <ul class="pachet-descriere">
-            	<li>Lowest Fare</li>
-              <li>60 day check-in</li>
-              <li>20kg check-in bag</li>
+	<section>
+		<div class="row">
+	    	<form:form class="form-inline" id="getPackageForm" action="" method="post" modelAttribute="flightChosen">
+	        <div class="form-group">
+	        	<div class="col-md-1">
+	         		 <label for="passengers">Passengers</label>
+	         	</div>
+	         	<div class="col-md-2">
+	          		<form:input path="passengers" class="form-control"/>
+		      	</div>
+		      </div>
+		        <br />
+		        <form:hidden path="departureCompannies"/>
+				<form:hidden path="returnCompannies"/>
+		        <form:hidden path="departurFlight"/>
+				<form:hidden path="returFlight"/>
+				<div class="row">
+					<div class="col-md-6">
+			    	<div class="col-md-4">
+			        <div class="panel panel-info">
+			          <div class="panel-heading">
+			            <h3 class="panel-title text-center">Standard</h3>
+			          </div>
+			          <div class="panel-body">
+			            <ul class="pachet-descriere">
+			            	<li>Lowest Fare</li>
+			              <li class="disabled">60 day check-in</li>
+			              <li class="disabled">20kg check-in bag</li>
+							<li class="disabled">Priority Boarding</li>
+							<li class="disabled">Reserved standard seat</li>
+							<li class="disabled">Flexible tickets</li>
+							<li class="disabled">Optional airport check-in</li>
+							<li class="disabled">Fast Track</li>
+			            </ul>
+			          </div>
+			          <div class="panel-footer text-center">
+			            <form:radiobutton path="packageChosen" value="1" /> &euro; 120 
+			          </div>
+			        </div>
+			      </div>
+			      <div class="col-md-4">
+			        <div class="panel panel-info">
+			          <div class="panel-heading">
+			            <h3 class="panel-title text-center">Plus</h3>
+			          </div>
+			          <div class="panel-body">
+			            <ul class="pachet-descriere">
+			            	<li>Lowest Fare</li>
+			              	<li>60 day check-in</li>
+			              	<li>20kg check-in bag</li>
 							<li>Priority Boarding</li>
 							<li>Reserved standard seat</li>
 							<li class="disabled">Flexible tickets</li>
 							<li class="disabled">Optional airport check-in</li>
 							<li class="disabled">Fast Track</li>
-            </ul>
-          </div>
-          <div class="panel-footer text-center">
-            <button class="btn btn-primary" name="submit" type="submit"> &euro; 160 </button>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title text-center">Flexi Plus</h3>
-          </div>
-          <div class="panel-body">
-            <ul class="pachet-descriere">
-            	<li>Lowest Fare</li>
-             	<li>60 day check-in</li>
-              <li>20kg check-in bag</li>
+			            </ul>
+			          </div>
+			          <div class="panel-footer text-center">
+			            <form:radiobutton path="packageChosen" value="2" /> &euro; 160 
+			          </div>
+			        </div>
+			      </div>
+			      <div class="col-md-4">
+			        <div class="panel panel-info">
+			          <div class="panel-heading">
+			            <h3 class="panel-title text-center">Flexi Plus</h3>
+			          </div>
+			          <div class="panel-body">
+			            <ul class="pachet-descriere">
+			            	<li>Lowest Fare</li>
+			             	<li>60 day check-in</li>
+			              	<li>20kg check-in bag</li>
 							<li>Priority Boarding</li>
 							<li>Reserved standard seat</li>
 							<li>Flexible tickets</li>
 							<li>Optional airport check-in</li>
 							<li>Fast Track</li>
-            </ul>
-          </div>
-          <div class="panel-footer text-center">
-            <button class="btn btn-primary" name="submit" type="submit"> &euro; 185 </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+			            </ul>
+			          </div>
+			          <div class="panel-footer text-center">
+			            <form:radiobutton path="packageChosen"  value="3" /> &euro; 185 
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+			</div>
+	        <button class="btn btn-primary" name="getPackage" id="getPackage" type="submit">Continua rezervarea!</button>
+	      </form:form>
+		</div>
+	</section>
+<!-- END Selectare nr pasageri -->
+<hr />
+</div>
+
 <section>
 	<div>
 		<a class="btn btn-link" href="goToLoginPage"><input type="button" value="LogIn"/></a>
@@ -358,6 +364,13 @@
 		$('#submit').click(function(){
 		   $('#getRouteForm').attr('action', 'getRoute');
 		});
+		$('#divPasageri').hide();
+		$('input[type=radio][name=departureFlight]').change(function() {
+			$('#divPasageri').show();
+	    });
+		$('input[type=radio][name=zboruriCautareRetur]').change(function() {
+			$('#divPasageri').show();
+	    });
 		$('#getPackage').click( function(){
 			console.log("AICIII");
 			var zborAles = $('input[name=departureFlight]:checked').val();

@@ -66,8 +66,8 @@ public class RoutHelper implements IRoutHelper{
 		        session.setAttribute("zboruriCautareRetur", mapZboruriRetur);
 	        }
 	        model.addObject("flag", "1");
-	        session.removeAttribute("flag");
-	        session.setAttribute("flag", "1");
+	       /* session.removeAttribute("flag");
+	        session.setAttribute("flag", "1");*/
 		} catch (final Exception e) {
 			e.printStackTrace();
 			model.addObject("exceptie", e.getMessage());

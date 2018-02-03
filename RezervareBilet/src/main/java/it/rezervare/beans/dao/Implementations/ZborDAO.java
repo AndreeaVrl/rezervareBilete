@@ -7,6 +7,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,25 @@ public class ZborDAO implements IZborDAO {
 		}
 		System.out.println(" Exit ZborDAO.getFlightList() with listaZboruri = ["+listaZboruri+"] ");
 		return listaZboruri;
+	}
+	
+	@Override
+	public Zbor getFlightById (final Integer id) throws ApplicationException {
+		System.out.println(" ENTER  ZborDAO.getFlightById() with id = ["+id+"]");
+		Zbor zbor = new Zbor();
+		try {
+			final Criteria cr = sessionFactory.getCurrentSession().createCriteria(Zbor.class);
+			cr.add(Restrictions.eq("id", id));
+			zbor = (Zbor) cr.uniqueResult();
+			Hibernate.initialize(zbor);
+			Hibernate.initialize(zbor.getAvion());
+			Hibernate.initialize(zbor.getAvion().getTipAvion());
+			Hibernate.initialize(zbor.getAvion().getTipAvion().getLocuri());
+		} catch (final Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(ExceptionsMessages.GENERIC_ERROR);
+		}
+		System.out.println(" Exit ZborDAO.getFlightById() with zbor = ["+zbor+"] ");
+		return zbor;
 	}
 }
