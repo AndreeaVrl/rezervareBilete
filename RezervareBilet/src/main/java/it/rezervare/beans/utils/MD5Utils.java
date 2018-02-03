@@ -25,5 +25,23 @@ public class MD5Utils {
 		}
 		return encodedValue;
 	}
+	
+	/*public static String convertMD5ToString(final String value) throws ApplicationException {
+		String password = "";
+		try {
+		    final MessageDigest md = MessageDigest.getInstance("MD5");
+		    md.update(value.getBytes());
+		    final byte byteData[] = md.digest();
+		    final StringBuilder stringBuilder = new StringBuilder();
+		    for (int i = 0; i < byteData.length; i++) {
+		    	stringBuilder.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+		    }
+		    password = stringBuilder.toString();
+		} catch (final Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(ExceptionsMessages.GENERIC_ERROR);
+		}
+		return password;
+	}*/
 
 }

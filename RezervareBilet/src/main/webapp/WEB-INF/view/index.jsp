@@ -28,11 +28,16 @@
 <!-- Selectare aeroport plecare sosire -->
 <section>
 	<div class="row">
-	<c:if test="${not empty exceptie}">
-			<div  class="close" data-dismiss="alert" aria-label="close">×</div>
-			<div class="alert alert-danger"><strong>Eroare!</strong>${exceptie}</div>
-		<br>
-	</c:if>
+		<c:if test="${not empty succes}">
+				<div class="close" data-dismiss="alert" aria-label="close">×</div>
+				<div class="alert alert-success"><strong>Succes!</strong> ${succes}</div>
+			<br>
+		</c:if>
+		<c:if test="${not empty exceptie}">
+				<div  class="close" data-dismiss="alert" aria-label="close">×</div>
+				<div class="alert alert-danger"><strong>Eroare!</strong>${exceptie}</div>
+			<br>
+		</c:if>
 		<div class="col-md-6">
     	<form:form class="form-inline" id="getRouteForm" method="POST" modelAttribute="cursa">
       	<div class="form-group">

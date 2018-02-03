@@ -197,4 +197,12 @@ public class Client {
 		this.bileteRezervate = bileteRezervate;
 	}
 
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", nume=" + nume + ", prenume=" + prenume + ", dataNasterii=" + dataNasterii
+				+ ", email=" + email + ", parola=" + parola + ", telefon=" + telefon + ", factAdresa=" + factAdresa
+				+ ", factLocalitate=" + factLocalitate + ", factZipcode=" + factZipcode + ", pjFirma=" + pjFirma
+				+ ", pjCodFiscal=" + pjCodFiscal + "]";
+	}
+
 }
