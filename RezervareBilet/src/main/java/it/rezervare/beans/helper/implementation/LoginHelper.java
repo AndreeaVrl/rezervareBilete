@@ -45,7 +45,7 @@ public class LoginHelper implements ILoginHelper {
 	@Override
 	public ModelAndView goToLoginPage(final ModelAndView model, final HttpServletRequest request) {
 		System.out.println("Enter LoginHelper - goToLoginPage ");
-		model.addObject("loginBean", new UserRequestBean());
+		model.addObject("login", new UserRequestBean());
 		model.setViewName("login");
 		System.out.println("Exit LoginHelper.goToLoginPage() ");
 		return model;

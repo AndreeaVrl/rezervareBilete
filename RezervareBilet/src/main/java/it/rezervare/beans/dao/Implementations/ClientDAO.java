@@ -100,4 +100,11 @@ public class ClientDAO implements IClientDAO {
 		System.out.println("Enter ClientDAO.getLastInIserted() with lastId = ["+lastId+"]");
 		return lastId;
 	}
+	
+	@Override
+	public void updateClient(final Client client) {
+		final Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(client);
+		session.flush();
+	}
 }

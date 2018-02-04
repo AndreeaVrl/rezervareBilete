@@ -18,4 +18,6 @@ public interface IClientDAO {
 	
 	Integer getLastInIserted();
 
+	void updateClient(Client client);
+
 }

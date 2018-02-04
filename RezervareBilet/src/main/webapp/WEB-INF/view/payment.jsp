@@ -59,6 +59,17 @@
     </script>
     <body>
         <div class="container">
+        <c:if test="${not empty succes}">
+				<div class="close" data-dismiss="alert" aria-label="close">×</div>
+				<div class="alert alert-success"><strong>Succes!</strong> ${succes}</div>
+			<br>
+		</c:if>
+		
+		<c:if test="${not empty exceptie}">
+				<div class="close" data-dismiss="alert" aria-label="close">×</div>
+				<div class="alert alert-danger"><strong>Eroare!</strong>${exceptie}</div>
+			<br>
+		</c:if>
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     <div class="panel panel-default">
