@@ -37,7 +37,9 @@ public class BiletDAO implements IBiletDAO {
 		final Session session = sessionFactory.getCurrentSession();
 		final Criteria criteria = session.createCriteria(Bilet.class,"bilet");
 		criteria.createAlias("bilet.clientRezervare", "client");
+		criteria.createAlias("bilet.stare", "stare");
 		criteria.add(Restrictions.eq("client.id", client.getId()));
+		criteria.add(Restrictions.eq("stare.id", (byte) 1));
 		return criteria.list();
 	}
 	@Override

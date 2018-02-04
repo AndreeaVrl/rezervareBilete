@@ -15,6 +15,7 @@
 <link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/owl.theme.css">
 <link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/carousel.css">
 <link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/main.css">
+<script src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
 <!-- Datepicker -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
@@ -30,9 +31,20 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 <title>Euro Travel</title>
+<script type="text/javascript">
+$(document).ready(function(){
+	<c:if test="${not empty succes}">
+		alert(${succes});
+	</c:if>
+	<c:if test="${not empty exceptie}">
+		alert(${exceptie});
+	</c:if>
+});
+</script>
+
 </head>
 <body>
-
+		
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -53,10 +65,18 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="index">Home</a></li>
-					<li><a href="#">Check-in</a></li>
-					<li><a href="#">Sign-up</a></li>
+				<c:set var="user" value='<%=request.getSession().getAttribute("client")%>'/>
+					<c:if test="${not empty user}">
+						<li class="active"><a href="index">Home</a></li>
+						<li><a href="goToChangeAccount">Actualizare date</a></li>
+						<li><a href="checkin">Check-in</a></li>
+						<li><a href="rezervari">Rezervari</a></li>
+					</c:if>
+					<li><a href="goToCreateNewAccount">Sign-up</a></li>
 					<li><a href="goToLoginPage">Log-in</a></li>
+					<c:if test="${not empty user}">
+						<li><a href="logout">Log-out</a></li>
+					</c:if>
 				</ul>
 				<!-- /.nav -->
 			</div>

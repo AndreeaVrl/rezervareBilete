@@ -1,5 +1,6 @@
 package it.rezervare.beans.helper.implementation;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -134,8 +135,6 @@ public class PaymentHelper implements IPaymentHelper {
 	@Transactional
 	private void sendMail(final List<Bilet> listaBilete, final Client clientRez, final HttpServletRequest request) {
 		final HttpSession session = request.getSession();
-		final Map<String,String> pretLoc = (Map<String, String>) session.getAttribute("preturiFinale");
-		System.out.println("preturiFinale = ["+pretLoc+"]");
 		final SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(clientRez.getEmail());
 		System.out.println("TO = ["+mailMessage.getTo()+"]");
@@ -144,16 +143,17 @@ public class PaymentHelper implements IPaymentHelper {
 		final Map<String, String> routMap = (Map<String, String>) session.getAttribute("routMap");
 		final StringBuilder createMessage = new StringBuilder("Rezervarea dumneavoastra a fost inregistrata.\n\n");
 		for ( final Bilet bilet : listaBilete) {
-			final String keyForGetPrice = bilet.getZbor().getId() + "-" + bilet.getLoc().getRand() + "-" +(bilet.getLoc().getColoana().toLowerCase().charAt(0) - 'a' + 1)
-					+"-"+bilet.getPachet().getTaxaPachet();
-			System.out.println("keyForGetPrice=["+keyForGetPrice+"]");
+			BigDecimal suma = new BigDecimal(0);
 			createMessage.append("Numar bilet:"+bilet.getId()+"\n");
 			createMessage.append("Nume pasager:"+bilet.getClientBilet().getNume()+" "+bilet.getClientBilet().getPrenume()+"\n");
 			createMessage.append("Zbor:"+routMap.get(String.valueOf(bilet.getZbor().getId()))+"\n");
 			System.out.println("ruta = ["+String.valueOf(bilet.getZbor().getId())+"]");
 			createMessage.append("Pachet facilitati:"+bilet.getPachet().getDenumire()+" ["+bilet.getPachet().getCaracteristici()+"] \n");
 			createMessage.append("Loc:"+bilet.getLoc().getRand()+bilet.getLoc().getColoana()+"\n");
-			createMessage.append("Pret:"+pretLoc.get(keyForGetPrice)+"\n\n");
+			createMessage.append("Pret zbor:"+bilet.getZbor().getPret()+"\n");
+			createMessage.append("Pret loc:"+bilet.getPachet().getTaxaPachet()+"\n");
+			suma = bilet.getZbor().getPret().add(bilet.getPachet().getTaxaPachet());
+			createMessage.append("Pret bilet:"+suma+"\n\n");
 		}
 		mailMessage.setText(createMessage.toString());
 		System.out.println("Mail = ["+mailMessage.getText()+"]");

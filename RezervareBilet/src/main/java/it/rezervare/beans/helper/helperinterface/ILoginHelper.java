@@ -18,5 +18,7 @@ public interface ILoginHelper {
 	ModelAndView goToChangePasswordPage(ModelAndView model, HttpServletRequest request);
 
 	ModelAndView createNewAccount(ModelAndView model, Client clientBean, HttpServletRequest request);
+
+	ModelAndView logout(ModelAndView model, HttpServletRequest request);
 }
  

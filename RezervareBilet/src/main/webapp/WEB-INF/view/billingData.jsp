@@ -40,19 +40,19 @@
                             <form:form action="makingPayment" modelAttribute="factura">
 	                            <div class="form-group">
 	                                <label for="adresa"> Adresa</label>
-	                                <div class="input-group">
+	                                <div>
 	                                    <form:input class="form-control" path="factAdresa" placeholder="Adresa" />
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label for="factLocalitate"> Localitate</label>
-	                                <div class="input-group">
+	                                <div>
 	                                    <form:input class="form-control" path="factLocalitate" placeholder="Localitate" />
 	                                </div>
 	                            </div>
 	                            <div class="form-group">
 	                                <label for="factZipcode"> Zipcode </label>
-	                                <div class="input-group">
+	                                <div>
 	                                    <form:input class="form-control" path="factZipcode" placeholder="Zipcode" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
 	                                </div>
 	                            </div>
