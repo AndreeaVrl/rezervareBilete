@@ -54,7 +54,7 @@ public class IndexController {
 
 	@RequestMapping(value = { "/goToLocuri" }, method = { RequestMethod.GET })
 	public ModelAndView goToLocuri(final ModelAndView model) {
-		model.setViewName("locuriCopie");
+		model.setViewName("locuri");
 		return model;
 	}
 
