@@ -34,12 +34,10 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	<c:if test="${not empty succes}">
-		var succes = ${succes};
-		alert(succes);
+		alert(${succes});
 	</c:if>
 	<c:if test="${not empty exceptie}">
-		var exceptie = ${exceptie};
-		alert(exceptie);
+		alert(${exceptie});
 	</c:if>
 });
 </script>
@@ -88,34 +86,63 @@ $(document).ready(function(){
 	</nav>
 	<!-- Home -->
 
-<section>
-<h2 class="section-title">New Account</h2>
-	<c:if test="${not empty succes}">
-			<div class="close" data-dismiss="alert" aria-label="close">×</div>
-			<div class="alert alert-success"><strong>Succes!</strong> ${succes}</div>
-		<br>
-	</c:if>
+<section>	
 	
-	<c:if test="${not empty exceptie}">
-			<div class="close" data-dismiss="alert" aria-label="close">×</div>
-			<div class="alert alert-danger"><strong>Eroare!</strong>${exceptie}</div>
-		<br>
-	</c:if>
+<section>
 	<div class="row">
-      <form:form class="form-signin" method="POST" action="createNewAccount" modelAttribute="clientBean">
-        <label for="firstName" class="sr-only">First Name</label>
-        <form:input type="text" id="firstName" class="form-control" placeholder="First Name"  value="${clientBean.prenume}" path="nume" required="true"/>
-        <label for="lastName" class="sr-only">Last Name</label>
-        <form:input type="text" id="lastName" class="form-control" placeholder="Last Name"  value="${clientBean.nume}" path="prenume" required="true"/>
-        <label for="userName" class="sr-only">Email address</label>
-        <form:input type="text" id="userName" class="form-control" placeholder="Email Adress"  value="${clientBean.email}" path="email" required="true"/>
-        <label for="password" class="sr-only">Password</label>
-        <form:input type="password" id="password" class="form-control" placeholder="Password" value="${clientBean.parola}" path="parola" required="true"/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" id="login" value="Log In">Log in</button>
-      </form:form>
+		<div class="col-md-12">
+			<table class="table table-striped">
+			    <tbody>
+			      <tr>
+			        <th>Numar bilet</th>
+			        <td>${bilet.id}</td>
+			      </tr>
+			      <tr>
+			        <th>Zbor</th>
+			        <td>${bilet.zbor.cursa.aeroport_1.denumire}-${bilet.zbor.cursa.aeroport_2.denumire}</td>
+			      </tr>
+			      <tr>
+			        <th>Nume pasager</th>
+			        <td>${bilet.clientBilet.nume} ${bilet.clientBilet.prenume}</td>
+			      </tr>
+			      <tr>
+			        <th>Data nasterii</th>
+			        <td>${bilet.clientBilet.dataNasterii}</td>
+			      </tr>
+			      <tr>
+			        <th>Rezervare realizata de</th>
+			        <td>${bilet.clientRezervare.nume} ${bilet.clientRezervare.prenume}</td>
+			      </tr>
+			      <tr>
+			        <th>Pachet</th>
+			        <td>${bilet.pachet.denumire}</td>
+			      </tr>
+			      <tr>
+			        <th>Facilitati</th>
+			        <td>${bilet.pachet.caracteristici}</td>
+			      </tr>
+			      <tr>
+			        <th>Loc</th>
+			        <td>${bilet.loc.rand}${bilet.loc.coloana}</td>
+			      </tr>
+			      <tr>
+			        <th>Pret loc</th>
+			        <td>${bilet.pachet.taxaPachet}</td>
+			      </tr>
+			      <tr>
+			        <th>Pret zbor</th>
+			        <td>${bilet.zbor.pret}</td>
+			      </tr>
+			      <tr>
+			        <th>Pret total</th>
+			        <td>${suma}</td>
+			      </tr>
+			    </tbody>
+		  </table>
+		  <a href="download">Download</a>
+	  </div>
 	</div>
 </section>
-
 	<footer>
 		<div class="container">
 			<div class="row">

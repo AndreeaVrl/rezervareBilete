@@ -37,23 +37,25 @@
             $('#opDiv').hide();
         });
         $('form').submit(function(){
-        	if($('#Card').data('clicked')) {
-        		var luna=$('#cardLuna').val();
-        		var an=$('#cardLuna').val();
+       		var luna=$('#cardLuna').val();
+       		var an=$('#cardLuna').val();
+       		var tipCard=$('#tipCard').val();
+       		var cardNumar = $('#cardNumar').val();
+       		var opNumar= $('#opNumar').val();
+       		var paypal = $('#paypalCont').val();
+       		if(!luna && !an && !tipCard && !cardNumar && !opNumar && !paypal) {
+       			alert("Completati datele pentru una din cele 3 modalitati de plata!");
+       			return false;
+       		} else if(luna || an || tipCard || cardNumar){
 				return (!isEmpty('tipCard','Va rog selectati tipul de card!') &&
 	  		    		 !isEmpty('cardNumar','Va rog completati numarul cardului!') &&
 	  		    		 !isEmpty('cardLuna','Va rog completati luna in care expira cardul!') &&
 	  		    		 !isEmpty('cardAn','Va rog completati anul in care expira cardul!') &&
-	  		    		 !lunaInvalida(luna,'Nu puteti utiliza acest card deoarece este expirat!') &&
-	  		    		 !anInvalid(an,'Nu puteti utiliza acest card deoarece este expirat!') &&
+	  		    		 /* lunaInvalida(luna,'Nu puteti utiliza acest card deoarece este expirat!') &&
+	  		    		 anInvalid(an,'Nu puteti utiliza acest card deoarece este expirat!') && */
 	  		    		 !isEmpty('cardDetinator','Va rog completati numele persoanei care detine acest card!'))
-        	}
-        	if($('#Op').data('clicked')) {
-   				return (!isEmpty('opNumar','Va rog completati pentru Op numarul!'))
-           	}
-        	if($('#Paypal').data('clicked')) {
-    			 return (!isEmpty('Paypal','Va rog completati contul Paypal!'))
-            }
+        			
+       		}
    		});
     });
     </script>

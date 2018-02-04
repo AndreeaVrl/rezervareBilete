@@ -19,6 +19,7 @@ import beans.exception.ExceptionsMessages;
 import it.rezervare.beans.dao.Interfaces.IZborDAO;
 import it.rezervare.beans.model.hibernateBeans.Avion;
 import it.rezervare.beans.model.hibernateBeans.Zbor;
+import it.rezervare.beans.utils.PDFHelper;
 
 @Transactional
 @Repository
@@ -33,20 +34,24 @@ public class ZborDAO implements IZborDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Zbor> getFlightList(final Integer idCursa, final Date date) throws ApplicationException {
+	public List<Zbor> getFlightList (final Integer idCursa, final Date date) throws ApplicationException {
 		List<Zbor> listaZboruri = new ArrayList<>();
-		System.out.println(" ENTER  ZborDAO.getFlightList() with idCursa = [" + idCursa + "] date = [" + date + "]");
+		System.out.println(" ENTER  ZborDAO.getFlightList() with idCursa = ["+idCursa+"] date = ["+date+"]");
 		try {
+			final Date fromDate = PDFHelper.getDateWithoutTime(date);
+			final Date toDate = PDFHelper.getDateWithoutTime(PDFHelper.getTomorrowDate(date));
 			final Criteria cr = sessionFactory.getCurrentSession().createCriteria(Zbor.class, "zbor");
-			cr.createAlias("zbor.cursa", "cursa");
+			cr.createAlias("zbor.cursa", "cursa"); 
 			cr.add(Restrictions.eq("cursa.id", idCursa));
-			// cr.add(Restrictions.eq("zbor.dataPlecare", date));
+			//cr.add(Restrictions.eq("zbor.dataPlecare", date));
+			cr.add(Restrictions.ge("zbor.dataPlecare", fromDate));
+			cr.add(Restrictions.le("zbor.dataPlecare", toDate));
 			listaZboruri = cr.list();
 		} catch (final Exception e) {
 			e.printStackTrace();
 			throw new ApplicationException(ExceptionsMessages.GENERIC_ERROR);
 		}
-		System.out.println(" Exit ZborDAO.getFlightList() with listaZboruri = [" + listaZboruri + "] ");
+		System.out.println(" Exit ZborDAO.getFlightList() with listaZboruri = ["+listaZboruri+"] ");
 		return listaZboruri;
 	}
 

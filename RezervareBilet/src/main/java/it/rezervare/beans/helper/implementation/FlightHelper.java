@@ -132,7 +132,6 @@ public class FlightHelper implements IFlightHelper {
 		}
 		return listaZboruri;
 	}
-	
 	private void createPlane(final List<Zbor> listaZboruri,final Map<String,Integer[][]> locuri) throws ApplicationException{
 		try {
 			final Set<Integer> randuri = new HashSet<>();
@@ -153,7 +152,8 @@ public class FlightHelper implements IFlightHelper {
 					System.out.println("i="+i);
 					for(int j = 0; j<nrColoane; j++) {
 						System.out.println("j="+j);
-						final Loc loc= locDAO.getSeatByRowAndColumn((i+1), String.valueOf((char)((j+1) + 64)));
+						final List<Loc> locuriFromDAO= locDAO.getSeatByRowAndColumn((i+1), String.valueOf((char)((j+1) + 64)));
+						final Loc loc = locuriFromDAO.get(0);
 						avion[i][j] = loc.getTipLoc().getId();
 						if(!loc.getTipLoc().getId().equals(0)) {
 							final Bilet bilet = bileteDAO.getBiletByIdLocAndIdZbor(loc.getId(), zbor.getId());

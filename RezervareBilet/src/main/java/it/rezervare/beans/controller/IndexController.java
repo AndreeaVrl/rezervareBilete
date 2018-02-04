@@ -30,7 +30,7 @@ public class IndexController {
 		this.adminHelper = adminHelper;
 	}
 
-	@RequestMapping(value = { "/" }, method = { RequestMethod.GET })
+	@RequestMapping(value = { "/" , "index"}, method = { RequestMethod.GET })
 	public ModelAndView login(final ModelAndView model, final HttpServletRequest request) {
 		System.out.println("\n ENTER IndexController \n");
 		indexHelper.goToIndexPage(model, request);

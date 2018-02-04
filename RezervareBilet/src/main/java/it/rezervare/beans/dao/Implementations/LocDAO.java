@@ -1,5 +1,8 @@
 package it.rezervare.beans.dao.Implementations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -24,14 +27,14 @@ public class LocDAO implements ILocDAO {
 		this.sessionFactory = sessionFactory;
 	}
 	@Override
-	public Loc getSeatByRowAndColumn(final Integer row, final String column) throws ApplicationException {
+	public List<Loc> getSeatByRowAndColumn(final Integer row, final String column) throws ApplicationException {
 		System.out.println(" ENTER LocDAO getSeatByRowAndColumn() with row = ["+row+"] column = ["+column+"]");
-		Loc loc = new Loc();
+		List<Loc> loc = new ArrayList<>();
 		try {
 			final Criteria cr = sessionFactory.getCurrentSession().createCriteria(Loc.class);
 			cr.add(Restrictions.eq("rand", row));
 			cr.add(Restrictions.eq("coloana", column));
-			loc = (Loc) cr.uniqueResult();
+			loc = cr.list();
 		} catch(final Exception ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ExceptionsMessages.GENERIC_ERROR);

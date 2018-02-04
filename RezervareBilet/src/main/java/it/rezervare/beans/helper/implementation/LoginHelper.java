@@ -233,4 +233,23 @@ public class LoginHelper implements ILoginHelper {
 		model.setViewName("newaccount");
 		return model;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public ModelAndView logout(final ModelAndView model,final HttpServletRequest request){
+		System.out.println("\nENTER LoginHelper - logout()\n");
+		
+		final HttpSession session = request.getSession();
+		session.removeAttribute(ApplicationConstants.OPERATOR);
+		session.removeAttribute(ApplicationConstants.CLIENT);
+		final List<Tara> tari = (List<Tara>) session.getAttribute("tari");
+		model.addObject("tari",tari);
+		session.removeAttribute("zboruriCautareRetur");
+		session.removeAttribute("zboruriCautare");
+		model.addObject("cursa", new CursaRequestView());
+		model.addObject("flightChosen",new FlightChosenRequestBean());
+		model.setViewName("index");
+		System.out.println("\nEXIT LoginHelper - login()\n");
+		return model;
+	}
 }

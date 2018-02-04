@@ -55,4 +55,10 @@ public class LoginController {
 		System.out.println("\nENTER LoginController - createNewAccount() \n");
 		return loginHelper.createNewAccount(model, clientBean, request);
 	}
+	
+	@RequestMapping(value = { "/logout"}, method = {RequestMethod.GET})
+	public ModelAndView logout(final ModelAndView model,final HttpServletRequest request){
+		System.out.println("\nENTER LoginController - logout()\n");
+		return loginHelper.logout(model, request);
+	}
 }
