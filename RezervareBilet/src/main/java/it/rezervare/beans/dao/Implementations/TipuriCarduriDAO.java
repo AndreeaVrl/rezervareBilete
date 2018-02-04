@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ final private SessionFactory sessionFactory;
 			final Session session = sessionFactory.getCurrentSession();
 			final Criteria criteria = session.createCriteria(TipCard.class);
 			tipuriCarduri = criteria.list();
+			for(final TipCard card : tipuriCarduri) {
+				Hibernate.initialize(card.getModalitatiPlata());
+			}
 		} catch (final Exception e) {
 			e.printStackTrace();
 			throw new ApplicationException(ExceptionsMessages.GENERIC_ERROR);

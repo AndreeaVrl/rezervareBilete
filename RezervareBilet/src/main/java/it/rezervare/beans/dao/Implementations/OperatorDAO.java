@@ -57,4 +57,9 @@ public class OperatorDAO implements IOperatorDAO {
 	public void updateUser(final Operator operator){
 		sessionFactory.getCurrentSession().update(operator);
 	}
+	
+	@Override
+	public Operator getOperatorById(final Integer id) {
+		return (Operator) sessionFactory.getCurrentSession().createCriteria(Operator.class).add(Restrictions.eq("id", id)).uniqueResult();
+	}
 }

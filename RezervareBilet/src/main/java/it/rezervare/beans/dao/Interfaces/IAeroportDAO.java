@@ -20,4 +20,6 @@ public interface IAeroportDAO {
 
 	void deleteCountry(Aeroport airport);
 
+	List<Aeroport> getAirportsByCountryId(Integer id);
+
 }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import beans.exception.ApplicationException;
@@ -22,8 +23,11 @@ import it.rezervare.beans.dao.Interfaces.IZborDAO;
 import it.rezervare.beans.helper.helperinterface.IRoutHelper;
 import it.rezervare.beans.model.Graph;
 import it.rezervare.beans.model.Route;
+import it.rezervare.beans.model.hibernateBeans.Aeroport;
 import it.rezervare.beans.model.hibernateBeans.Cursa;
+import it.rezervare.beans.model.hibernateBeans.Tara;
 import it.rezervare.beans.model.hibernateBeans.Zbor;
+import it.rezervare.beans.model.requestBeans.AeroportAjaxView;
 import it.rezervare.beans.model.requestBeans.CursaRequestView;
 import it.rezervare.beans.model.requestBeans.FlightChosenRequestBean;
 
@@ -42,15 +46,32 @@ public class RoutHelper implements IRoutHelper{
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
 	public ModelAndView getRout(final ModelAndView model, final CursaRequestView cursaRequestView, final HttpServletRequest request) {
 		System.out.println("\n ENTER RoutHelper.getRout() retur = ["+cursaRequestView.getRetur()+"]\n");
 		final HttpSession session = request.getSession();
-		model.addObject("cursa", cursaRequestView);
-		session.removeAttribute("cursaRequestView");
-		session.setAttribute("cursaRequestView", cursaRequestView);
-		model.addObject("flightChosen",new FlightChosenRequestBean());
-		model.setViewName("index");
 		try {
+			if(cursaRequestView == null || StringUtils.isEmpty(cursaRequestView.getContryFrom()) || StringUtils.isEmpty(cursaRequestView.getCountryTo())
+					||cursaRequestView.getAirportFrom() == null || cursaRequestView.getAirportTo() == null ) {
+				throw new ApplicationException("Completati zborul dorit!");
+			}
+			final List<Tara> tari = (List<Tara>) session.getAttribute("tari");
+			model.addObject("tari",tari);
+			model.addObject("cursa", cursaRequestView);
+			session.removeAttribute("cursaRequestView");
+			session.setAttribute("cursaRequestView", cursaRequestView);
+			model.addObject("flightChosen",new FlightChosenRequestBean());
+			model.setViewName("index");
+			final Aeroport aeroportFrom = aeroportDAO.getAirportById(cursaRequestView.getAirportFrom());
+			final AeroportAjaxView aeroportAjaxViewFrom = new AeroportAjaxView();
+			aeroportAjaxViewFrom.setId(aeroportFrom.getId());
+			aeroportAjaxViewFrom.setDenumire(aeroportFrom.getDenumire());
+			model.addObject("aeroportFrom",aeroportAjaxViewFrom);
+			final Aeroport aeroportTo = aeroportDAO.getAirportById(cursaRequestView.getAirportTo());
+			final AeroportAjaxView aeroportAjaxViewTo = new AeroportAjaxView();
+			aeroportAjaxViewTo.setId(aeroportTo.getId());
+			aeroportAjaxViewTo.setDenumire(aeroportTo.getDenumire());
+			model.addObject("aeroportTo",aeroportAjaxViewTo);
 			//TUR
 	        final List<LinkedList<Integer>> cursePlecareList = getAllRoutes(cursaRequestView.getAirportFrom(), cursaRequestView.getAirportTo());
 	        final Map<Integer,LinkedList<List<Zbor>>> mapZboruriPlecare = getAllFlights(cursePlecareList,cursaRequestView.getDepartureDate());

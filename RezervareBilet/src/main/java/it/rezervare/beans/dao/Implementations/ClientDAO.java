@@ -1,6 +1,8 @@
 package it.rezervare.beans.dao.Implementations;
 
 
+import java.math.BigInteger;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
@@ -88,5 +90,14 @@ public class ClientDAO implements IClientDAO {
 			e.printStackTrace();
 			throw new ApplicationException("A aparut o problema, reveniti mai tarziu!");
 		}
+	}
+
+	@Override
+	public Integer getLastInIserted() {
+		System.out.println("Enter ClientDAO.getLastInIserted()");
+		final Session session = sessionFactory.openSession();
+		final Integer lastId = ((BigInteger) session.createSQLQuery("SELECT LAST_INSERT_ID()").uniqueResult()).intValue();
+		System.out.println("Enter ClientDAO.getLastInIserted() with lastId = ["+lastId+"]");
+		return lastId;
 	}
 }

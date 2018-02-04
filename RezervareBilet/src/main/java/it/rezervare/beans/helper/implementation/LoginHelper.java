@@ -1,5 +1,8 @@
 package it.rezervare.beans.helper.implementation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +17,7 @@ import beans.exception.ExceptionsMessages;
 import it.rezervare.beans.constants.ApplicationConstants;
 import it.rezervare.beans.dao.Interfaces.IClientDAO;
 import it.rezervare.beans.dao.Interfaces.IOperatorDAO;
+import it.rezervare.beans.dao.Interfaces.ITaraDAO;
 import it.rezervare.beans.helper.helperinterface.ILoginHelper;
 import it.rezervare.beans.model.hibernateBeans.Client;
 import it.rezervare.beans.model.hibernateBeans.Operator;
@@ -29,11 +33,13 @@ public class LoginHelper implements ILoginHelper {
 	
 	private final IClientDAO clientDAO;
 	private final IOperatorDAO operatorDAO;
+	private final ITaraDAO taraDAO;
 	
 	@Autowired
-	public LoginHelper(final IClientDAO clientDAO,final IOperatorDAO operatorDAO) {
+	public LoginHelper(final IClientDAO clientDAO,final IOperatorDAO operatorDAO, final ITaraDAO taraDAO) {
 		this.clientDAO = clientDAO;
 		this.operatorDAO = operatorDAO;
+		this.taraDAO = taraDAO;
 	}
 
 	@Override
@@ -72,6 +78,12 @@ public class LoginHelper implements ILoginHelper {
 			
 			final Client isClientUer = (Client) session.getAttribute(ApplicationConstants.CLIENT);
 			final Operator isOperatorUser = (Operator) session.getAttribute(ApplicationConstants.OPERATOR);
+			
+			List<Tara> tari = new ArrayList<>();
+			tari = taraDAO.getAllCountrys();
+			model.addObject("tari",tari);
+			session.removeAttribute("tari");
+			session.setAttribute("tari", tari);
 			
 			if(isClientUer == null && isOperatorUser == null) {
 				if(loginBean != null && (!StringUtils.isEmpty(loginBean.getUserName()) || !StringUtils.isEmpty(loginBean.getPassword()))) {

@@ -13,6 +13,7 @@
 		
 		<!-- Include Date Range Picker -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
     </head>
     <script>
     $(document).ready(function(){
@@ -35,6 +36,25 @@
             $('#paypalDiv').hide();
             $('#opDiv').hide();
         });
+        $('form').submit(function(){
+        	if($('#Card').data('clicked')) {
+        		var luna=$('#cardLuna').val();
+        		var an=$('#cardLuna').val();
+				return (!isEmpty('tipCard','Va rog selectati tipul de card!') &&
+	  		    		 !isEmpty('cardNumar','Va rog completati numarul cardului!') &&
+	  		    		 !isEmpty('cardLuna','Va rog completati luna in care expira cardul!') &&
+	  		    		 !isEmpty('cardAn','Va rog completati anul in care expira cardul!') &&
+	  		    		 !lunaInvalida(luna,'Nu puteti utiliza acest card deoarece este expirat!') &&
+	  		    		 !anInvalid(an,'Nu puteti utiliza acest card deoarece este expirat!') &&
+	  		    		 !isEmpty('cardDetinator','Va rog completati numele persoanei care detine acest card!'))
+        	}
+        	if($('#Op').data('clicked')) {
+   				return (!isEmpty('opNumar','Va rog completati pentru Op numarul!'))
+           	}
+        	if($('#Paypal').data('clicked')) {
+    			 return (!isEmpty('Paypal','Va rog completati contul Paypal!'))
+            }
+   		});
     });
     </script>
     <body>
@@ -58,7 +78,7 @@
 	                        		<div class="form-group">
 		                                <label for="cardNumber" class="col-xs-4 col-md-4">Suma plata=</label>
 		                                <div class="input-group col-xs-8 col-md-8">
-		                                    <input type="text" class="form-control" id="sumaPlata" disabled="disabled"/>
+		                                    <input type="text" class="form-control" id="sumaPlata" disabled="disabled" value="${rezultatTotal}"/>
 		                                </div>
 		                            </div>
 		                         </div>
@@ -71,10 +91,8 @@
 	                                         <div class="input-group">
 		                                         <div>
 			                                        <form:select path = "tipCard">
-				                                        <c:forEach items = "${tipuriCarduri}" var="tip">
-									                     	<form:options value="${tip.id}" /> ${tip.denumire}
-				                                        </c:forEach>
-								                	</form:select> 
+			                                        	<form:options items="${tipuriCarduri}" itemValue="id" itemLabel="denumire"/>
+													</form:select>
 								                  </div>
 							                 </div>
 	                                    </div>
@@ -84,7 +102,7 @@
 			                                <label for="cardNumber">NUMAR CARD</label>
 			                                <div class="input-group">
 			                                	<div>
-				                                    <form:input class="form-control" path="cardNumar" placeholder="Numar card" />
+				                                    <form:input class="form-control" path="cardNumar" placeholder="Numar card" maxlength="13" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
 				                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
 				                                </div>
 			                                </div>
@@ -96,10 +114,10 @@
 	                                    <div class="form-group">
 	                                        <label for="expityMonth">DATA EXPIRARE</label>
 	                                        <div class="col-xs-6 col-lg-6 pl-ziro">
-	                                            <form:input class="form-control" path="cardLuna"  placeholder="MM" maxlength="2" />
+	                                            <form:input class="form-control" path="cardLuna"  placeholder="MM" maxlength="2" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
 	                                        </div>
 	                                        <div class="col-xs-6 col-lg-6 pl-ziro">
-	                                            <form:input class="form-control" path="cardAn" placeholder="YYYY" maxlength="4" />
+	                                            <form:input class="form-control" path="cardAn" placeholder="YYYY" maxlength="4" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
 	                                        </div>
 	                                    </div>
 	                                </div>
@@ -117,7 +135,7 @@
 			                            <div class="form-group">
 			                                <label for="cardNumber">NUMAR OP</label>
 			                                <div class="input-group">
-			                                    <form:input type="numbar" class="form-control" path="opNumar" placeholder="Numar OP" />
+			                                    <form:input type="numbar" class="form-control" path="opNumar" placeholder="Numar OP" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
 			                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
 			                                </div>
 			                            </div>

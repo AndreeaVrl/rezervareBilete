@@ -55,7 +55,7 @@ public class ModalitatePlata {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -63,7 +63,7 @@ public class ModalitatePlata {
 		return cardNumar;
 	}
 
-	public void setCardNumar(String cardNumar) {
+	public void setCardNumar(final String cardNumar) {
 		this.cardNumar = cardNumar;
 	}
 
@@ -71,7 +71,7 @@ public class ModalitatePlata {
 		return cardAn;
 	}
 
-	public void setCardAn(Integer cardAn) {
+	public void setCardAn(final Integer cardAn) {
 		this.cardAn = cardAn;
 	}
 
@@ -79,7 +79,7 @@ public class ModalitatePlata {
 		return cardLuna;
 	}
 
-	public void setCardLuna(Integer cardLuna) {
+	public void setCardLuna(final Integer cardLuna) {
 		this.cardLuna = cardLuna;
 	}
 
@@ -87,7 +87,7 @@ public class ModalitatePlata {
 		return cardDetinator;
 	}
 
-	public void setCardDetinator(String cardDetinator) {
+	public void setCardDetinator(final String cardDetinator) {
 		this.cardDetinator = cardDetinator;
 	}
 
@@ -95,7 +95,7 @@ public class ModalitatePlata {
 		return opNumar;
 	}
 
-	public void setOpNumar(String opNumar) {
+	public void setOpNumar(final String opNumar) {
 		this.opNumar = opNumar;
 	}
 
@@ -103,7 +103,7 @@ public class ModalitatePlata {
 		return paypalCont;
 	}
 
-	public void setPaypalCont(String paypalCont) {
+	public void setPaypalCont(final String paypalCont) {
 		this.paypalCont = paypalCont;
 	}
 
@@ -111,7 +111,7 @@ public class ModalitatePlata {
 		return client;
 	}
 
-	public void setClient(Client client) {
+	public void setClient(final Client client) {
 		this.client = client;
 	}
 
@@ -119,7 +119,7 @@ public class ModalitatePlata {
 		return tipCard;
 	}
 
-	public void setTipCard(TipCard tipCard) {
+	public void setTipCard(final TipCard tipCard) {
 		this.tipCard = tipCard;
 	}
 
@@ -127,8 +127,15 @@ public class ModalitatePlata {
 		return bilete;
 	}
 
-	public void setBilete(Set<Bilet> bilete) {
+	public void setBilete(final Set<Bilet> bilete) {
 		this.bilete = bilete;
+	}
+
+	@Override
+	public String toString() {
+		return "ModalitatePlata [id=" + id + ", cardNumar=" + cardNumar + ", cardAn=" + cardAn + ", cardLuna="
+				+ cardLuna + ", cardDetinator=" + cardDetinator + ", opNumar=" + opNumar + ", paypalCont=" + paypalCont
+				+ "]";
 	}
 
 }

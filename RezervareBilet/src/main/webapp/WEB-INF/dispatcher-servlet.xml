@@ -22,13 +22,15 @@
         <property name="host" value="smtp.gmail.com"/>
         <property name="port" value="587"/>
         <property name="defaultEncoding" value="UTF-8"/>
-        <property name="username" value="gestiune.cercetare@gmail.com"/>
-		<property name="password" value="gestcercetare"/>
+        <property name="username" value="rezervareBilete@gmail.com"/>
+		<property name="password" value="rezervare01"/>
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.transport.protocol">smtp</prop>
                 <prop key="mail.smtp.auth">true</prop>
                 <prop key="mail.smtp.starttls.enable">true</prop>
+            	<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+            	<prop key="mail.smtp.host">smtp.gmail.com</prop>
             </props>
         </property>
     </bean>

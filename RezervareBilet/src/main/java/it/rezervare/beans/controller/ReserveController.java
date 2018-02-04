@@ -47,7 +47,7 @@ public class ReserveController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
 	@RequestMapping(value = { "/makingPayment" }, method = { RequestMethod.POST })
-	public ModelAndView goPaymentPage(final ModelAndView model, @ModelAttribute("factura") final Client client, final BindingResult bindResult, final HttpServletRequest request) {
+	public ModelAndView goPaymentPage(final ModelAndView model, @ModelAttribute("factura") final Client client, final HttpServletRequest request) {
 		System.out.println("\n Enter goPaymentPage() \n");
 		return reserveHelper.goPaymentPage(model, client, request);
 	}

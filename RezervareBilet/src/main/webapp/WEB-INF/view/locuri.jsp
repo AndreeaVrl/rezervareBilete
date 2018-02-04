@@ -93,7 +93,13 @@
 													<td>
 														<div data-toggle="buttons">
 															<label class="btn btn-success">
-																<form:checkbox path="locuri" autocomplete="off" value="${avion.key}-${i}-${j}" />
+															<c:if test="${flight.packageChosen eq 2}">
+																<c:set var="pretLocScump" value='170'/>
+															</c:if>
+															<c:if test="${flight.packageChosen eq 3}">
+																<c:set var="pretLocScump" value='185'/>
+															</c:if>
+																<form:checkbox path="locuri" autocomplete="off" value="${idZbor}-${i+1}-${j}-${pretLocScump}" />
 																<span class="glyphicon glyphicon-ok"></span>
 															</label>
 														</div>
@@ -102,8 +108,14 @@
 													<c:when test="${avion.value[i][j] eq 2}">
 														<td>
 															<div data-toggle="buttons">
+																<c:if test="${flight.packageChosen eq 2}">
+																	<c:set var="pretLocOk" value='165'/>
+																</c:if>
+																<c:if test="${flight.packageChosen eq 3}">
+																	<c:set var="pretLocOk" value='185'/>
+																</c:if>
 																<label class="btn btn-warning">
-																	<form:checkbox path="locuri" autocomplete="off" value="${avion.key}-${i}-${j}" />
+																	<form:checkbox path="locuri" autocomplete="off" value="${idZbor}-${i+1}-${j}-${pretLocOk}" />
 																	<span class="glyphicon glyphicon-ok"></span>
 																</label>
 															</div>
@@ -113,7 +125,13 @@
 														<td>
 															<div data-toggle="buttons">
 																<label class="btn btn-info">
-																	<form:checkbox path="locuri" autocomplete="off" value="${avion.key}-${i}-${j}" />
+																	<c:if test="${flight.packageChosen eq 2}">
+																		<c:set var="pretLoc" value='160'/>
+																	</c:if>
+																	<c:if test="${flight.packageChosen eq 3}">
+																		<c:set var="pretLoc" value='185'/>
+																	</c:if>
+																	<form:checkbox path="locuri" autocomplete="off" value="${idZbor}-${i+1}-${j}-${pretLoc}" />
 																	<span class="glyphicon glyphicon-ok"></span>
 																</label>
 															</div>

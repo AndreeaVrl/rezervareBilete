@@ -32,19 +32,19 @@
 		                            <div class="form-group">
 		                                <label for="nume">Nume</label>
 		                                <div class="input-group">
-		                                    <form:input class="form-control" path="listaClienti[${i}].nume" placeholder="Nume"/>
+		                                    <form:input class="form-control nume" path="listaClienti[${i}].nume" placeholder="Nume"/>
 		                                </div>
 		                            </div>
 		                            <div class="form-group">
 		                                <label for="prenume"> Prenume</label>
 		                                <div class="input-group">
-		                                    <form:input class="form-control" path="listaClienti[${i}].prenume" placeholder="Prenume"/>
+		                                    <form:input class="form-control prenume" path="listaClienti[${i}].prenume" placeholder="Prenume"/>
 		                                </div>
 		                            </div>
 		                            <div class="form-group">
 		                                <label for="dataNasterii">Data nasterii</label>
 		                                <div class="input-group">
-		                                    <form:input class="datepicker form-control" path="listaClienti[${i}].dataNasterii" placeholder="dd/mm/yyyy" />
+		                                    <form:input class="datepicker form-control dataNasterii" path="listaClienti[${i}].dataNasterii" placeholder="dd/mm/yyyy" />
 		                                </div>
 		                            </div>
 		                           <br><br>
@@ -66,6 +66,12 @@
 					autoclose: true,
 				});
 			}); 
+			 $('form').submit(function(){
+	        	  var nume = document.getElementsByClassName('nume');
+	        	  var prenume = document.getElementsByClassName('prenume');
+	        	  var dataNasterii = document.getElementsByClassName('dataNasterii');
+	    		  return !completDatePassengers(nume,prenume,dataNasterii, 'Va rog completati toate datele fiecarui pasager!');
+	  		});
         });
         </script>
 </body>

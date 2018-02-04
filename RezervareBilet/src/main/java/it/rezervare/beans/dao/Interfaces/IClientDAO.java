@@ -15,5 +15,7 @@ public interface IClientDAO {
 	Client getClientByEmail(String email) throws ApplicationException;
 
 	void insertClient(Client client) throws ApplicationException;
+	
+	Integer getLastInIserted();
 
 }

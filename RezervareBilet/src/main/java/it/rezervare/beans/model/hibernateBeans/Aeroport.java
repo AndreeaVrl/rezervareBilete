@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.BatchSize;
+
 @Entity
 @Table(name = "aeroporturi")
 public class Aeroport {
@@ -30,9 +32,11 @@ public class Aeroport {
 	private Tara taraAeroport;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "aeroport_1")
+	@BatchSize(size=100)
 	private Set<Cursa> curseAeroport_1 = new HashSet<Cursa>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "aeroport_2")
+	@BatchSize(size=100)
 	private Set<Cursa> curseAeroport_2 = new HashSet<Cursa>();
 
 	public Integer getId() {

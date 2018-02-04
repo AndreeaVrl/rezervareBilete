@@ -2,14 +2,24 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
     <head>
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
- 
-        <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- 
-        <!-- Latest compiled JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+		 $('form').submit(function(){
+			 return (!isEmpty('factAdresa','Va rog completati adresa de facturare!') &&
+   		    		 !isEmpty('factLocalitate','Va rog completati denumirea localitatii!') &&
+   		    		 !isEmpty('factZipcode','Va rog completati zipcodul!'))
+    	});
+    });
+    </script>
     </head>
     <body>
         <div class="container">
@@ -43,7 +53,7 @@
 	                            <div class="form-group">
 	                                <label for="factZipcode"> Zipcode </label>
 	                                <div class="input-group">
-	                                    <form:input class="form-control" path="factZipcode" placeholder="Zipcode" />
+	                                    <form:input class="form-control" path="factZipcode" placeholder="Zipcode" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
 	                                </div>
 	                            </div>
 	                            <input type="submit" value="Continua rezervarea!" />

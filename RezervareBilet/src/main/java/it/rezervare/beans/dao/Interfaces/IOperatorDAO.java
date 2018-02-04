@@ -12,4 +12,6 @@ public interface IOperatorDAO {
 
 	Operator getOperatorByUsename(UserRequestBean userRequestBean) throws ApplicationException;
 
+	Operator getOperatorById(Integer id);
+
 }
