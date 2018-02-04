@@ -27,7 +27,7 @@ public class OperatorDAO implements IOperatorDAO {
 	@Override
 	public Operator getOperator(final UserRequestBean userRequestBean) throws ApplicationException {
 		System.out.println("Enter ClientDAO.getOperator()");
-		Operator operator = new Operator();
+		Operator operator = null;
 		try {
 			final Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Operator.class);
 			criteria.add(Restrictions.eq("utilizator", StringUtils.trimAllWhitespace(userRequestBean.getUserName())));

@@ -70,6 +70,7 @@ public class LoginHelper implements ILoginHelper {
 				throw new ApplicationException("Va rugam, completati datele de autentificare!");
 			}
 			final HttpSession session = request.getSession();
+			final String normalPassword = loginBean.getPassword();
 			final String password = MD5Utils.convertStringToMD5(loginBean.getPassword());
 			loginBean.setPassword(password);
 			System.out.println("password=["+password+"]");
@@ -104,9 +105,11 @@ public class LoginHelper implements ILoginHelper {
 								model.addObject("operator", new Operator());
 								model.addObject("tara", new Tara());
 								model.addObject("succes", "Logarea s-a realizat cu success!");
+								return new ModelAndView("redirect:/goToAdminPage");
 							}
 						} else {
 							session.removeAttribute(ApplicationConstants.ERROR_LOGIN);
+							loginBean.setPassword(normalPassword);
 							session.setAttribute(ApplicationConstants.ERROR_LOGIN, loginBean);
 							model.addObject("login", loginBean);
 							model.setViewName("login");

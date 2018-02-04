@@ -39,9 +39,9 @@
       <form:form class="form-signin" method="POST" action="login" id="loginForm" modelAttribute="login">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="userName" class="sr-only">Email address</label>
-        <form:input path="userName" class="form-control" placeholder="Username"  value="${loginBean.userName}" />
+        <form:input path="userName" class="form-control" placeholder="Username"  value="${loginBean.userName}" required="true"/>
         <label for="password" class="sr-only">Password</label>
-        <form:input path="password" type="password" class="form-control" placeholder="Password" value="${loginBean.password}" />
+        <form:input path="password" type="password" class="form-control" placeholder="Password" value="${loginBean.password}" required="true"/>
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="login" value="Log In">Log in</button>
 		<br><a href="goToChangePasswordPage">Forgot your password?</a> |<a href="goToCreateNewAccount"> Create account!</a>
       </form:form>

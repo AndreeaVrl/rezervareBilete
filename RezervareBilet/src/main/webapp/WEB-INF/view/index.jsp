@@ -56,7 +56,7 @@
 					<li class="active"><a href="index">Home</a></li>
 					<li><a href="#">Check-in</a></li>
 					<li><a href="#">Sign-up</a></li>
-					<li><a href="#">Log-in</a></li>
+					<li><a href="goToLoginPage">Log-in</a></li>
 				</ul>
 				<!-- /.nav -->
 			</div>
