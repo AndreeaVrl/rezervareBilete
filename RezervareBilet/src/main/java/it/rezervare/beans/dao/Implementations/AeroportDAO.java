@@ -21,6 +21,7 @@ import it.rezervare.beans.constants.Query;
 import it.rezervare.beans.dao.Interfaces.IAeroportDAO;
 import it.rezervare.beans.model.Node;
 import it.rezervare.beans.model.hibernateBeans.Aeroport;
+import it.rezervare.beans.model.requestBeans.AeroportAjaxView;
 
 @Repository
 @Transactional
@@ -103,5 +104,24 @@ public class AeroportDAO implements IAeroportDAO {
 		final Session session = sessionFactory.getCurrentSession();
 	    session.delete(airport);
 	    session.flush() ;		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Aeroport> getAirportsByCountryId(final Integer id) {
+		System.out.println("\n ENTER getAirportsByCountryId id=["+id+"] \n");
+		List<Aeroport> airports = new ArrayList<>();
+		try {
+		
+			final Session session = sessionFactory.getCurrentSession();
+			final SQLQuery query = session.createSQLQuery(Query.GET_AIRPORTS_BY_COUNTRY_ID);
+			query.setInteger("id", id);
+			query.setResultTransformer(new AliasToBeanResultTransformer(AeroportAjaxView.class));
+			airports = query.list();
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("\n EXIT getAirportsByCountryId airports=["+airports+"] \n");
+		return airports;
 	}
 }

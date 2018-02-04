@@ -130,21 +130,18 @@
 						<h4>From:</h4>
 					</div>
 					<div class="form-group col-md-12">
-						<form:select class="form-control border-radius" path="contryFrom">
-							<form:option value="0">Country</form:option>
-							<form:option value="">America</form:option>
-							<form:option value="">Bangladesh</form:option>
-							<form:option value="">Canada</form:option>
-							<form:option value="">India</form:option>
-						</form:select>
+						<form:select class="form-control" path="contryFrom">
+							<c:forEach items="${tari}" var="tara">
+								<form:option value="${tara.id}">${tara.denumire}</form:option>
+							</c:forEach>
+						  </form:select>
 					</div>
 					<div class="form-group col-md-12">
-						<form:select class="form-control border-radius" path="airportFrom">
-							<form:option value="0">Airport</form:option>
-							<form:option value="1">Linz</form:option>
-							<form:option value="">Miami</form:option>
-							<form:option value="">London</form:option>
-							<form:option value="">Bremen</form:option>
+						<form:select class="form-control" path="airportFrom">
+						  <form:option value="">---Selecteaza---</form:option>
+						  <c:if test="${not empty aeroportFrom}">
+							<form:option value="${aeroportFrom.id}">${aeroportFrom.denumire}</form:option>
+						  </c:if>
 						</form:select>
 					</div>
 				</div>
@@ -153,22 +150,18 @@
 						<h4>To:</h4>
 					</div>
 					<div class="form-group col-md-12">
-						<form:select class="form-control border-radius" path="countryTo">
-							<form:option value="0">Country</form:option>
-							<form:option value="">America</form:option>
-							<form:option value="">Bangladesh</form:option>
-							<form:option value="">Canada</form:option>
-							<form:option value="">India</form:option>
-						</form:select>
+						<form:select class="form-control" path="countryTo">
+							<c:forEach items="${tari}" var="tara">
+								<form:option value="${tara.id}">${tara.denumire}</form:option>
+							</c:forEach>
+						  </form:select>
 					</div>
 					<div class="form-group col-md-12">
-						<form:select class="form-control border-radius" path="airportTo">
-							<form:option value="0">Airport</form:option>
-		          <form:option value="23">Lille</form:option>
-							<form:option value="">Linz</form:option>
-							<form:option value="">Miami</form:option>
-							<form:option value="">London</form:option>
-							<form:option value="">Bremen</form:option>
+						<form:select class="form-control" path="airportTo">
+						  <form:option value="">---Selecteaza---</form:option>
+						  <c:if test="${not empty aeroportTo}">
+							<form:option value="${aeroportTo.id}">${aeroportTo.denumire}</form:option>
+						  </c:if>
 						</form:select>
 					</div>
 				</div>
@@ -341,17 +334,17 @@
 		<p class="section-subtitle">Best deal for your trip</p>
 		<div class="row">
 	    <form:form class="form-inline" id="getPackageForm" action="" method="post" modelAttribute="flightChosen">
-	      <!-- fara limitare de locuri!!
-	      <div class="form-group">
-	      	<div class="col-md-1">
-	        	<label for="passengers">Passengers</label>
-	        </div>
-	        <div class="col-md-2">
-	        	<form:input path="passengers" class="form-control"/>
-		      </div>
-		    </div>
+	      <div class="form-group" style="text-align: center; margin: auto">
+	      	<div class="col-md-12">
+				<div class="col-md-4 col-md-offset-4">					
+			      <div class="col-md-6">
+					<label for="passengers" >Passengers</label>
+					<form:input path="passengers" class="form-control"/>
+				</div>
+				</div>
+			</div>
+		  </div>
 		    <br />
-		    -->
 		    <form:hidden path="departureCompannies"/>
 				<form:hidden path="returnCompannies"/>
 		    <form:hidden path="departurFlight"/>
@@ -464,6 +457,11 @@
 			todayHighlight: true,
 			autoclose: true,
 		});
+		if($('#retur1').is(':checked')){
+			$('#flyBackDate').show();
+		} else {
+			$('#flyBackDate').hide();
+		}
 		$('#flyBackDate').hide();
 		$('#retur1').change( function(){
 			if($(this).is(':checked')) {
@@ -486,10 +484,8 @@
 			$('#divPasageri').show();
 	    });
 		$('#getPackage').click( function(){
-			console.log("AICIII");
 			var zborAles = $('input[name=departureFlight]:checked').val();
 			$('#departurFlight').val(zborAles);
-			console.log("departurFlight"+$('#departurFlight').val());
 			<c:forEach items="${zboruriCautare}" var="zbor">
 				var mapKey = ${zbor.key};
 				if( zborAles == mapKey) {
@@ -499,7 +495,6 @@
 						<c:choose>
 							<c:when test="${flag eq 1}">
 								var value = $("#"+idCursaSelect).val();
-								console.log("value="+value);
 								$('#departureCompannies').val(value);
 								<c:set var="flag" value="0"/>
 							</c:when>
@@ -510,11 +505,9 @@
 						</c:choose>
 					</c:forEach>
 				}
-				console.log("departureCompannies=["+$('#departureCompannies').val()+"]");
 			</c:forEach>
 			var zborA = $('input[name=returnFlight]:checked').val();
 			$('#returFlight').val(zborA);
-			console.log("zborA"+$('#returFlight').val());
 			if(zborA){
 				<c:forEach items="${zboruriCautareRetur}" var="zbor">
 					var mapKey = ${zbor.key};
@@ -534,15 +527,101 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						console.log("returnCompannies"+$('#returnCompannies').val());
 					}
 				</c:forEach>
 			}
 			$('#getPackageForm').attr('action', 'getChosenFlight');
 		});	
+		function sort(id){
+			$(id).append($(id+" option").remove().sort(function(a, b) {
+			    var at = $(a).text(), bt = $(b).text();
+			    return (at > bt)?1:((at < bt)?-1:0);
+			}));
+		}
+		$('#contryFrom').click(function() {
+			var idTara = $('#contryFrom').val();
+			$.ajax({
+				type: 'POST',
+				url: '${pageContext.request.contextPath}/getAirportForContry',
+				data: {id: idTara},
+				dataType : 'json',
+				success: function(data) {
+					airportsList=data;
+					<c:forEach items="${airportsList}" var="succes">
+					</c:forEach>
+					$('#airportFrom').find('option').remove();
+					$.each(airportsList, function (i, item) {
+					    $('#airportFrom').append($('<option>', { 
+					        value: item.id,
+					        text : item.denumire 
+					    }));
+					});
+					sort('#airportFrom');
+				}
+			})
+		});
+		
+		$('#countryTo').click(function() {
+			var idTara = $('#countryTo').val();
+			$.ajax({
+				type: 'POST',
+				url: '${pageContext.request.contextPath}/getAirportForContry',
+				data: {id: idTara},
+				dataType : 'json',
+				success: function(data) {
+					airportsList=data;
+					$('#airportTo').find('option').remove();
+					$.each(airportsList, function (i, item) {
+					    $('#airportTo').append($('<option>', { 
+					        value: item.id,
+					        text : item.denumire 
+					    }));
+					});
+					sort('#airportTo');
+				}
+			})
+		});
+		
+		$('#getRouteForm').submit(function () {
+    		if ($('input[name="retur"]:checked').length > 0) {
+    			var d1 = new Date(document.getElementById("departureDate").value);
+    			var d2 = new Date(document.getElementById("flyBack").value);
+    			return (!isEmpty('contryFrom','Va rog selectati tara din care doriti sa plecati!') &&
+   		    		   !isEmpty('airportFrom','Va rog selectati aeroportul de plecare!') &&
+   		    		   !isEmpty('countryTo','Va rog selectati tara din care doriti sa ajungeti!') &&
+   		    		   !isEmpty('airportTo','Va rog selectati aeroportul de sosire!') &&
+   		    		   !isEmpty('departureDate','Va rog alegeti data de plecare!') && 
+		    		   !isEmpty('flyBack','Va rog alegeti data de intoarcere!') &&
+		    		   compareDate(d1,d2,"Va rog verificati perioada deplasarii!Data de inceput trebuie sa fie predecesoare celei de retur!"))
+ 		} else {
+    			return (!isEmpty('contryFrom','Va rog selectati tara din care doriti sa plecati!') &&
+   		    		   !isEmpty('airportFrom','Va rog selectati aeroportul de plecare!') &&
+   		    		   !isEmpty('countryTo','Va rog selectati tara din care doriti sa ajungeti!') &&
+   		    		   !isEmpty('airportTo','Va rog selectati aeroportul de sosire!') &&
+   		    		   !isEmpty('departureDate','Va rog alegeti data de plecare!'))
+    		}
+    	});
+		
+		$('#getPackageForm').submit(function () {
+			var passengers = $.trim($('#passengers').val());
+    		var packageChosen = $('input[name=packageChosen]:checked').val();
+    		var departureFlight = $('input[name=departureFlight]:checked').val();
+    		var returnFlight = $('input[name=returnFlight]:checked').val();
+    		var retur1 = $.trim($('#retur1').val());
+    		if ($('input[name="retur"]:checked').length < 0) {
+	    		return (!isEmpty('passengers','Va rog completati numarul de paageri!') &&
+	    				isEmptyByValue(packageChosen,'Va rog alegeti unul din cele 3 pachete!') && 
+	    				isEmptyByValue(departureFlight, 'Selectati zborul tur!' ))
+    		} else{
+    			return (!isEmpty('passengers','Va rog completati numarul de paageri!') &&
+	    				isEmptyByValue(packageChosen,'Va rog alegeti unul din cele 3 pachete!') && 
+	    				isEmptyByValue(departureFlight, 'Selectati zborul tur!' ) &&
+	    				isEmptyByValue(returnFlight, 'Selectati zborul retur!' ))
+    		}
+		});
 		
 	})
-</script>
+</script> 
 
 
 </body>

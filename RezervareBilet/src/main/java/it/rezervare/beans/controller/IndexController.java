@@ -1,42 +1,39 @@
 package it.rezervare.beans.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.rezervare.beans.helper.helperinterface.IAdminHelper;
-import it.rezervare.beans.helper.helperinterface.IFromToHelper;
+import it.rezervare.beans.helper.helperinterface.IIndexHelper;
+import it.rezervare.beans.model.hibernateBeans.Aeroport;
 import it.rezervare.beans.model.hibernateBeans.Tara;
 import it.rezervare.beans.model.requestBeans.AdminRequestBean;
-import it.rezervare.beans.model.requestBeans.CursaRequestView;
-import it.rezervare.beans.model.requestBeans.FlightChosenRequestBean;
+
 
 @Controller
 public class IndexController {
-	private final IFromToHelper fromToRoute;
+	private final IIndexHelper indexHelper;
 	private final IAdminHelper adminHelper;
 
 	@Autowired
-	public IndexController(final IFromToHelper fromToRoute, final IAdminHelper adminHelper) {
-		this.fromToRoute = fromToRoute;
+	public IndexController(final IIndexHelper fromToRoute, final IAdminHelper adminHelper) {
+		this.indexHelper = fromToRoute;
 		this.adminHelper = adminHelper;
 	}
 
 	@RequestMapping(value = { "/" }, method = { RequestMethod.GET })
 	public ModelAndView login(final ModelAndView model, final HttpServletRequest request) {
 		System.out.println("\n ENTER IndexController \n");
-		final HttpSession session = request.getSession();
-		session.removeAttribute("zboruriCautareRetur");
-		session.removeAttribute("zboruriCautare");
-		model.addObject("cursa", new CursaRequestView());
-		model.addObject("flightChosen",new FlightChosenRequestBean());
-		model.setViewName("index");
+		indexHelper.goToIndexPage(model, request);
 		return model;
 	}
 
@@ -46,12 +43,10 @@ public class IndexController {
 		return adminHelper.loadAdminPage(model, request);
 	}
 
-	@RequestMapping(value = { "/index" }, method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView chooseCountry(final ModelAndView model, @ModelAttribute("tara") final Tara tara,
-			final HttpServletRequest request) {
-		return fromToRoute.chooseCountry(model, tara, request);
+	@RequestMapping(value = "/getAirportForContry", method = { RequestMethod.POST, RequestMethod.GET })
+	public @ResponseBody List<Aeroport> getAirports(final Integer id, final ModelAndView model, final HttpServletRequest request) {
+		return indexHelper.getAirports(id, model, request);
 	}
-
 	@RequestMapping(value = { "/goToLocuri" }, method = { RequestMethod.GET })
 	public ModelAndView goToLocuri(final ModelAndView model) {
 		model.setViewName("locuri");

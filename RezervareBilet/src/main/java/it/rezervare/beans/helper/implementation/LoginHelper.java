@@ -1,5 +1,8 @@
 package it.rezervare.beans.helper.implementation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +17,7 @@ import beans.exception.ExceptionsMessages;
 import it.rezervare.beans.constants.ApplicationConstants;
 import it.rezervare.beans.dao.Interfaces.IClientDAO;
 import it.rezervare.beans.dao.Interfaces.IOperatorDAO;
+import it.rezervare.beans.dao.Interfaces.ITaraDAO;
 import it.rezervare.beans.helper.helperinterface.ILoginHelper;
 import it.rezervare.beans.model.hibernateBeans.Client;
 import it.rezervare.beans.model.hibernateBeans.Operator;
@@ -29,17 +33,19 @@ public class LoginHelper implements ILoginHelper {
 	
 	private final IClientDAO clientDAO;
 	private final IOperatorDAO operatorDAO;
+	private final ITaraDAO taraDAO;
 	
 	@Autowired
-	public LoginHelper(final IClientDAO clientDAO,final IOperatorDAO operatorDAO) {
+	public LoginHelper(final IClientDAO clientDAO,final IOperatorDAO operatorDAO, final ITaraDAO taraDAO) {
 		this.clientDAO = clientDAO;
 		this.operatorDAO = operatorDAO;
+		this.taraDAO = taraDAO;
 	}
 
 	@Override
 	public ModelAndView goToLoginPage(final ModelAndView model, final HttpServletRequest request) {
 		System.out.println("Enter LoginHelper - goToLoginPage ");
-		model.addObject("loginBean", new UserRequestBean());
+		model.addObject("login", new UserRequestBean());
 		model.setViewName("login");
 		System.out.println("Exit LoginHelper.goToLoginPage() ");
 		return model;
@@ -60,11 +66,25 @@ public class LoginHelper implements ILoginHelper {
 	public ModelAndView login(final ModelAndView model, final UserRequestBean loginBean, final HttpServletRequest request) {
 		System.out.println("ENTER LoginHelper.login with loginBean = ["+loginBean+"]\n");
 		try {
+			if(loginBean == null || StringUtils.isEmpty(loginBean.getUserName()) || StringUtils.isEmpty(loginBean.getPassword())) {
+				throw new ApplicationException("Va rugam, completati datele de autentificare!");
+			}
 			final HttpSession session = request.getSession();
-			model.addObject("cursa", new CursaRequestView());
-			model.addObject("flightChosen",new FlightChosenRequestBean());
+			final String password = MD5Utils.convertStringToMD5(loginBean.getPassword());
+			loginBean.setPassword(password);
+			System.out.println("password=["+password+"]");
+			final String rezervareInCurs = (String) session.getAttribute("utNelogat");
+			System.out.println("rezervareInCurs=["+rezervareInCurs+"]");
+			
 			final Client isClientUer = (Client) session.getAttribute(ApplicationConstants.CLIENT);
 			final Operator isOperatorUser = (Operator) session.getAttribute(ApplicationConstants.OPERATOR);
+			
+			List<Tara> tari = new ArrayList<>();
+			tari = taraDAO.getAllCountrys();
+			model.addObject("tari",tari);
+			session.removeAttribute("tari");
+			session.setAttribute("tari", tari);
+			
 			if(isClientUer == null && isOperatorUser == null) {
 				if(loginBean != null && (!StringUtils.isEmpty(loginBean.getUserName()) || !StringUtils.isEmpty(loginBean.getPassword()))) {
 					final Client client = clientDAO.getClientAccount(loginBean);
@@ -72,19 +92,42 @@ public class LoginHelper implements ILoginHelper {
 						final Operator operator = operatorDAO.getOperator(loginBean);
 						if(operator != null) {
 							session.setAttribute(ApplicationConstants.OPERATOR, operator);
-							model.setViewName("admin");
-							model.addObject("operator", new Operator());
-							model.addObject("tara", new Tara());
+							if("1".equals(rezervareInCurs)) {
+								model.setViewName("billingData");
+								model.addObject("factura",new Client());
+								final FlightChosenRequestBean flight = (FlightChosenRequestBean) session.getAttribute("flight");
+								model.addObject("flight",flight);
+								model.addObject("succes", "Logarea s-a realizat cu success! Continuati rezervarea!");
+								System.out.println("operator-continua rezervarea");
+							}else {
+								model.setViewName("admin");
+								model.addObject("operator", new Operator());
+								model.addObject("tara", new Tara());
+								model.addObject("succes", "Logarea s-a realizat cu success!");
+							}
 						} else {
 							session.removeAttribute(ApplicationConstants.ERROR_LOGIN);
 							session.setAttribute(ApplicationConstants.ERROR_LOGIN, loginBean);
-							model.addObject("loginBean", loginBean);
+							model.addObject("login", loginBean);
 							model.setViewName("login");
 							throw new ApplicationException("Numele de utilizator sau parola sunt incorecte!");
 						}
 					} else {
 						session.setAttribute(ApplicationConstants.CLIENT, client);
-						model.setViewName("index");
+						if("1".equals(rezervareInCurs)) {
+							System.out.println("client-continua rezervarea");
+							model.setViewName("billingData");
+							model.addObject("factura",client);
+							final FlightChosenRequestBean flight = (FlightChosenRequestBean) session.getAttribute("flight");
+							model.addObject("flight",flight);
+							model.addObject("succes", "Logarea s-a realizat cu success! Continuati rezervarea!");
+						}else {
+							model.addObject("succes", "Logarea s-a realizat cu success!");
+							model.addObject("client",client);
+							model.addObject("cursa", new CursaRequestView());
+							model.addObject("flightChosen",new FlightChosenRequestBean());
+							model.setViewName("index");
+						}
 					}
 					
 				} else {
@@ -155,7 +198,8 @@ public class LoginHelper implements ILoginHelper {
 		System.out.println(clientBean.getPrenume());
 		System.out.println(clientBean.getEmail());
 		System.out.println(clientBean.getParola());
-		
+		final HttpSession session = request.getSession();
+		final String rezervareInCurs = (String) session.getAttribute("utNelogat");
 		
 		try {
 			clientBean.setParola(MD5Utils.convertStringToMD5(clientBean.getParola()));
@@ -168,8 +212,16 @@ public class LoginHelper implements ILoginHelper {
 			}
 			
 			clientDAO.insertClient(clientBean);
-			model.addObject("clientBean", new Client());
-			model.addObject("succes", "Contul a fost creat cu success");
+			if("1".equals(rezervareInCurs)) {
+				model.setViewName("billingData");
+				model.addObject("factura",new Client());
+				final FlightChosenRequestBean flight = (FlightChosenRequestBean) session.getAttribute("flight");
+				model.addObject("flight",flight);
+				model.addObject("succes", "Contul a fost creat cu success! Continuati rezervarea!");
+			}else {
+				model.addObject("clientBean", new Client());
+				model.addObject("succes", "Contul a fost creat cu success");
+			}
 		} catch (final ApplicationException e) {
 			model.addObject("clientBean", clientBean != null ? clientBean : new Client());
 			model.addObject("exceptie", e.getMessage());

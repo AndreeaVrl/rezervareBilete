@@ -30,7 +30,7 @@ public class TipCard {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -38,7 +38,7 @@ public class TipCard {
 		return denumire;
 	}
 
-	public void setDenumire(String denumire) {
+	public void setDenumire(final String denumire) {
 		this.denumire = denumire;
 	}
 
@@ -46,8 +46,13 @@ public class TipCard {
 		return modalitatiPlata;
 	}
 
-	public void setModalitatiPlata(Set<ModalitatePlata> modalitatiPlata) {
+	public void setModalitatiPlata(final Set<ModalitatePlata> modalitatiPlata) {
 		this.modalitatiPlata = modalitatiPlata;
+	}
+
+	@Override
+	public String toString() {
+		return "TipCard [id=" + id + ", denumire=" + denumire + ", modalitatiPlata=" + modalitatiPlata + "]";
 	}
 
 }

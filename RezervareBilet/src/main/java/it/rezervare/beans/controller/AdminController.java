@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import it.rezervare.beans.helper.helperinterface.IAdminHelper;
 import it.rezervare.beans.model.hibernateBeans.Tara;
-import it.rezervare.beans.model.requestBeans.AeroportRequestBean;
+import it.rezervare.beans.model.requestBeans.AdminRequestBean;
 
 @Controller
 public class AdminController {
@@ -40,18 +40,28 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/addAirport", method = { RequestMethod.POST, RequestMethod.GET })
-	public @ResponseBody AeroportRequestBean addAirport(@ModelAttribute("aeroport") final AeroportRequestBean aeroport, final ModelAndView model, final HttpServletRequest request) {
+	public @ResponseBody AdminRequestBean addAirport(@ModelAttribute("aeroport") final AdminRequestBean aeroport, final ModelAndView model, final HttpServletRequest request) {
 		return adminHelper.addAirport(aeroport, model, request);
 	}
 	
 	@RequestMapping(value = "/editAirport", method = { RequestMethod.POST, RequestMethod.GET })
-	public @ResponseBody AeroportRequestBean editAirport(@ModelAttribute("aeroport") final AeroportRequestBean aeroport, final ModelAndView model, final HttpServletRequest request) {
+	public @ResponseBody AdminRequestBean editAirport(@ModelAttribute("aeroport") final AdminRequestBean aeroport, final ModelAndView model, final HttpServletRequest request) {
 		return adminHelper.editAirport(aeroport, model, request);
 	}
 	
 	@RequestMapping(value = "/deleteAirport", method = { RequestMethod.POST, RequestMethod.GET })
-	public @ResponseBody AeroportRequestBean deleteAirport(@ModelAttribute("aeroport") final AeroportRequestBean aeroport, final ModelAndView model, final HttpServletRequest request) {
+	public @ResponseBody AdminRequestBean deleteAirport(@ModelAttribute("aeroport") final AdminRequestBean aeroport, final ModelAndView model, final HttpServletRequest request) {
 		return adminHelper.deleteAirport(aeroport, model, request);
+	}
+	
+	@RequestMapping(value = "/addRoute", method = { RequestMethod.POST, RequestMethod.GET })
+	public @ResponseBody AdminRequestBean addRoute(@ModelAttribute("aeroport") final AdminRequestBean adminRequestBean, final ModelAndView model, final HttpServletRequest request) {
+		return adminHelper.addRoute(adminRequestBean, model, request);
+	}
+	
+	@RequestMapping(value = "/deleteRoute", method = { RequestMethod.POST, RequestMethod.GET })
+	public @ResponseBody AdminRequestBean deleteRoute(@ModelAttribute("aeroport") final AdminRequestBean adminRequestBean, final ModelAndView model, final HttpServletRequest request) {
+		return adminHelper.deleteRoute(adminRequestBean, model, request);
 	}
 
 }

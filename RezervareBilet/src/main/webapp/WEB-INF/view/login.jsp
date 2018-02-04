@@ -36,26 +36,16 @@
 	
 	<div class="container">
 
-      <form:form class="form-signin" method="POST" action="login" id="loginForm">
+      <form:form class="form-signin" method="POST" action="login" id="loginForm" modelAttribute="login">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="userName" class="sr-only">Email address</label>
-        <input type="text" id="userName" class="form-control" placeholder="Username"  value="${loginBean.userName}" required autofocus>
+        <form:input path="userName" class="form-control" placeholder="Username"  value="${loginBean.userName}" />
         <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" class="form-control" placeholder="Password" value="${loginBean.password}" required>
+        <form:input path="password" type="password" class="form-control" placeholder="Password" value="${loginBean.password}" />
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="login" value="Log In">Log in</button>
+		<br><a href="goToChangePasswordPage">Forgot your password?</a> |<a href="goToCreateNewAccount"> Create account!</a>
       </form:form>
 
     </div> <!-- /container -->
-    
-    <!-- 
-	<div>
-		<form:form method="POST" action="login" id="loginForm">
-			  <input type="text" id="userName" name="userName" placeholder="Username" value="${loginBean.userName}"/><br>
-			  <input type="password" id="password" name="password" placeholder="Password"  value="${loginBean.password}"/><br>
-			  <button type="submit" id="login" value="Log In">Log In</button><br>
-		</form:form>
-	</div>
-	-->
-		<br><a href="goToChangePasswordPage">Forgot your password?</a>
 	</body>
 </html>

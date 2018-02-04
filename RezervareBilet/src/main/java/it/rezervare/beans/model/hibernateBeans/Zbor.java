@@ -15,8 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.BatchSize;
+
 @Entity
 @Table(name = "zboruri")
+@BatchSize(size = 100) 
 public class Zbor {
 
 	@Id
@@ -46,13 +49,14 @@ public class Zbor {
 	private Cursa cursa;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "zbor")
+	@BatchSize(size = 100) 
 	private Set<Bilet> bilete = new HashSet<Bilet>();
 
 	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -60,7 +64,7 @@ public class Zbor {
 		return dataPlecare;
 	}
 
-	public void setDataPlecare(Date dataPlecare) {
+	public void setDataPlecare(final Date dataPlecare) {
 		this.dataPlecare = dataPlecare;
 	}
 
@@ -68,7 +72,7 @@ public class Zbor {
 		return dataSosire;
 	}
 
-	public void setDataSosire(Date dataSosire) {
+	public void setDataSosire(final Date dataSosire) {
 		this.dataSosire = dataSosire;
 	}
 
@@ -76,7 +80,7 @@ public class Zbor {
 		return companie;
 	}
 
-	public void setCompanie(Companie companie) {
+	public void setCompanie(final Companie companie) {
 		this.companie = companie;
 	}
 
@@ -84,7 +88,7 @@ public class Zbor {
 		return avion;
 	}
 
-	public void setAvion(Avion avion) {
+	public void setAvion(final Avion avion) {
 		this.avion = avion;
 	}
 
@@ -92,7 +96,7 @@ public class Zbor {
 		return cursa;
 	}
 
-	public void setCursa(Cursa cursa) {
+	public void setCursa(final Cursa cursa) {
 		this.cursa = cursa;
 	}
 
@@ -100,7 +104,7 @@ public class Zbor {
 		return bilete;
 	}
 
-	public void setBilete(Set<Bilet> bilete) {
+	public void setBilete(final Set<Bilet> bilete) {
 		this.bilete = bilete;
 	}
 
@@ -108,7 +112,7 @@ public class Zbor {
 		return pret;
 	}
 
-	public void setPret(BigDecimal pret) {
+	public void setPret(final BigDecimal pret) {
 		this.pret = pret;
 	}
 

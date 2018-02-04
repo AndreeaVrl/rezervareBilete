@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.rezervare.beans.model.hibernateBeans.Tara;
-import it.rezervare.beans.model.requestBeans.AeroportRequestBean;
+import it.rezervare.beans.model.requestBeans.AdminRequestBean;
 
 public interface IAdminHelper {
 
@@ -17,10 +17,14 @@ public interface IAdminHelper {
 
 	Tara deleteCountry(Tara tara, ModelAndView model, HttpServletRequest request);
 
-	AeroportRequestBean addAirport(AeroportRequestBean aeroport, ModelAndView model, HttpServletRequest request);
+	AdminRequestBean addAirport(AdminRequestBean aeroport, ModelAndView model, HttpServletRequest request);
 
-	AeroportRequestBean editAirport(AeroportRequestBean aeroport, ModelAndView model, HttpServletRequest request);
+	AdminRequestBean editAirport(AdminRequestBean aeroport, ModelAndView model, HttpServletRequest request);
 
-	AeroportRequestBean deleteAirport(AeroportRequestBean aeroport, ModelAndView model, HttpServletRequest request);
+	AdminRequestBean deleteAirport(AdminRequestBean aeroport, ModelAndView model, HttpServletRequest request);
+
+	AdminRequestBean addRoute(AdminRequestBean routeBean, ModelAndView model, HttpServletRequest request);
+
+	AdminRequestBean deleteRoute(AdminRequestBean adminRequestBean, ModelAndView model, HttpServletRequest request);
 
 }

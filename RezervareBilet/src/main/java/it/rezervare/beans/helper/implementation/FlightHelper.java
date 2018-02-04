@@ -1,5 +1,6 @@
 package it.rezervare.beans.helper.implementation;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,6 +33,8 @@ import it.rezervare.beans.model.hibernateBeans.Bilet;
 import it.rezervare.beans.model.hibernateBeans.Loc;
 import it.rezervare.beans.model.hibernateBeans.Zbor;
 import it.rezervare.beans.model.requestBeans.FlightChosenRequestBean;
+import it.rezervare.beans.model.requestBeans.PassengersRequestView;
+import it.rezervare.beans.model.requestBeans.RezervareRequestBean;
 
 @Service
 @Lazy
@@ -52,48 +55,75 @@ public class FlightHelper implements IFlightHelper {
 	@Override
 	public ModelAndView getSelectedFlight(final ModelAndView model, @ModelAttribute("flightChosen") final FlightChosenRequestBean flight, final HttpServletRequest request) {
 		System.out.println("\n ENTER FlightHelper.getSelectedFlight() with flight = ["+flight+"] \n");
-		try {
-			final HttpSession session = request.getSession();
-			final Map<Integer,LinkedList<List<Zbor>>> mapZboruriPlecare = (Map<Integer, LinkedList<List<Zbor>>>) session.getAttribute("allRoutesMap");
-			final Map<Integer,LinkedList<List<Zbor>>> mapZboruriRetur = (Map<Integer, LinkedList<List<Zbor>>>) session.getAttribute("mapZboruriRetur");
-			final Map<String,Integer[][]> locuri = new HashMap<>();
-
-//			final LinkedList<List<Zbor>> zborAles = !CollectionUtils.isEmpty(mapZboruriPlecare) ? mapZboruriPlecare.get(flight.getDeparturFlight()) : new LinkedList<>();
-			if(!StringUtils.isEmptyOrWhitespaceOnly(flight.getDepartureCompannies())) {
-				final String[] departureChoosenFlight = flight.getDepartureCompannies().split(";") ;
-				System.out.println("departureChoosenFlight=["+departureChoosenFlight+"]");
-				final List<Zbor> listaZboruri = getListaZboruri(departureChoosenFlight);
-				System.out.println("listaZboruri = ["+listaZboruri+"]");
-				createPlane(listaZboruri,locuri);
+		try {///!Lista cu cursele
+			if(flight.getPackageChosen() == 1) {
+				model.addObject("pasageri",new PassengersRequestView());
+				model.addObject("flight",flight);
+				model.setViewName("customerData");
+			}else {
+				final HttpSession session = request.getSession();
+				final Map<String,BigDecimal> preturi = new HashMap<>();
+				final Map<Integer,LinkedList<List<Zbor>>> mapZboruriPlecare = (Map<Integer, LinkedList<List<Zbor>>>) session.getAttribute("allRoutesMap");
+				final Map<Integer,LinkedList<List<Zbor>>> mapZboruriRetur = (Map<Integer, LinkedList<List<Zbor>>>) session.getAttribute("mapZboruriRetur");
+				final Map<String,Integer[][]> locuri = new HashMap<>();
+				final List<Zbor> zboruri = new ArrayList<>();
+	//			final LinkedList<List<Zbor>> zborAles = !CollectionUtils.isEmpty(mapZboruriPlecare) ? mapZboruriPlecare.get(flight.getDeparturFlight()) : new LinkedList<>();
+				if(!StringUtils.isEmptyOrWhitespaceOnly(flight.getDepartureCompannies())) {
+					final String[] departureChoosenFlight = flight.getDepartureCompannies().split(";") ;
+					System.out.println("departureChoosenFlight=["+departureChoosenFlight+"]");
+					final List<Zbor> listaZboruri = getListaZboruri(departureChoosenFlight,preturi);
+					zboruri.addAll(listaZboruri);
+					System.out.println("listaZboruri = ["+listaZboruri+"]");
+					createPlane(listaZboruri,locuri);
+				}
+	//			final LinkedList<List<Zbor>> zborAlesRetur = !CollectionUtils.isEmpty(mapZboruriPlecare) ? mapZboruriPlecare.get(flight.getReturFlight()) : new LinkedList<>();
+				if(!StringUtils.isEmptyOrWhitespaceOnly(flight.getReturnCompannies())) {
+					final String[] returnChoosenFlight = flight.getReturnCompannies().split(";");
+					System.out.println("returnChoosenFlight=["+returnChoosenFlight+"]");
+					final List<Zbor> listaZboruriretur = getListaZboruri(returnChoosenFlight,preturi);
+					System.out.println("listaZboruriretur = ["+listaZboruriretur+"]");
+					zboruri.addAll(listaZboruriretur);
+					createPlane(listaZboruriretur,locuri);
+				}
+				System.out.println("mapLocuri = ["+locuri+"]");
+				session.removeAttribute("preturi");
+				session.setAttribute("preturi", preturi);
+				final Map<String, String> routMap = getRoutMap(zboruri);
+				model.addObject("routMap",routMap);
+				session.removeAttribute("routMap");
+				session.setAttribute("routMap", routMap);
+				model.addObject("zboruriCautareRetur", mapZboruriRetur);
+				model.addObject("zboruriCautare", mapZboruriPlecare);
+				model.addObject("mapAvioane", locuri);
+				model.addObject("zboruri");
+				model.addObject("flight",flight);
+				session.removeAttribute("zboruri");
+				session.setAttribute("zboruri",zboruri);
+				session.removeAttribute("flight");
+				session.setAttribute("flight", flight);
+				model.addObject("rezervare", new RezervareRequestBean());
+				model.setViewName("locuri");
 			}
-//			final LinkedList<List<Zbor>> zborAlesRetur = !CollectionUtils.isEmpty(mapZboruriPlecare) ? mapZboruriPlecare.get(flight.getReturFlight()) : new LinkedList<>();
-			if(!StringUtils.isEmptyOrWhitespaceOnly(flight.getReturnCompannies())) {
-				final String[] returnChoosenFlight = flight.getReturnCompannies().split(";");
-				System.out.println("returnChoosenFlight=["+returnChoosenFlight+"]");
-				final List<Zbor> listaZboruriretur = getListaZboruri(returnChoosenFlight);
-				System.out.println("listaZboruriretur = ["+listaZboruriretur+"]");
-				createPlane(listaZboruriretur,locuri);
-			}
-			System.out.println("mapLocuri = ["+locuri+"]");
-			model.addObject("zboruriCautareRetur", mapZboruriRetur);
-			model.addObject("zboruriCautare", mapZboruriPlecare);
-			model.addObject("mapAvioane", locuri);
-			model.addObject("flight",flight);
-			model.setViewName("locuri");
 		} catch (final Exception e) {
 			e.printStackTrace();
 			model.addObject("exceptie", e.getMessage());
 		} 
 		System.out.println("\n EXIT FlightHelper.getSelectedFlight() \n");
-	//	model.setViewName("index");
 		return model;
 	}
-
+	private Map<String, String> getRoutMap(final List<Zbor> listaZboruri) {
+		final Map<String, String> routMap = new HashMap<>();
+		for(final Zbor zbor : listaZboruri) {
+			routMap.put(String.valueOf(zbor.getId()), zbor.getCursa().getAeroport_1().getDenumire() + "-" + zbor.getCursa().getAeroport_2().getDenumire());
+		}
+		return routMap;
+	}
 	@Transactional
-	private List<Zbor> getListaZboruri(final String[] departureArray) throws NumberFormatException, ApplicationException{
+	private List<Zbor> getListaZboruri(final String[] departureArray, final Map<String,BigDecimal> preturi) throws NumberFormatException, ApplicationException{
 		final List<Zbor> listaZboruri = new ArrayList<>();
 		for(final String departure : departureArray ) {
 			final Zbor zbor = zborDAO.getFlightById(Integer.valueOf(departure));
+			preturi.put(String.valueOf(zbor.getId()), zbor.getPret());
 			Hibernate.initialize(zbor);
 			Hibernate.initialize(zbor.getAvion());
 			Hibernate.initialize(zbor.getAvion().getTipAvion());
@@ -110,7 +140,7 @@ public class FlightHelper implements IFlightHelper {
 			for(final Zbor zbor : listaZboruri) {
 				for(final Loc loc : zbor.getAvion().getTipAvion().getLocuri()) {
 					randuri.add(loc.getRand());
-					final char col = loc.getColoana().toLowerCase().charAt(0);
+					final char col = loc.getColoana().toLowerCase().charAt(0) ;
 					final Integer colNumber = col - 'a' + 1;
 					coloane.add(colNumber);
 				}

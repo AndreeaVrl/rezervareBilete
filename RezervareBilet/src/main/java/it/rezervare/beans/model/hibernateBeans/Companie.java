@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.BatchSize;
+
 @Entity
 @Table(name = "companii")
 public class Companie {
@@ -24,6 +26,7 @@ public class Companie {
 	private String denumire;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "companie")
+	@BatchSize(size = 50)
 	private Set<Pachet> pachete = new HashSet<Pachet>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "companie")
@@ -33,7 +36,7 @@ public class Companie {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -41,7 +44,7 @@ public class Companie {
 		return denumire;
 	}
 
-	public void setDenumire(String denumire) {
+	public void setDenumire(final String denumire) {
 		this.denumire = denumire;
 	}
 
@@ -49,7 +52,7 @@ public class Companie {
 		return pachete;
 	}
 
-	public void setPachete(Set<Pachet> pachete) {
+	public void setPachete(final Set<Pachet> pachete) {
 		this.pachete = pachete;
 	}
 
@@ -57,7 +60,7 @@ public class Companie {
 		return zboruri;
 	}
 
-	public void setZboruri(Set<Zbor> zboruri) {
+	public void setZboruri(final Set<Zbor> zboruri) {
 		this.zboruri = zboruri;
 	}
 

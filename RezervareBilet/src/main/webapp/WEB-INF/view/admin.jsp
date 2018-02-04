@@ -121,30 +121,30 @@
         <div class="panel-heading">
           <h3 class="panel-title text-center">Route To</h3>
         </div>
-        <form class="form-inline" action="" method="post">
+        <form:form class="form-inline" action="" model="aeroport" id="routeForm" method="post" commandName="aeroport">
 	        <div class="panel-body">
 	        	<div class="col-md-6">
 		        	<div class="form-group">
-				        <select class="form-control" id="routes-sel" size="20"> <!-- trage date din tabela curse functie de aeroport1 -->
-				          <option>Paris</option>
-				          <option>Bucharest</option>
-				        </select>
+				        <form:select class="form-control" id="routes-sel" size="20" path="denumire">
+				        	<c:forEach items="${airportsList}" var="airport">
+				        		<c:forEach items="${airport.curseAeroport_1}" var="curse">
+				        			<form:option data-group="${airport.id}" value="${curse.id}">${curse.aeroport_2.denumire}</form:option>
+				        		</c:forEach>
+				        	</c:forEach>
+				        </form:select>
 				      </div>
 				    </div>
 				    <div class="col-md-6" id="route_info"> <!-- se actualizeaza functie de ruta aleasa -->
 				    	<h4>Informations</h4>
-				    	Company:<br />
-				    	Starting price:<br />
-				    	Packages:<br />
-				    	...
+						<p id="routeDistanceInformations"></p>
 				    </div>
 	        </div>
 	        <div class="panel-footer text-center">
 	        	<button class="btn btn-primary" name="submit_edit" type="button" data-toggle="modal" data-target="#myEditRouteModal" id="editRouteModal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_add" type="button" data-toggle="modal" data-target="#myAddRouteModal" id="editRouteModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_remove" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_add" type="button" data-toggle="modal" data-target="#myAddRouteModal" id="addRouteModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<button class="btn btn-primary" name="submit_remove" type="button" id="deleteRouteModal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
-        </form>
+        </form:form>
       </div>		
 		</div>
 		
@@ -161,22 +161,22 @@
         <div class="panel-heading">
           <h3 class="panel-title text-center">Companies</h3>
         </div>
-        <form class="form-inline" action="" method="post">
+        <form:form class="form-inline" action="" model="aeroport" id="airportsForm" method="post" commandName="aeroport">
 	        <div class="panel-body">
 	        	<div class="form-group">
-			        <select class="form-control" id="companies-sel" size="20"> <!-- trage date din tabela companii -->
-			          <option>Wizz-Air</option>
-			          <option>Panair</option>
-			          <option>Rayan Air</option>
-			        </select>
-			      </div>
+		        	<form:select class="form-control" id="companies-sel" size="20" path="denumire">
+				        <c:forEach items="${companiesList}" var="company">
+					        <form:option value="${company.id}">${company.denumire}</form:option>
+					    </c:forEach>
+					</form:select>
+			     </div>
 	        </div>
 	        <div class="panel-footer text-center">
 	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_add" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
-        </form>
+        </form:form>
       </div>		
 		</div>
 		
@@ -185,24 +185,23 @@
         <div class="panel-heading">
           <h3 class="panel-title text-center">Packages</h3>
         </div>
-        <form class="form-inline" action="" method="post">
+         <form:form class="form-inline" action="" model="aeroport" id="airportsForm" method="post" commandName="aeroport">
 	        <div class="panel-body">
 	        	<div class="col-md-6">
 		        	<div class="form-group">
-				        <select class="form-control" id="packages-sel" size="20"> <!-- trage date din tabela pachete functie de companie -->
-			          <option>Standard</option>
-			          <option>Plus</option>
-			          <option>Flexi-Plus</option>
-			        </select>
+				    <form:select class="form-control" id="packages-sel" size="20" path="denumire">
+				        <c:forEach items="${companiesList}" var="company">
+				        	<c:forEach items="${company.pachete}" var="packages">	
+					        	<form:option data-group="${company.id}" value="${packages.id}">${packages.denumire}</form:option>
+					        </c:forEach>
+					    </c:forEach>
+					</form:select>
 				      </div>
 				    </div>
 				    <div class="col-md-6" id="route_info"> <!-- se actualizeaza functie de pachetul ales -->
 				    	<h4>Informations</h4>
-				    	Company:<br />
-				    	Package name:<br />
-				    	Price:<br />
-				    	Facilities:<br />
-				    	...
+						<p id="infoPackageTax"></p>
+						<p id="infoPackageDescription"></p>
 				    </div>
 	        </div>
 	        <div class="panel-footer text-center">
@@ -210,7 +209,7 @@
 	        	<button class="btn btn-primary" name="submit_add" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 	        </div>
-        </form>
+        </form:form>
       </div>		
 		</div>
 
@@ -361,7 +360,13 @@
 $("#editCountryModal").attr("disabled", true);
 $("#deleteCountry").attr("disabled", true);
 $("#editAirportModal").attr("disabled", true);
+$("#addAirportModal").attr("disabled", true);
 $("#deleteAirportModal").attr("disabled", true);
+$("#addRouteModal").attr("disabled", true);
+$("#editRouteModal").attr("disabled", true);
+$("#deleteRouteModal").attr("disabled", true);
+
+
 
 function sortAirports(){
 	$("#airports-sel").append($("#airports-sel option").remove().sort(function(a, b) {
@@ -370,8 +375,29 @@ function sortAirports(){
 	}));
 }
 
+function sortRoutes(){
+	$("#routes-sel").append($("#routes-sel option").remove().sort(function(a, b) {
+	    var at = $(a).text(), bt = $(b).text();
+	    return (at > bt)?1:((at < bt)?-1:0);
+	}));
+}
+
 function sortCountries(){
 	$("#countries-sel").append($("#countries-sel option").remove().sort(function(a, b) {
+	    var at = $(a).text(), bt = $(b).text();
+	    return (at > bt)?1:((at < bt)?-1:0);
+	}));
+}
+
+function sortCompanies(){
+	$("#companies-sel").append($("#companies-sel option").remove().sort(function(a, b) {
+	    var at = $(a).text(), bt = $(b).text();
+	    return (at > bt)?1:((at < bt)?-1:0);
+	}));
+}
+
+function sortPackages(){
+	$("#packages-sel").append($("#packages-sel option").remove().sort(function(a, b) {
 	    var at = $(a).text(), bt = $(b).text();
 	    return (at > bt)?1:((at < bt)?-1:0);
 	}));
@@ -396,6 +422,60 @@ $(function(){
     $('#countries-sel').trigger('change');
 });
 
+$(function(){
+    $('#airports-sel').on('change', function(){
+        var val = $(this).val();
+        var sub = $('#routes-sel');
+        $('option', sub).filter(function(){
+            if (
+                 $(this).attr('data-group') === val 
+              || $(this).attr('data-group') === 'SHOW'
+            ) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+    $('#airports-sel').trigger('change');
+});
+
+$(function(){
+    $('#airports-sel').on('change', function(){
+        var val = $(this).val();
+        var sub = $('#routes-sel');
+        $('option', sub).filter(function(){
+            if (
+                 $(this).attr('data-group') === val 
+              || $(this).attr('data-group') === 'SHOW'
+            ) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+    $('#airports-sel').trigger('change');
+});
+
+$(function(){
+    $('#companies-sel').on('change', function(){
+        var val = $(this).val();
+        var sub = $('#packages-sel');
+        $('option', sub).filter(function(){
+            if (
+                 $(this).attr('data-group') === val 
+              || $(this).attr('data-group') === 'SHOW'
+            ) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+    $('#companies-sel').trigger('change');
+});
+
 function showAddCountryInput(){
 	document.getElementById("editCountryInputId").style.display = "inline";
 }
@@ -407,6 +487,12 @@ function submitNewCountry(){
 }
 
 $(document).ready(function(){
+	$("#toAirport").append($("#toAirport option").remove().sort(function(a, b) {
+	    var at = $(a).text(), bt = $(b).text();
+	    return (at > bt)?1:((at < bt)?-1:0);
+	}));
+	$("#toAirport").val($("#toAirport option:first").val());
+	
 	$('#saveAddCountryChanges').click(function() {
 		var newCountryName = $('#addCountryInputDenumire').val();
 		var newCountryId;
@@ -458,18 +544,29 @@ $(document).ready(function(){
 		console.log(selectedCountry);
 		$("#editCountryInputId").val(selectedCountryId);
 		$("#editCountryInputDenumire").val(selectedCountry);
+		sortCountries();
 	})
 	
 	$("#countries-sel").change(function() {
 		$("#editCountryModal").removeClass("disabled");
 		$("#editCountryModal").attr("disabled", false);
 		$("#deleteCountry").attr("disabled", true);
+		$("#addAirportModal").attr("disabled", false);
 		$("#editAirportModal").attr("disabled", true);
 		$("#deleteAirportModal").attr("disabled", true);
+		$("#addRouteModal").attr("disabled", true);
+		$("#editRouteModal").attr("disabled", true);
+		$("#deleteRouteModal").attr("disabled", true);
+		$("#routeDistanceInformations").text("");
 		document.getElementById("addAirportInputIdTara").value = $( "#countries-sel option:selected" ).val();
 		document.getElementById("addAirportInputDenumireTara").value = $( "#countries-sel option:selected" ).text();
 		document.getElementById("editAirportInputIdTara").value = $( "#countries-sel option:selected" ).val();
 		document.getElementById("editAirportInputDenumireTara").value = $( "#countries-sel option:selected" ).text();
+		
+
+		$("#routes-sel > option").each(function() {
+			 $(this).hide();
+		});
 		
 		var found = 0;
 		<c:forEach items="${countriesList}" var="country">
@@ -494,10 +591,43 @@ $(document).ready(function(){
 		}
 	})
 	
+	$("#routes-sel").change(function() {
+		<%--$("#editRouteModal").attr("disabled", false);--%>
+		$("#deleteRouteModal").attr("disabled", true);
+		
+		console.log("routes select change");
+		var found = 0;
+		
+		<c:forEach items="${routesList}" var="route">
+			var selectedRouteId = $("#routes-sel option:selected").val();
+			var routeId = ${route.id};
+			if (selectedRouteId == routeId) {
+				$("#routeDistanceInformations").text("Distance: " + ${route.distanta});
+				var found = 1;
+				console.log("found route :" + routeId);
+				<c:if test="${empty route.zboruri}">
+					$("#deleteRouteModal").attr("disabled", false);
+				</c:if>
+			}
+		</c:forEach>
+		
+		if(found != 1){
+			$("#deleteAirportModal").attr("disabled", false);
+		}
+	})
+	
 	$("#airports-sel").change(function() {
 		$("#editAirportModal").removeClass("disabled");
 		$("#editAirportModal").attr("disabled", false);
 		$("#deleteAirportModal").attr("disabled", true);
+		$("#editRouteModal").attr("disabled", true);
+		$("#deleteRouteModal").attr("disabled", true);
+		$("#addRouteModal").attr("disabled", false);
+		$("#routeDistanceInformations").text("");
+		
+		$("#fromAirport").val($("#airports-sel option:selected").text());
+		console.log($("#airports-sel option:selected").val());
+		$("#fromAirportId").val($("#airports-sel option:selected").val());
 		
 		var found = 0;
 		<c:forEach items="${airportsList}" var="airport">
@@ -527,7 +657,7 @@ $(document).ready(function(){
 			dataType : 'json',
 			success: function(data) {
 				console.log("SUCCESS id: " + data.id);
-				$( "#airports-sel option:selected" ).remove();
+				$("#airports-sel option:selected").remove();
 				$("#editAirportModal").attr("disabled", true);
 				$("#deleteAirportModal").attr("disabled", true);
 			}
@@ -604,17 +734,116 @@ $(document).ready(function(){
 				$('#myEditAirportModal').modal('hide');
 			}
 		})
-		
 	})
-
+	
+	$('#saveNewRoute').click(function() {
+		console.log("start - saveNewRoute");
+		var fromAirport = $('#fromAirport').val();
+		var toAirport = $('#toAirport').val();
+		var distance = $('#distance').val();
 		
+		console.log(fromAirport);
+		console.log(toAirport);
+		console.log(distance);
 		
+		$.ajax({
+			type: 'POST',
+			url: '${pageContext.request.contextPath}/addRoute',
+			data: $('form[name=routeForm]').serialize(),
+			dataType : 'json',
+			success: function(data) {
+				console.log("SUCCES");
+				console.log(data);
+				
+				$('#routes-sel').append($('<option>', {
+				    value: data.idTara,
+				    text: data.denumireTara,
+				    "data-group": data.id
+				}));
+				
+				$('#myAddRouteModal').modal('hide');
+				sortRoutes();
+			}
+		})
+	})
+	
+	$('#deleteRouteModal').click(function() {
+		var selectedRouteId = $("#routes-sel option:selected").val();
+		$.ajax({
+			type: 'POST',
+			url: '${pageContext.request.contextPath}/deleteRoute',
+			data: {id: selectedRouteId},
+			dataType : 'json',
+			success: function(data) {
+				console.log("SUCCESS id: " + data.id);
+				$("#routes-sel option:selected").remove();
+				$("#editRouteModal").attr("disabled", true);
+				$("#deleteRouteModal").attr("disabled", true);
+			}
+		})
+	})
+	
+	$("#routes-sel").change(function() {
+		<%--$("#editRouteModal").attr("disabled", false);--%>
+		$("#deleteRouteModal").attr("disabled", true);
+		
+		console.log("routes select change");
+		var found = 0;
+		
+		<c:forEach items="${routesList}" var="route">
+			var selectedRouteId = $("#routes-sel option:selected").val();
+			var routeId = ${route.id};
+			if (selectedRouteId == routeId) {
+				var routeDistance = ${route.distanta};
+				$("#routeDistanceInformations").text("Distance: " + routeDistance);
+				var found = 1;
+				console.log("found route :" + routeId);
+				<c:if test="${empty route.zboruri}">
+					$("#deleteRouteModal").attr("disabled", false);
+				</c:if>
+			}
+		</c:forEach>
+		
+		if(found != 1){
+			$("#deleteAirportModal").attr("disabled", false);
+		}
+	})
+	
+	$("#packages-sel").change(function() {
+		console.log("packages select change");
+		var found = 0;
+		
+		<c:forEach items="${packagesList}" var="p"> 
+			var selectedPackageId = $("#packages-sel option:selected").val();
+			var packageId = ${p.id}; 
+			console.log("packageId" + packageId);
+			if (selectedPackageId == packageId) {
+				var taxaPachet = ${p.taxaPachet};
+				var caracteristici = "${p.caracteristici}";
+				
+				$("#infoPackageTax").text("Tax: " + taxaPachet);
+				$("#infoPackageDescription").text("Characteristics: " + caracteristici);
+				var found = 1;
+				<%--
+				<c:if test="${empty route.zboruri}">
+					$("#deleteRouteModal").attr("disabled", false);
+				</c:if>--%>
+			}
+		</c:forEach>
+		<%--
+		if(found != 1){
+			$("#deleteAirportModal").attr("disabled", false);
+		}
+		--%>
+	})
+	
 	
 	$( document ).ready(function() {
 	    sortAirports();
 	    sortCountries();
+	    sortCompanies();
+	    sortPackages();
 	});
-	
 })
 
 </script>
@@ -739,7 +968,30 @@ $(document).ready(function(){
         <h4 class="modal-title">Route edit</h4>
       </div>
       	<div class="modal-body">
-					edit route
+			<%--<form:form class="form-inline" id="addRouteForm" name="routeForm" modelAttribute="aeroport" method="post">
+				<table>
+					<tr>
+						<td><strong>From Airport:</strong></td>
+						<td><form:input path="denumire" id="editRoutefromAirport" disabled="true"/></td>
+					</tr>
+					<tr>
+						<td><strong>To Airport:</strong></td>
+						<td>
+							<form:select class="form-control" id="editRoutetoAirport" path="idTara">
+					        	<c:forEach items="${airportsList}" var="routeTo">
+					        		<form:option value="${routeTo.id}">${routeTo.denumire}</form:option>
+					        	</c:forEach>
+					        </form:select>
+				        </td>
+					</tr>
+				    <tr>
+				        <td><strong>Distance:</strong></td>
+				        <td><form:input type="number" path="distanta" id="editRouteDistance"/></td>
+			        </tr>
+			        <form:input path="id" id="editRouteFromAirportId" style="visibility: hidden" type="text"/>
+				</table>
+			</form:form> --%>
+			Edit route ?!
       	</div>
       	<div class="modal-footer">
         	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -759,11 +1011,33 @@ $(document).ready(function(){
         <h4 class="modal-title">Route add</h4>
       </div>
       	<div class="modal-body">
-					add route
+			<form:form class="form-inline" id="addRouteForm" name="routeForm" modelAttribute="aeroport" method="post">
+				<table>
+					<tr>
+						<td><strong>From Airport:</strong></td>
+						<td><form:input path="denumire" id="fromAirport" disabled="true"/></td>
+					</tr>
+					<tr>
+						<td><strong>To Airport:</strong></td>
+						<td>
+							<form:select class="form-control" id="toAirport" path="idTara">
+					        	<c:forEach items="${airportsList}" var="routeTo">
+					        		<form:option value="${routeTo.id}">${routeTo.denumire}</form:option>
+					        	</c:forEach>
+					        </form:select>
+				        </td>
+					</tr>
+				    <tr>
+				        <td><strong>Distance:</strong></td>
+				        <td><form:input type="number" path="distanta" id="distance"/></td>
+			        </tr>
+			        <form:input path="id" id="fromAirportId" style="visibility: hidden" type="text"/>
+				</table>
+			</form:form>
       	</div>
       	<div class="modal-footer">
         	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        	<button type="button" class="btn btn-primary" id="saveCountryChanges">Save changes</button>
+        	<button type="button" class="btn btn-primary" id="saveNewRoute">Save changes</button>
       	</div>
     </div>
   </div>

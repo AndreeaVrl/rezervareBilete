@@ -25,8 +25,11 @@ import it.rezervare.beans.model.CursaDijkstraAlgoritm;
 import it.rezervare.beans.model.Edge;
 import it.rezervare.beans.model.Graphs;
 import it.rezervare.beans.model.Node;
+import it.rezervare.beans.model.hibernateBeans.Aeroport;
 import it.rezervare.beans.model.hibernateBeans.Cursa;
+import it.rezervare.beans.model.hibernateBeans.Tara;
 import it.rezervare.beans.model.hibernateBeans.Zbor;
+import it.rezervare.beans.model.requestBeans.AeroportAjaxView;
 import it.rezervare.beans.model.requestBeans.CursaRequestView;
 import it.rezervare.beans.model.requestBeans.FlightChosenRequestBean;
 import it.rezervare.beans.utils.DijkstraAlgorithm;
@@ -47,29 +50,30 @@ public class DijkstraAlgorithmHelper implements IDijkstraAlgorithmHelper {
 		this.aeroportDAO = aeroportDAO;
 	}
 	@Override
+	@SuppressWarnings("unchecked")
 	public ModelAndView getRoutWithDijkstraAlgorithm(final ModelAndView model, final CursaRequestView cursaRequestView, final HttpServletRequest request) {
 		System.out.println("ENTER DijkstraAlgorithmHelper.getRoutWithDijkstraAlgorithm()");
 		try {
-			/*final Aeroport aeroportPlecare = aeroportDAO.getAirportById(cursaRequestView.getAirportFrom());
-			final Aeroport aeroposrtSosire = aeroportDAO.getAirportById(cursaRequestView.getAirportTo());
-			final Cursa cursa = cursaDAO.getRouteByAirport(aeroportPlecare.getDenumire(), aeroposrtSosire.getDenumire());
-			if(cursa != null && !StringUtils.isEmpty(cursa.getId())) {
-				final Map<Integer,LinkedList<List<Zbor>>> zborGasit = new HashMap<>();
-				final LinkedList<List<Zbor>> linkedList = new LinkedList<>();
-				final List<Zbor> listaZboruri = zborDAO.getFlightList(cursa.getId(), cursaRequestView.getDepartureDate());
-				linkedList.add(listaZboruri);
-				zborGasit.put(1, linkedList);
-				model.addObject("zboruriCautare", zborGasit);
-			} else {
-				
-			}*/
 			final HttpSession session = request.getSession();
 			session.removeAttribute("allRoutesMap");
 			session.removeAttribute("cursaRequestView");
 			session.removeAttribute("mapZboruriRetur");
 			session.setAttribute("cursaRequestView", cursaRequestView);
 			
+			final Aeroport aeroportFrom = aeroportDAO.getAirportById(cursaRequestView.getAirportFrom());
+			final AeroportAjaxView aeroportAjaxViewFrom = new AeroportAjaxView();
+			aeroportAjaxViewFrom.setId(aeroportFrom.getId());
+			aeroportAjaxViewFrom.setDenumire(aeroportFrom.getDenumire());
+			model.addObject("aeroportFrom",aeroportAjaxViewFrom);
+			final Aeroport aeroportTo = aeroportDAO.getAirportById(cursaRequestView.getAirportTo());
+			final AeroportAjaxView aeroportAjaxViewTo = new AeroportAjaxView();
+			aeroportAjaxViewTo.setId(aeroportTo.getId());
+			aeroportAjaxViewTo.setDenumire(aeroportTo.getDenumire());
+			model.addObject("aeroportTo",aeroportAjaxViewTo);
+			
 			model.addObject("flightChosen",new FlightChosenRequestBean());
+			final List<Tara> tari = (List<Tara>) session.getAttribute("tari");
+			model.addObject("tari",tari);
 			final List<Node> nodesList = aeroportDAO.getDistinctAireports();
 			if (nodesList.isEmpty()) {
 				throw new ApplicationException("Ne pare rau, lista aeroporturilor nu a fost actualizata!");

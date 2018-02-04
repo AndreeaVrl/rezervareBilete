@@ -83,5 +83,34 @@ public class CursaDAO implements ICursaDAO{
 		System.out.println(" EXIT CursaDAO.getRouteByAirport() ");
 		return cursa;
 	}
+	
+	@Override
+	public void inserRoute(final Cursa route) {
+		try {
+			final Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			session.persist(route);
+			session.getTransaction().commit();
+			session.close();
+		} catch (final Exception e) {
+			e.printStackTrace();
+			System.out.println("\n" + e.toString() + " " + e.getMessage() + "\n");
+		}
+	}
+	
+	@Override
+	public Cursa getRouteById(final Integer id) {
+		final Session session = sessionFactory.getCurrentSession();
+		final Criteria cr = session.createCriteria(Cursa.class);
+		cr.add(Restrictions.eq("id", id));
+		return (Cursa) cr.uniqueResult();
+	}
+	
+	@Override
+	public void deleteRoute(final Cursa route){
+		final Session session = sessionFactory.getCurrentSession();
+	    session.delete(route);
+	    session.flush() ;		
+	}
 
 }

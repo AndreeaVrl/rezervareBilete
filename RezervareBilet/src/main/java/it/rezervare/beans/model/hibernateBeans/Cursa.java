@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.BatchSize;
+
 @Entity
 @Table(name = "curse")
 public class Cursa {
@@ -26,6 +28,7 @@ public class Cursa {
 	private int distanta;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cursa")
+	@BatchSize(size = 500)
 	private Set<Zbor> zboruri = new HashSet<Zbor>();
 
 	@ManyToOne
@@ -40,7 +43,7 @@ public class Cursa {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -48,7 +51,7 @@ public class Cursa {
 		return zboruri;
 	}
 
-	public void setZboruri(Set<Zbor> zboruri) {
+	public void setZboruri(final Set<Zbor> zboruri) {
 		this.zboruri = zboruri;
 	}
 
@@ -56,7 +59,7 @@ public class Cursa {
 		return aeroport_1;
 	}
 
-	public void setAeroport_1(Aeroport aeroport_1) {
+	public void setAeroport_1(final Aeroport aeroport_1) {
 		this.aeroport_1 = aeroport_1;
 	}
 
@@ -64,7 +67,7 @@ public class Cursa {
 		return aeroport_2;
 	}
 
-	public void setAeroport_2(Aeroport aeroport_2) {
+	public void setAeroport_2(final Aeroport aeroport_2) {
 		this.aeroport_2 = aeroport_2;
 	}
 
@@ -72,7 +75,7 @@ public class Cursa {
 		return distanta;
 	}
 
-	public void setDistanta(int distanta) {
+	public void setDistanta(final int distanta) {
 		this.distanta = distanta;
 	}
 

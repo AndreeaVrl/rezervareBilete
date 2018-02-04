@@ -4,18 +4,18 @@ import java.util.Date;
 
 public class CursaRequestView {
 
-	private String contryFrom;
+	private Integer contryFrom;
 	private Integer airportFrom;
-	private String countryTo;
+	private Integer countryTo;
 	private Integer airportTo;
 	private Date departureDate;
 	private Date flyBack;
 	private Boolean retur;
 	
-	public String getContryFrom() {
+	public Integer getContryFrom() {
 		return contryFrom;
 	}
-	public void setContryFrom(final String contryFrom) {
+	public void setContryFrom(final Integer contryFrom) {
 		this.contryFrom = contryFrom;
 	}
 	public Integer getAirportFrom() {
@@ -24,10 +24,10 @@ public class CursaRequestView {
 	public void setAirportFrom(final Integer airportFrom) {
 		this.airportFrom = airportFrom;
 	}
-	public String getCountryTo() {
+	public Integer getCountryTo() {
 		return countryTo;
 	}
-	public void setCountryTo(final String countryTo) {
+	public void setCountryTo(final Integer countryTo) {
 		this.countryTo = countryTo;
 	}
 	public Integer getAirportTo() {

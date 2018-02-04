@@ -14,4 +14,10 @@ public interface ICursaDAO {
 
 	List<Cursa> getAll() throws ApplicationException;
 
+	void inserRoute(Cursa route);
+
+	void deleteRoute(Cursa route);
+
+	Cursa getRouteById(Integer id);
+
 }

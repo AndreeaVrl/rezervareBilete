@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.BatchSize;
+
 @Entity
 @Table(name = "tari")
 public class Tara implements Serializable {
@@ -27,9 +29,11 @@ public class Tara implements Serializable {
 	private String denumire;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taraClient")
+	@BatchSize(size = 200)
 	private Set<Client> clienti = new HashSet<Client>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "taraAeroport")
+	@BatchSize(size = 200)
 	private Set<Aeroport> aeroporturi = new HashSet<Aeroport>();
 
 	public Integer getId() {

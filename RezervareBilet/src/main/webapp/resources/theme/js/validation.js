@@ -1,3 +1,17 @@
+function lunaInvalida(value, mesaj){
+	if(value>12 || value<1){
+		alert(mesaj);
+		return true;
+	}
+	return false;
+}
+function anInvalid(value, mesaj){
+	if(value<2018){
+		alert(mesaj);
+		return true;
+	}
+	return false;
+}
 function isNumber(evt){
 	var charCode = (evt.which) ? evt.witch : evt.keyCode;
 	if((charCode<48 && charCode >57)||charCode==46){
@@ -159,7 +173,7 @@ function completAuthors(autor, pozitie, mesaj){
 		}
 		return false;
 	}
-	function completDateInst(institutie, localitate,tara, mesaj){
+	function completDatePassengers(institutie, localitate,tara, mesaj){
 		var nrInst = institutie.length;
 		var nrLoc = localitate.length;
 		var nrTari = tara.length;
