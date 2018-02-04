@@ -38,6 +38,7 @@
 		</c:if>
 		<div class="col-md-6">
 			<table class="table locuri">
+				<c:set var="colLitere" value="${fn:split('A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z', ',')}" />
 				<c:forEach items="${mapAvioane}" var="avion">
 					<c:set var="keyVar" value="${fn:split(avion.key,';')}" />
 					<c:set var="idZbor" value="${keyVar[0]}" />
@@ -48,7 +49,9 @@
 						<tr><!-- cap de coloana - A, B, C ... -->
 							<c:forEach var = "i" begin = "1" end = "${coloane}">
 								<c:if test="${(i-1) eq mijloc}"><th>&nbsp;</th></c:if>
-						         <c:choose>
+									<th>${colLitere[i-1]}</th>
+						        <!-- am optimizat putin
+						        <c:choose>
 						         	<c:when test="${i eq 1}"><th>A</th></c:when>
 						         	<c:when test="${i eq 2}"><th>B</th></c:when>
 						         	<c:when test="${i eq 3}"><th>C</th></c:when>
@@ -70,6 +73,7 @@
 						         	<c:when test="${i eq 19}"><th>S</th></c:when>
 						         	<c:when test="${i eq 20}"><th>T</th></c:when>
 						         </c:choose>
+						         -->
 						    </c:forEach>
 						</tr>
 					</thead>
