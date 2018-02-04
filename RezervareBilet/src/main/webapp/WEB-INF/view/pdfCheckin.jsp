@@ -67,7 +67,7 @@ $(document).ready(function(){
 				<ul class="nav navbar-nav navbar-right">
 				<c:set var="user" value='<%=request.getSession().getAttribute("client")%>'/>
 					<c:if test="${not empty user}">
-						<li class="active"><a href="/">Home</a></li>
+						<li class="active"><a href="index">Home</a></li>
 						<li><a href="goToChangeAccount">Actualizare date</a></li>
 						<li><a href="checkin">Check-in</a></li>
 						<li><a href="rezervari">Rezervari</a></li>
@@ -110,7 +110,7 @@ $(document).ready(function(){
 			        <td>${bilet.clientBilet.dataNasterii}</td>
 			      </tr>
 			      <tr>
-			        <th>Rezervarea realizata de</th>
+			        <th>Rezervare realizata de</th>
 			        <td>${bilet.clientRezervare.nume} ${bilet.clientRezervare.prenume}</td>
 			      </tr>
 			      <tr>
@@ -139,20 +139,10 @@ $(document).ready(function(){
 			      </tr>
 			    </tbody>
 		  </table>
+		  <a href="download">Download</a>
 	  </div>
 	</div>
 </section>
-
-<!-- Cautare zbor -->
-	<section class="tour section-wrapper container">
-		<h2 class="section-title" id="book">Make a rezervation</h2>
-		<p class="section-subtitle">Where would you like to go?</p>
-		<div class="row">
-			
-		</div>
-	</section>
-
-
 	<footer>
 		<div class="container">
 			<div class="row">

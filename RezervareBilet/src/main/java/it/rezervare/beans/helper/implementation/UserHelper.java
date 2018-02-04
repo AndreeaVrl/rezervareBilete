@@ -1,9 +1,18 @@
 package it.rezervare.beans.helper.implementation;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +32,7 @@ import it.rezervare.beans.model.hibernateBeans.Stare;
 import it.rezervare.beans.model.hibernateBeans.Tara;
 import it.rezervare.beans.model.requestBeans.CursaRequestView;
 import it.rezervare.beans.model.requestBeans.FlightChosenRequestBean;
+import it.rezervare.beans.utils.CreatePDF;
 
 @Service
 @Lazy
@@ -122,6 +132,10 @@ public class UserHelper implements IUserHelper {
 			suma = biletById.getZbor().getPret().add(biletById.getPachet().getTaxaPachet());
 			model.addObject("suma", suma);
 			model.addObject("bilet", biletById);
+			session.removeAttribute("suma");
+			session.setAttribute("suma",suma);
+			session.removeAttribute("bilet");
+			session.setAttribute("bilet",bilet);
 			model.setViewName("pdfCheckin");
 		} catch (final Exception e ) {
 			e.printStackTrace();
@@ -130,4 +144,64 @@ public class UserHelper implements IUserHelper {
 		System.out.println("\n EXIT UserHelper.doCheckin() \n");
 		return model;
 	}
+	
+	@Override
+	public void downloadReport(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+		System.out.println("Enter downloadReport \n");
+		try {
+			final HttpSession session = request.getSession();
+			final ServletContext servletContext = request.getSession().getServletContext();
+			final File tempDirectory = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+			System.out.println("tempDirectory = ["+tempDirectory+"]");
+			final String temperotyFilePath = tempDirectory.getAbsolutePath();
+			final BigDecimal suma = (BigDecimal) session.getAttribute("suma");
+			final Bilet bilet = (Bilet) session.getAttribute("bilet");
+			final Bilet biletForItext = biletDAO.getBiletById(bilet.getId());
+			final String titlePdf = "Check-in";
+			final String fileName = "Checkin.pdf";
+			response.setContentType("application/pdf");
+			response.setHeader("Content-disposition", "attachment; filename=" + fileName);
+			CreatePDF.createPDF(temperotyFilePath + "\\" + fileName,biletForItext,suma,titlePdf);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			baos = convertPDFToByteArrayOutputStream(temperotyFilePath + "\\" + fileName);
+			final OutputStream os = response.getOutputStream();
+			baos.writeTo(os);
+			os.flush();
+		} catch (final Exception e ) {
+			e.printStackTrace();
+		}
+		System.out.println("Exit downloadReport \n");
+	}
+
+	private ByteArrayOutputStream convertPDFToByteArrayOutputStream(final String fileName) {
+		
+		System.out.println("START - convertPDFToByteArrayOutputStream");
+		
+		InputStream inputStream = null;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			inputStream = new FileInputStream(fileName);
+			final byte[] buffer = new byte[1024];
+			baos = new ByteArrayOutputStream();
+
+			int bytesRead;
+			while ((bytesRead = inputStream.read(buffer)) != -1) {
+				baos.write(buffer, 0, bytesRead);
+			}
+		} catch (final FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (final IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (inputStream != null) {
+				try {
+					inputStream.close();
+				} catch (final IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return baos;
+	}
+
 }

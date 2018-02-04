@@ -1,6 +1,9 @@
 package it.rezervare.beans.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,5 +58,9 @@ public class UserController {
 	@RequestMapping(value = { "/doCheckin"}, method = {RequestMethod.POST})
 	public ModelAndView getPDF(final ModelAndView model,@ModelAttribute("bilet") final Bilet bilet, final HttpServletRequest request) {
 		return userHelper.doCheckin(model, bilet, request);
+	}
+	@RequestMapping(value = "download")
+	public void downloadReport(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+		userHelper.downloadReport(request, response);
 	}
 }

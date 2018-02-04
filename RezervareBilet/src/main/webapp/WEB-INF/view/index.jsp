@@ -201,7 +201,7 @@ $(document).ready(function(){
 							</div>
 						</div>	
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3" hidden="true">
 						<div class="row">
 							<div class="col-md-12">
 								<h4>Return?</h4>

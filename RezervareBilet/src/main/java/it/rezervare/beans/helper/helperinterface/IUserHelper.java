@@ -1,6 +1,9 @@
 package it.rezervare.beans.helper.helperinterface;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,4 +20,6 @@ public interface IUserHelper {
 	String deleteReservation(final Integer id, final ModelAndView model, final HttpServletRequest request);
 
 	ModelAndView doCheckin(ModelAndView model, Bilet bilet, HttpServletRequest request);
+
+	void downloadReport(HttpServletRequest request, HttpServletResponse response) throws IOException;
 }
