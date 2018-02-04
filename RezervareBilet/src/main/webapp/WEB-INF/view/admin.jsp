@@ -1,5 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,6 +13,10 @@
     <link href="${pageContext.request.contextPath}/resources/css/rezervareBilete.css" rel="stylesheet">
     <!-- Datepicker -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    <!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+    
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,8 +58,26 @@
       </div>
     </nav>
 
+<script>
 
-<!-- MESAJE -->
+
+function editFlight(flightId) {
+	<c:forEach items="${flightsList}" var="flight">
+		var id = ${flight.id};
+		if(flightId == id){
+			document.getElementById("editFlightId").value = id;
+			$("#editFlightRoutes").val(${flight.cursa.id});
+			$("#editFlightCompanies").val(${flight.companie.id});
+			$("#editFlightAirplanes").val(${flight.avion.id});
+			var pret = ${flight.pret};
+			document.getElementById("editStandardPrice").value = pret;
+		}
+	</c:forEach>
+	
+	$('#myEditFlightModal').modal('show');
+}
+</script>
+<!-- MESAJE 
 <div class="container">
 	<div class="row">
 		<div class="alert alert-warning alert-dismissible" role="alert">
@@ -63,7 +86,7 @@
 		</div>
 	</div>
 </div>
-
+-->
 <!-- MENIU AIRPORTS -->
 <div class="container">
 	<div class="row">
@@ -152,6 +175,7 @@
 </div>
 
 <!-- MENIU COMPANIES -->
+<%--
 <div class="container">
 	<hr /> 
 	<div class="row">
@@ -287,7 +311,7 @@
 		
   </div>
 </div>   
-    
+--%>
 <!-- MENIU FLIGHTS -->
 <div class="container">
 	<hr /> 
@@ -298,7 +322,7 @@
         <div class="panel-heading">
           <h3 class="panel-title text-center">Flights</h3>
         </div>
-        <form class="form-inline" action="" method="post">
+        <form:form class="form-inline" action="" model="aeroport" id="flightsForm" method="post" commandName="aeroport">
 	        <div class="panel-body">
 	        	<div class="table-responsive">
 						  <table class="table table-striped table-hover">
@@ -307,43 +331,39 @@
 										<th>#</th>
 										<th>Departure</th>
 										<th>Arrival</th>
+										<th>Departure Time</th>
+										<th>Arrival Time</th>
 										<th>Company</th>
 										<th>Airliner</th>
+										<th>Standard Price</th>
+										<th></th>
 									</tr>
 								</thead>
 						    <tbody>
-						    	<tr>
-						    		<td>1</td>
-						    		<td>Germany-Hamburg</td>
-						    		<td>Italy - Roma</td>
-						    		<td>Ryan Air</td>
-						    		<td>Boeing 747 - N988NA</td>
-						    	</tr>
-						    	<tr>
-						    		<td>2</td>
-						    		<td>Germany-Hamburg</td>
-						    		<td>Italy - Roma</td>
-						    		<td>Ryan Air</td>
-						    		<td>Boeing 747 - N988NA</td>
-						    	</tr>
-						    	<tr>
-						    		<td>3</td>
-						    		<td>Germany-Hamburg</td>
-						    		<td>Italy - Roma</td>
-						    		<td>Ryan Air</td>
-						    		<td>Boeing 747 - N988NA</td>
-						    	</tr>
+						    	<c:forEach items="${flightsList}" var="flight">
+						    		<tr>
+						    			<td>${flight.id}</td>
+						    			<td>${flight.cursa.aeroport_1.tara.denumire} - ${flight.cursa.aeroport_1.denumire}</td>
+						    			<td>${flight.cursa.aeroport_2.tara.denumire} - ${flight.cursa.aeroport_2.denumire}</td>
+						    			<td><fmt:formatDate pattern = "dd/MM/yyyy - HH:mm" value = "${flight.dataPlecare}"/></td>
+						    			<td><fmt:formatDate pattern = "dd/MM/yyyy - HH:mm" value = "${flight.dataSosire}"/></td>
+						    			<td>${flight.companie.denumire}</td>
+						    			<td>${flight.avion.tipAvion.denumire} - ${flight.avion.id}</td>
+						    			<td>${flight.pret}</td>
+						    			<td><button class="btn btn-primary" name="submit_edit" data-toggle="modal" data-target="myEditFlightModal" type="button" onClick="editFlight(${flight.id})"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></td>
+						    		</tr>
+						    	</c:forEach>
 						    </tbody>
 						  </table>
 						</div>
 
 	        </div>
 	        <div class="panel-footer text-center">
-	        	<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_add" type="submit"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-	        	<button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+	        	<%--<button class="btn btn-primary" name="submit_edit" type="submit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>--%>
+	        	<button class="btn btn-primary" name="submit_add" data-toggle="modal" data-target="#myAddFlightModal" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+	        	<%-- <button class="btn btn-primary" name="submit_remove" type="submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>--%>
 	        </div>
-        </form>
+        </form:form>
       </div>		
 		</div>		
   </div>
@@ -355,7 +375,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script>
 $("#editCountryModal").attr("disabled", true);
 $("#deleteCountry").attr("disabled", true);
@@ -767,6 +788,7 @@ $(document).ready(function(){
 		})
 	})
 	
+	
 	$('#deleteRouteModal').click(function() {
 		var selectedRouteId = $("#routes-sel option:selected").val();
 		$.ajax({
@@ -812,7 +834,6 @@ $(document).ready(function(){
 	$("#packages-sel").change(function() {
 		console.log("packages select change");
 		var found = 0;
-		
 		<c:forEach items="${packagesList}" var="p"> 
 			var selectedPackageId = $("#packages-sel option:selected").val();
 			var packageId = ${p.id}; 
@@ -837,6 +858,11 @@ $(document).ready(function(){
 		--%>
 	})
 	
+	$("#companies-sel").change(function() {
+		$("#infoPackageTax").text("");
+		$("#infoPackageDescription").text("");
+	})
+	
 	
 	$( document ).ready(function() {
 	    sortAirports();
@@ -844,6 +870,46 @@ $(document).ready(function(){
 	    sortCompanies();
 	    sortPackages();
 	});
+	
+	$(function () {
+        $('#datetimepicker4').datetimepicker();
+        $('#datetimepicker5').datetimepicker();
+        $('#editDatetimepicker4').datetimepicker();
+        $('#editDatetimepicker5').datetimepicker();
+    });
+	
+	$('#saveAddFlightChanges').click(function() {
+		$.ajax({
+			type: 'POST',
+			url: '${pageContext.request.contextPath}/addFlight',
+			data: $('form[name=addFlight]').serialize(),
+			dataType : 'json',
+			success: function(data) {
+				console.log("SUCCES");
+				console.log(data);
+				$('#myAddFlightModal').modal('hide');
+				location.reload(true);
+			}
+		})
+	})
+	
+	$('#saveEditFlightChanges').click(function() {
+		console.log("saveEditFlightChanges");
+		$.ajax({
+			type: 'POST',
+			url: '${pageContext.request.contextPath}/editFlight',
+			data: $('form[name=editFlightForm]').serialize(),
+			dataType : 'json',
+			success: function(data) {
+				console.log("SUCCES");
+				console.log(data);
+				$('#myEditFlightModal').modal('hide');
+				location.reload(true);
+			}
+		})
+		
+	})
+	
 })
 
 </script>
@@ -855,7 +921,7 @@ $(document).ready(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Country edit</h4>
+        <h4 class="modal-title">Edit Country</h4>
       </div>
       <form:form class="form-inline" id="countriesForm" modelAttribute="tara" method="post">
       	<div class="modal-body">
@@ -878,7 +944,7 @@ $(document).ready(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Country add</h4>
+        <h4 class="modal-title">Add Country</h4>
       </div>
       	<div class="modal-body">
 			<form:form class="form-inline" id="countriesForm" modelAttribute="tara" method="post">
@@ -900,7 +966,7 @@ $(document).ready(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Airport edit</h4>
+        <h4 class="modal-title">Edit Airport</h4>
       </div>
       	<div class="modal-body">
 			<form:form class="form-inline" id="editAirportForm" modelAttribute="aeroport" method="post">
@@ -933,7 +999,7 @@ $(document).ready(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Airport add</h4>
+        <h4 class="modal-title">Add Airport</h4>
       </div>
       	<div class="modal-body">
 			<form:form class="form-inline" id="addAirportForm" modelAttribute="aeroport" method="post">
@@ -965,7 +1031,7 @@ $(document).ready(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Route edit</h4>
+        <h4 class="modal-title">Edit Route</h4>
       </div>
       	<div class="modal-body">
 			<%--<form:form class="form-inline" id="addRouteForm" name="routeForm" modelAttribute="aeroport" method="post">
@@ -1008,7 +1074,7 @@ $(document).ready(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Route add</h4>
+        <h4 class="modal-title">Add Route</h4>
       </div>
       	<div class="modal-body">
 			<form:form class="form-inline" id="addRouteForm" name="routeForm" modelAttribute="aeroport" method="post">
@@ -1042,7 +1108,167 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
+<!-- END Modal -->
+
+<!-- Modal Add Flight -->
+<div class="modal fade" id="myAddFlightModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add Flight</h4>
+      </div>
+      	<div class="modal-body">
+			<form:form class="form-inline" id="flightsForm" name="addFlight" modelAttribute="aeroport" method="post">
+				<table>
+					<tr>
+						<td>Route:</td>
+						<td>
+							<form:select class="form-control" id="addFlightRoutes" path="idRoute">
+								<c:forEach items="${routesList}" var="route">
+									<form:option value="${route.id}">${route.aeroport_1.denumire} - ${route.aeroport_2.denumire}</form:option>
+								</c:forEach>
+							</form:select>
+						</td>
+					</tr>
+					<tr>
+						<td>Departure Date:</td>
+						<td>
+							<div class='input-group date' id='datetimepicker4'>
+						    	<form:input type='text' path="departureDate" class="form-control" />
+						        <span class="input-group-addon">
+						     		<span class="glyphicon glyphicon-calendar"></span>
+						        </span>
+						     </div>
+    					</td>
+					</tr>
+					<tr>
+						<td>Arrival Date:</td>
+						<td>
+							<div class='input-group date' id='datetimepicker5'>
+						    	<form:input type='text' path="arrivalDate" class="form-control" />
+						        <span class="input-group-addon">
+						     		<span class="glyphicon glyphicon-calendar"></span>
+						        </span>
+						     </div>
+    					</td>
+					</tr>
+					<tr>
+						<td>Company:</td>
+						<td>
+							<form:select class="form-control" id="addFlightCompanies" path="companyId">
+								<c:forEach items="${companiesList}" var="company">
+									<form:option value="${company.id}">${company.denumire}</form:option>
+								</c:forEach>
+							</form:select>
+						</td>
+					</tr>
+					<tr>
+						<td>Airplane:</td>
+						<td>
+							<form:select class="form-control" id="addFlightCompanies" path="airlineId">
+								<c:forEach items="${airplanesList}" var="airplane">
+									<form:option value="${airplane.id}">${airplane.tipAvion.denumire} - ${airplane.id}</form:option>
+								</c:forEach>
+							</form:select>
+						</td>
+					</tr>
+					<tr>
+						<td>Standard Price:</td>
+						<td><form:input path="standardPrice" type="number"/></td>
+					</tr>
+				</table>
+			</form:form>
+      	</div>
+      	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	<button type="button" class="btn btn-primary" id="saveAddFlightChanges">Save changes</button>
+      	</div>
+    </div>
+  </div>
+</div>
 <!-- END Modal -->   
+
+<!-- Modal Edit Flight -->
+<div class="modal fade" id="myEditFlightModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Edit Flight</h4>
+      </div>
+      	<div class="modal-body">
+			<form:form class="form-inline" id="flightsForm" name="editFlightForm" modelAttribute="aeroport" method="post">
+				<table>
+					<tr>
+						<td>Route:</td>
+						<td>
+							<form:select class="form-control" id="editFlightRoutes" path="idRoute">
+								<c:forEach items="${routesList}" var="route">
+									<form:option value="${route.id}">${route.aeroport_1.denumire} - ${route.aeroport_2.denumire}</form:option>
+								</c:forEach>
+							</form:select>
+						</td>
+					</tr>
+					<tr>
+						<td>Departure Date:</td>
+						<td>
+							<div class='input-group date' id='editDatetimepicker4'>
+						    	<form:input type='text' path="departureDate" class="form-control" />
+						        <span class="input-group-addon">
+						     		<span class="glyphicon glyphicon-calendar"></span>
+						        </span>
+						     </div>
+    					</td>
+					</tr>
+					<tr>
+						<td>Arrival Date:</td>
+						<td>
+							<div class='input-group date' id='editDatetimepicker5'>
+						    	<form:input type='text' path="arrivalDate" class="form-control" />
+						        <span class="input-group-addon">
+						     		<span class="glyphicon glyphicon-calendar"></span>
+						        </span>
+						     </div>
+    					</td>
+					</tr>
+					<tr>
+						<td>Company:</td>
+						<td>
+							<form:select class="form-control" id="editFlightCompanies" path="companyId">
+								<c:forEach items="${companiesList}" var="company">
+									<form:option value="${company.id}">${company.denumire}</form:option>
+								</c:forEach>
+							</form:select>
+						</td>
+					</tr>
+					<tr>
+						<td>Airplane:</td>
+						<td>
+							<form:select class="form-control" id="editFlightAirplanes" path="airlineId">
+								<c:forEach items="${airplanesList}" var="airplane">
+									<form:option value="${airplane.id}">${airplane.tipAvion.denumire} - ${airplane.id}</form:option>
+								</c:forEach>
+							</form:select>
+						</td>
+					</tr>
+					<tr>
+						<td>Standard Price:</td>
+						<td><form:input path="standardPrice" type="number" id="editStandardPrice"/></td>
+					</tr>
+					<form:input path="id" id="editFlightId" style="visibility: hidden" type="text"/>
+				</table>
+			</form:form>
+      	</div>
+      	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	<button type="button" class="btn btn-primary" id="saveEditFlightChanges">Save changes</button>
+      	</div>
+    </div>
+  </div>
+</div>
+<!-- END Modal -->           
+        
         
   </body>
 </html>

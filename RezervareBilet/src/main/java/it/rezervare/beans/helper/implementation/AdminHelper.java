@@ -1,5 +1,6 @@
 package it.rezervare.beans.helper.implementation;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -19,12 +20,15 @@ import it.rezervare.beans.dao.Interfaces.ICompanieDAO;
 import it.rezervare.beans.dao.Interfaces.ICursaDAO;
 import it.rezervare.beans.dao.Interfaces.IPachetDAORadu;
 import it.rezervare.beans.dao.Interfaces.ITaraDAO;
+import it.rezervare.beans.dao.Interfaces.IZborDAO;
 import it.rezervare.beans.helper.helperinterface.IAdminHelper;
 import it.rezervare.beans.model.hibernateBeans.Aeroport;
+import it.rezervare.beans.model.hibernateBeans.Avion;
 import it.rezervare.beans.model.hibernateBeans.Companie;
 import it.rezervare.beans.model.hibernateBeans.Cursa;
 import it.rezervare.beans.model.hibernateBeans.Pachet;
 import it.rezervare.beans.model.hibernateBeans.Tara;
+import it.rezervare.beans.model.hibernateBeans.Zbor;
 import it.rezervare.beans.model.requestBeans.AdminRequestBean;
 
 @Service
@@ -38,14 +42,16 @@ public class AdminHelper implements IAdminHelper {
 	private final ICursaDAO cursaDAO;
 	private final ICompanieDAO companieDAO;
 	private final IPachetDAORadu pachetDAO;
+	private final IZborDAO zborDAO;
 
 	@Autowired
-	public AdminHelper(final ITaraDAO taraDAO, final IAeroportDAO aeroportDAO, final ICursaDAO cursaDAO, final ICompanieDAO companieDAO, final IPachetDAORadu pachetDAO) {
+	public AdminHelper(final ITaraDAO taraDAO, final IAeroportDAO aeroportDAO, final ICursaDAO cursaDAO, final ICompanieDAO companieDAO, final IPachetDAORadu pachetDAO, final IZborDAO zborDAO) {
 		this.taraDAO = taraDAO;
 		this.aeroportDAO = aeroportDAO;
 		this.cursaDAO = cursaDAO;
 		this.companieDAO = companieDAO;
 		this.pachetDAO = pachetDAO;
+		this.zborDAO = zborDAO;
 	}
 
 	@Override
@@ -92,6 +98,24 @@ public class AdminHelper implements IAdminHelper {
 			
 			final List<Pachet> packagesList = pachetDAO.getAllPackages();
 			request.getSession().setAttribute("packagesList", packagesList);
+			
+			final List<Zbor> flightsList = zborDAO.getAllFlights();
+			for(final Zbor z : flightsList) {
+				Hibernate.initialize(z.getCursa().getAeroport_1().getTara());
+				Hibernate.initialize(z.getCursa().getAeroport_2().getTara());
+				Hibernate.initialize(z.getCompanie());
+				Hibernate.initialize(z.getAvion().getTipAvion());
+			}
+			request.getSession().setAttribute("flightsList", flightsList);
+			
+			
+			final List<Avion> airplanesList = zborDAO.getAllAirplanes();
+			for(final Avion a : airplanesList) {
+				Hibernate.initialize(a.getTipAvion());
+			}
+			
+			request.getSession().setAttribute("airplanesList", airplanesList);
+			
 
 			// final List<Cursa> allRoutes = cursaDAO.getAll();
 			// for (final Cursa c : allRoutes) {
@@ -227,6 +251,46 @@ public class AdminHelper implements IAdminHelper {
 		System.out.println("start deleteRoute" + adminRequestBean.getId());
 		final Cursa routeToDelete = cursaDAO.getRouteById(adminRequestBean.getId());
 		cursaDAO.deleteRoute(routeToDelete);
+		return adminRequestBean;
+	}
+
+	@Override
+	public AdminRequestBean addFlight(final AdminRequestBean adminRequestBean, final ModelAndView model, final HttpServletRequest request) {
+		System.out.println("Start - addFlight");
+		System.out.println(adminRequestBean);
+		final Zbor flight = new Zbor();
+		
+		flight.setCursa(cursaDAO.getRouteById(adminRequestBean.getIdRoute()));
+		flight.setDataPlecare(adminRequestBean.getDepartureDate());
+		flight.setDataSosire(adminRequestBean.getArrivalDate());
+		flight.setCompanie(companieDAO.getCompanyById(adminRequestBean.getCompanyId()));
+		flight.setAvion(zborDAO.getAirplaneById(adminRequestBean.getAirlineId()));
+		flight.setPret(new BigDecimal(adminRequestBean.getStandardPrice()));
+		zborDAO.insertFlight(flight);
+		
+		System.out.println("FLIGHT INSERTED");
+		return adminRequestBean;
+	}
+
+	@Override
+	public AdminRequestBean editFlight(final AdminRequestBean adminRequestBean, final ModelAndView model, final HttpServletRequest request) {
+		System.out.println("Start - addFlight");
+		System.out.println(adminRequestBean);
+		
+		try {
+			final Zbor flight = zborDAO.getFlightById(adminRequestBean.getId());
+			flight.setCursa(cursaDAO.getRouteById(adminRequestBean.getIdRoute()));
+			flight.setDataPlecare(adminRequestBean.getDepartureDate());
+			flight.setDataSosire(adminRequestBean.getArrivalDate());
+			flight.setCompanie(companieDAO.getCompanyById(adminRequestBean.getCompanyId()));
+			flight.setAvion(zborDAO.getAirplaneById(adminRequestBean.getAirlineId()));
+			flight.setPret(new BigDecimal(adminRequestBean.getStandardPrice()));
+			
+			zborDAO.updateFlight(flight);
+		} catch (final ApplicationException e) {
+			e.printStackTrace();
+		}
+		
 		return adminRequestBean;
 	}
 

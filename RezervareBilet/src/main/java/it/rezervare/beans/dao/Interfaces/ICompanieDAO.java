@@ -8,4 +8,6 @@ public interface ICompanieDAO {
 
 	List<Companie> getAllCompanies();
 
+	Companie getCompanyById(Integer id);
+
 }

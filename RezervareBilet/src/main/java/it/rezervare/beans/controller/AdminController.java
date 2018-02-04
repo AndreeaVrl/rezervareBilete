@@ -63,5 +63,15 @@ public class AdminController {
 	public @ResponseBody AdminRequestBean deleteRoute(@ModelAttribute("aeroport") final AdminRequestBean adminRequestBean, final ModelAndView model, final HttpServletRequest request) {
 		return adminHelper.deleteRoute(adminRequestBean, model, request);
 	}
+	
+	@RequestMapping(value = "/addFlight", method = { RequestMethod.POST, RequestMethod.GET })
+	public @ResponseBody AdminRequestBean addFlight(@ModelAttribute("aeroport") final AdminRequestBean adminRequestBean, final ModelAndView model, final HttpServletRequest request) {
+		return adminHelper.addFlight(adminRequestBean, model, request);
+	}
+	
+	@RequestMapping(value = "/editFlight", method = { RequestMethod.POST, RequestMethod.GET })
+	public @ResponseBody AdminRequestBean editFlight(@ModelAttribute("aeroport") final AdminRequestBean adminRequestBean, final ModelAndView model, final HttpServletRequest request) {
+		return adminHelper.editFlight(adminRequestBean, model, request);
+	}
 
 }

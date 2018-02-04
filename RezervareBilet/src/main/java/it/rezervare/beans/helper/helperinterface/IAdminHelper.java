@@ -27,4 +27,8 @@ public interface IAdminHelper {
 
 	AdminRequestBean deleteRoute(AdminRequestBean adminRequestBean, ModelAndView model, HttpServletRequest request);
 
+	AdminRequestBean addFlight(AdminRequestBean adminRequestBean, ModelAndView model, HttpServletRequest request);
+
+	AdminRequestBean editFlight(AdminRequestBean adminRequestBean, ModelAndView model, HttpServletRequest request);
+
 }

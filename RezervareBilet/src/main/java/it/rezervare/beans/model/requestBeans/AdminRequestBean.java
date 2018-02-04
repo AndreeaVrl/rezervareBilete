@@ -1,5 +1,7 @@
 package it.rezervare.beans.model.requestBeans;
 
+import java.util.Date;
+
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -11,6 +13,13 @@ public class AdminRequestBean {
 	private String denumireTara;
 	private Integer distanta;
 	private Integer idRoute;
+	private Integer departureId;
+	private Integer arrivalId;
+	private Integer companyId;
+	private Integer airlineId;
+	private Date departureDate;
+	private Date arrivalDate;
+	private Integer standardPrice;
 
 	public Integer getId() {
 		return id;
@@ -58,6 +67,62 @@ public class AdminRequestBean {
 
 	public void setIdRoute(final Integer idRoute) {
 		this.idRoute = idRoute;
+	}
+
+	public Integer getDepartureId() {
+		return departureId;
+	}
+
+	public void setDepartureId(final Integer departureId) {
+		this.departureId = departureId;
+	}
+
+	public Integer getArrivalId() {
+		return arrivalId;
+	}
+
+	public void setArrivalId(final Integer arrivalId) {
+		this.arrivalId = arrivalId;
+	}
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(final Integer companyId) {
+		this.companyId = companyId;
+	}
+
+	public Integer getAirlineId() {
+		return airlineId;
+	}
+
+	public void setAirlineId(final Integer airlineId) {
+		this.airlineId = airlineId;
+	}
+
+	public Date getDepartureDate() {
+		return departureDate;
+	}
+
+	public void setDepartureDate(final Date departureDate) {
+		this.departureDate = departureDate;
+	}
+
+	public Date getArrivalDate() {
+		return arrivalDate;
+	}
+
+	public void setArrivalDate(final Date arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+
+	public Integer getStandardPrice() {
+		return standardPrice;
+	}
+
+	public void setStandardPrice(final Integer standardPrice) {
+		this.standardPrice = standardPrice;
 	}
 
 	@Override
