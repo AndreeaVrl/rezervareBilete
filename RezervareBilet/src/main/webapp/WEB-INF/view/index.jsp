@@ -298,7 +298,7 @@ $(document).ready(function(){
 			</c:when>	
 			<c:when test="${empty zboruriCautare and flag eq 0 }">
 				<div  class="close" data-dismiss="alert" aria-label="close">×</div><c:out value="${flag}"/>
-				<div class="alert alert-info"><strong>Atentie</strong>Ne pare rau, nu a fost gasit nicun zbor pentru datele specificate!</div>
+				<div class="alert alert-info"><strong>Atentie</strong>Ne pare rau, nu a fost gasit nicun zbor tur pentru datele specificate!</div>
 			</c:when>
 			<c:when test="${empty zboruriCautare and flag eq 1 }">
 				<div  class="close" data-dismiss="alert" aria-label="close">×</div>
@@ -314,7 +314,7 @@ $(document).ready(function(){
 			<c:choose>
 				<c:when test="${empty zboruriCautareRetur}">
 					<div  class="close" data-dismiss="alert" aria-label="close">×</div>
-					<div class="alert alert-info"><strong>Atentie!</strong>Nu au fost gasite zboruri de retur!</div>
+					<div class="alert alert-info"><strong>Atentie!</strong>Ne pare rau, nu a fost gasit nicun zbor retur pentru datele specificate!</div>
 				</c:when>
 				<c:when test="${not empty zboruriCautareRetur}">
 					<h4>Flights In</h4>

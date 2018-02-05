@@ -58,6 +58,8 @@ public class DijkstraAlgorithmHelper implements IDijkstraAlgorithmHelper {
 			session.removeAttribute("allRoutesMap");
 			session.removeAttribute("cursaRequestView");
 			session.removeAttribute("mapZboruriRetur");
+			session.removeAttribute("zboruriCautareRetur");
+			session.removeAttribute("zboruriCautare");
 			session.setAttribute("cursaRequestView", cursaRequestView);
 			
 			final Aeroport aeroportFrom = aeroportDAO.getAirportById(cursaRequestView.getAirportFrom());
@@ -99,13 +101,13 @@ public class DijkstraAlgorithmHelper implements IDijkstraAlgorithmHelper {
 			final Graphs graph = new Graphs(nodesList, edgesList);
 	        final DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
 	        
+	        model.addObject("flag", "0");
 	        //cautare curse plecare
 			final LinkedList<Cursa> curseList = dijkstraGetRoutes(dijkstra,nodeFrom,nodeTo);
 	    	final Map<Integer,LinkedList<List<Zbor>>> zborGasit = dijkstraGetRoutesFlight(curseList, cursaRequestView.getDepartureDate());
 	    	model.addObject("zboruriCautare", zborGasit);
 	    	session.removeAttribute("zboruriCautare");
 	    	session.setAttribute("zboruriCautare", zborGasit);
-
 	    	//curse retur
 	    	session.removeAttribute("zboruriCautareRetur");
 			if(cursaRequestView.getRetur()) {
@@ -114,7 +116,7 @@ public class DijkstraAlgorithmHelper implements IDijkstraAlgorithmHelper {
 		    	model.addObject("zboruriCautareRetur", zborGasitRetur);
 		    	session.setAttribute("zboruriCautareRetur", zborGasitRetur);
 			}
-			model.addObject("flag", "0");
+			
 	    /*	session.removeAttribute("flag");
 	    	session.setAttribute("flag", "0");*/
 			model.addObject("cursa", cursaRequestView);
