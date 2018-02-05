@@ -206,6 +206,7 @@
 						</tbody>
 					</table>
 				</c:forEach>
+				<hr />
 				<div class="col-md-4 col-md-offset-4">
 					<input type="button" class="btn btn-primary border-radius custom-button" id="reserveSpace" value="Continue"/>
 				</div>
@@ -217,8 +218,8 @@
 			  	<li class="list-group-item">
 			  		<label class="btn btn-success">
 						<span class="glyphicon glyphicon-ok"></span>
-					</label>
-					Extra leg room seats - 
+						</label>
+						&nbsp;&nbsp;&nbsp; Extra legroom seat - 
 					<c:if test="${flight.packageChosen eq 2}">
 						170&euro;
 					</c:if>
@@ -230,7 +231,7 @@
 			  		<label class="btn btn-warning">
 						<span class="glyphicon glyphicon-ok"></span>
 					</label>
-			  		Fron seats - 
+			  		&nbsp;&nbsp;&nbsp; Front seat - 
 			  		<c:if test="${flight.packageChosen eq 2}">
 						165&euro;
 					</c:if>
@@ -242,7 +243,7 @@
 			  		<label class="btn btn-info">
 						<span class="glyphicon glyphicon-ok"></span>
 					</label>
-					Standard -
+					&nbsp;&nbsp;&nbsp; Standard seat - 
 					<c:if test="${flight.packageChosen eq 2}">
 						160&euro;
 					</c:if>
@@ -254,13 +255,11 @@
 			  		<label class="btn btn-default">
 						<span class="glyphicon glyphicon-remove"></span>
 					</label>
-					Reserved
+					&nbsp;&nbsp;&nbsp; Reserved
 				</li>
 			  	<li class="list-group-item">
-				  	
-						<span class="glyphicon glyphicon-ok"></span>
-					
-			  		Selected seat
+						&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-ok"></span>
+			  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Selected seat
 			  	</li>
 			</ul>
 		</div>
@@ -299,7 +298,7 @@
 				var numberOfChecked = $('input:checkbox:checked').length;
 				var nrPasageri= ${flight.passengers};
 				if(numberOfChecked != nrPasageri ) {
-					alert("Please select all your seats! ("+nrPasageri+")");
+					alert("Please select "+nrPasageri+" seat(s)!");
 				} else {
 					$('#rezervareForm').submit();
 				}

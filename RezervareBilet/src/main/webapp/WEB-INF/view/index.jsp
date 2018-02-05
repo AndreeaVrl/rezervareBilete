@@ -103,7 +103,7 @@ $(document).ready(function(){
             <div class="carousel-caption">
               <h1>TO <b>TRAVEL</b> IS TO <b>LIVE</b></h1>
               <p>it leaves you speecless, then turns your into a storyteller.</p>
-              <p><a class="btn btn-primary border-radius custom-button" style="width:150px" href="#" role="button">Book now</a></p>
+              <p><a class="btn btn-primary border-radius custom-button" style="width:150px" href="#book" role="button">Book now</a></p>
             </div>
           </div>
         </div>
@@ -145,19 +145,19 @@ $(document).ready(function(){
 		<p class="section-subtitle">Where would you like to go?</p>
 		<div class="row">
 			<form:form role="form" class="form-dropdown" id="getRouteForm" method="POST" modelAttribute="cursa">
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<div class="col-md-12">
 						<h4>From:</h4>
 					</div>
 					<div class="form-group col-md-12">
-						<form:select class="form-control" path="contryFrom">
+						<form:select class="form-control border-radius" path="contryFrom">
 							<c:forEach items="${tari}" var="tara">
 								<form:option value="${tara.id}">${tara.denumire}</form:option>
 							</c:forEach>
 						  </form:select>
 					</div>
 					<div class="form-group col-md-12">
-						<form:select class="form-control" path="airportFrom">
+						<form:select class="form-control border-radius" path="airportFrom">
 						  <form:option value="">---Selecteaza---</form:option>
 						  <c:if test="${not empty aeroportFrom}">
 							<form:option value="${aeroportFrom.id}">${aeroportFrom.denumire}</form:option>
@@ -165,19 +165,19 @@ $(document).ready(function(){
 						</form:select>
 					</div>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<div class="col-md-12">
 						<h4>To:</h4>
 					</div>
 					<div class="form-group col-md-12">
-						<form:select class="form-control" path="countryTo">
+						<form:select class="form-control border-radius" path="countryTo">
 							<c:forEach items="${tari}" var="tara">
 								<form:option value="${tara.id}">${tara.denumire}</form:option>
 							</c:forEach>
 						  </form:select>
 					</div>
 					<div class="form-group col-md-12">
-						<form:select class="form-control" path="airportTo">
+						<form:select class="form-control border-radius" path="airportTo">
 						  <form:option value="">---Selecteaza---</form:option>
 						  <c:if test="${not empty aeroportTo}">
 							<form:option value="${aeroportTo.id}">${aeroportTo.denumire}</form:option>
@@ -185,9 +185,9 @@ $(document).ready(function(){
 						</form:select>
 					</div>
 				</div>
-				<div class="col-md-6">
-					<div class="col-md-4">
+				<div class="col-md-3">
 						<div class="row">
+						<div class="col-md-12">
 							<div class="col-md-12">
 								<h4>Date:</h4>
 							</div>
@@ -199,13 +199,20 @@ $(document).ready(function(){
 									</span>
 								</div>
 							</div>
-						</div>	
+							</div>
 					</div>
-					<div class="col-md-4" id="flyBackDate">
+					<div class="col-md-3">
 						<div class="row">
 							<div class="col-md-12">
-								<h4>Fly back:</h4>
+								<h5 style="margin-top: 0px">Return?</h5>
 							</div>
+							<div class="form-group col-md-12">
+								<form:checkbox path="retur"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-9" id="flyBackDate">
+						<div class="row">
 							<div class="form-group col-md-12">
 								<div class="input-group" style="margin-bottom: 0px">
 									<form:input type="text"	class="form-control border-radius border-right"	placeholder="Fly back" path="flyBack" /> 
@@ -216,26 +223,21 @@ $(document).ready(function(){
 							</div>
 						</div>	
 					</div>
-					<div class="col-md-4">
+				</div>
+				<div class="col-md-3">
 						<div class="row">
+						<div class="col-md-12">
 							<div class="col-md-12">
-								<h4>Return?</h4>
+								<h4>&nbsp;</h4>
 							</div>
-							<div class="form-group col-md-12">
-								<form:checkbox path="retur"/>
-							</div>
-						</div>
-					</div>
-					<div class="form-group col-md-12">
-						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-12" style="padding-bottom:5px">
 								<input class="btn btn-primary border-radius custom-button" name="submit" id="submit" type="submit" value="Optimal flight"/>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-12" style="padding-top:5px">
 								<input class="btn btn-primary border-radius custom-button" name="optim" id="optim" type="submit" value="All flights"/>
 							</div>
 						</div>
-					</div>
+						</div>
 				</div>
 			</form:form>
 		</div>
@@ -280,7 +282,7 @@ $(document).ready(function(){
 										</select>
 									</c:when>
 									<c:otherwise>
-										- ${zboruriCautare[0].cursa.aeroport_2.denumire}
+										<h4>- ${zboruriCautare[0].cursa.aeroport_2.denumire}</h4>
 										<select class="form-control border-radius" id="${zboruriCautare[0].cursa.id}-${zbor.key}">
 											<c:forEach items="${zboruriCautare}" var="zborCautare">
 												<option value="${zborCautare.id}"/>
@@ -369,17 +371,6 @@ $(document).ready(function(){
 		<p class="section-subtitle">Best deal for your trip</p>
 		<div class="row">
 	    <form:form class="form-inline" id="getPackageForm" action="" method="post" modelAttribute="flightChosen">
-	      <div class="form-group" style="text-align: center; margin: auto">
-	      	<div class="col-md-12">
-				<div class="col-md-4 col-md-offset-4">					
-			      <div class="col-md-6">
-					<label for="passengers" >Passengers</label>
-					<form:input path="passengers" class="form-control"/>
-				</div>
-				</div>
-			</div>
-		  </div>
-		    <br />
 		    <form:hidden path="departureCompannies"/>
 				<form:hidden path="returnCompannies"/>
 		    <form:hidden path="departurFlight"/>
@@ -404,7 +395,7 @@ $(document).ready(function(){
 			            </ul>
 			          </div>
 			          <div class="panel-footer text-center">
-			            <form:radiobutton path="packageChosen" value="2" /> &euro; 160 
+			            <form:radiobutton path="packageChosen" value="2" checked="checked"/> &euro; 160 
 			          </div>
 			        </div>
 			      </div>
@@ -430,7 +421,11 @@ $(document).ready(function(){
 			          </div>
 			        </div>
 			      </div>
-			      <div class="col-md-4 col-md-offset-4 text-center">
+			      <div class="col-md-6">
+								<label for="passengers">Passengers </label>
+								<form:input path="passengers" class="form-control border-radius"/>
+						</div>
+			      <div class="col-md-6 text-center">
 			      	<button class="btn btn-primary border-radius custom-button" name="getPackage" id="getPackage" type="submit">Continue</button>
 			      </div>
 			    </div>
