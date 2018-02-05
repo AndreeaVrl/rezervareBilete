@@ -10,6 +10,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -21,6 +22,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import it.rezervare.beans.constants.ApplicationConstants;
 import it.rezervare.beans.model.hibernateBeans.Bilet;
 
 public class CreatePDF {
@@ -86,13 +88,13 @@ public class CreatePDF {
 		final Paragraph header = new Paragraph();
 		final PdfPTable table = new PdfPTable(2);
 		table.setWidths(new int[] { 100, 600 });
-		/*final String ugalLogoSrc = ApplicationConstants.PATH_LOGO;
+		final String ugalLogoSrc = ApplicationConstants.PATH_LOGO;
 		final Image ugalLogo = Image.getInstance(ugalLogoSrc);
-		ugalLogo.scalePercent(13f);*/
-		/*final PdfPCell c1 = new PdfPCell(ugalLogo);
+		ugalLogo.scalePercent(13f);
+		final PdfPCell c1 = new PdfPCell(ugalLogo);
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		c1.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c1);*/
+		table.addCell(c1);
 		final PdfPCell c2 = new PdfPCell(new Paragraph("Rezervare bilete online", font));
 		c2.setHorizontalAlignment(Element.ALIGN_CENTER);
 		c2.setBorder(Rectangle.NO_BORDER);

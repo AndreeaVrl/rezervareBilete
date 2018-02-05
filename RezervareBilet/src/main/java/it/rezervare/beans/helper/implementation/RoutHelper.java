@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,7 +51,14 @@ public class RoutHelper implements IRoutHelper{
 	public ModelAndView getRout(final ModelAndView model, final CursaRequestView cursaRequestView, final HttpServletRequest request) {
 		System.out.println("\n ENTER RoutHelper.getRout() retur = ["+cursaRequestView.getRetur()+"]\n");
 		final HttpSession session = request.getSession();
+		session.removeAttribute("allRoutesMap");
+		session.removeAttribute("cursaRequestView");
+		session.removeAttribute("mapZboruriRetur");
+		session.removeAttribute("zboruriCautareRetur");
+		session.removeAttribute("zboruriCautare");
+		session.setAttribute("cursaRequestView", cursaRequestView);
 		try {
+			
 			if(cursaRequestView == null || StringUtils.isEmpty(cursaRequestView.getContryFrom()) || StringUtils.isEmpty(cursaRequestView.getCountryTo())
 					||cursaRequestView.getAirportFrom() == null || cursaRequestView.getAirportTo() == null ) {
 				throw new ApplicationException("Completati zborul dorit!");
@@ -72,6 +80,7 @@ public class RoutHelper implements IRoutHelper{
 			aeroportAjaxViewTo.setId(aeroportTo.getId());
 			aeroportAjaxViewTo.setDenumire(aeroportTo.getDenumire());
 			model.addObject("aeroportTo",aeroportAjaxViewTo);
+			model.addObject("flag", "1");
 			//TUR
 	        final List<LinkedList<Integer>> cursePlecareList = getAllRoutes(cursaRequestView.getAirportFrom(), cursaRequestView.getAirportTo());
 	        final Map<Integer,LinkedList<List<Zbor>>> mapZboruriPlecare = getAllFlights(cursePlecareList,cursaRequestView.getDepartureDate());
@@ -86,9 +95,7 @@ public class RoutHelper implements IRoutHelper{
 		        model.addObject("zboruriCautareRetur", mapZboruriRetur);
 		        session.setAttribute("zboruriCautareRetur", mapZboruriRetur);
 	        }
-	        model.addObject("flag", "1");
-	       /* session.removeAttribute("flag");
-	        session.setAttribute("flag", "1");*/
+	        
 		} catch (final Exception e) {
 			e.printStackTrace();
 			model.addObject("exceptie", e.getMessage());
@@ -144,6 +151,18 @@ public class RoutHelper implements IRoutHelper{
 	        	}
 	        	mapZboruri.put(key, zborGasit);
 	        	key++;
+	        }
+	        for(final Map.Entry<Integer,LinkedList<List<Zbor>>> entry : mapZboruri.entrySet()) {
+	        	if(CollectionUtils.isEmpty(entry.getValue())) {
+		        	throw new ApplicationException();
+		        } else {
+		        	for (final List<Zbor> listaZboruri : entry.getValue()) {
+		        		if(CollectionUtils.isEmpty(listaZboruri)) {
+				        	throw new ApplicationException();
+				        }
+		        	}
+		        }
+		        
 	        }
         } catch (final Exception e) {
         	throw new ApplicationException(e.getMessage());
