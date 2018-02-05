@@ -88,7 +88,7 @@ $(document).ready(function(){
 	</nav>
 	<!-- Home -->
 
-<section>
+<section  style="min-height: 600px">
 <h2 class="section-title">New Account</h2>
 	<c:if test="${not empty succes}">
 			<div class="close" data-dismiss="alert" aria-label="close">×</div>
@@ -104,14 +104,14 @@ $(document).ready(function(){
 	<div class="row">
       <form:form class="form-signin" method="POST" action="createNewAccount" modelAttribute="clientBean">
         <label for="firstName" class="sr-only">First Name</label>
-        <form:input type="text" id="firstName" class="form-control" placeholder="First Name"  value="${clientBean.prenume}" path="nume" required="true"/>
+        <form:input type="text" id="firstName" class="form-control border-radius" placeholder="First Name"  value="${clientBean.prenume}" path="nume" required="true"/>
         <label for="lastName" class="sr-only">Last Name</label>
-        <form:input type="text" id="lastName" class="form-control" placeholder="Last Name"  value="${clientBean.nume}" path="prenume" required="true"/>
+        <form:input type="text" id="lastName" class="form-control border-radius" placeholder="Last Name"  value="${clientBean.nume}" path="prenume" required="true"/>
         <label for="userName" class="sr-only">Email address</label>
-        <form:input type="text" id="userName" class="form-control" placeholder="Email Adress"  value="${clientBean.email}" path="email" required="true"/>
+        <form:input type="text" id="userName" class="form-control border-radius" placeholder="Email Adress"  value="${clientBean.email}" path="email" required="true"/>
         <label for="password" class="sr-only">Password</label>
-        <form:input type="password" id="password" class="form-control" placeholder="Password" value="${clientBean.parola}" path="parola" required="true"/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" id="login" value="Log In">Log in</button>
+        <form:input type="password" id="password" class="form-control border-radius" placeholder="Password" value="${clientBean.parola}" path="parola" required="true"/>
+        <button class="btn btn-primary border-radius custom-button" type="submit" id="login" value="Log In">Log in</button>
       </form:form>
 	</div>
 </section>

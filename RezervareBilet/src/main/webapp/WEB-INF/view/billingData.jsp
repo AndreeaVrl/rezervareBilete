@@ -1,16 +1,36 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-    <head>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<!-- Bootstrap -->
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/ionicons.min.css">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/owl.theme.css">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/carousel.css">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/main.css">
+<script src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
+<!-- Datepicker -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- customizare finala css -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/rezervareBilete.css">
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<title>Euro Travel</title>
     <script type="text/javascript">
      $(document).ready(function(){
 		 $('form').submit(function(){
@@ -22,6 +42,8 @@
     </script>
     </head>
     <body>
+    
+    
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-md-3">

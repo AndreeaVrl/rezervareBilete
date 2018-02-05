@@ -9,8 +9,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!-- Bootstrap -->
-    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/css/rezervareBilete.css" rel="stylesheet">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/ionicons.min.css">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/owl.theme.css">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/carousel.css">
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/main.css">
+<script src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
+<!-- Datepicker -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+<!-- customizare finala css -->
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/resources/css/rezervareBilete.css">
+<link href="${pageContext.request.contextPath}/resources/css/rezervareLocuri.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,10 +29,52 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <title>Rezervare Bilete - Login</title>
+    <title>Euro Travel - Login</title>
   </head>
   
 	<body>
+	
+	    	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index" title="HOME"><i
+					class="ion-paper-airplane"></i> euro <span>travel</span></a>
+			</div>
+			<!-- /.navbar-header -->
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+				<c:set var="user" value='<%=request.getSession().getAttribute("client")%>'/>
+					<c:if test="${not empty user}">
+						<li class="active"><a href="index">Home</a></li>
+						<li><a href="goToChangeAccount">Actualizare date</a></li>
+						<li><a href="checkin">Check-in</a></li>
+						<li><a href="rezervari">Rezervari</a></li>
+					</c:if>
+					<li><a href="goToCreateNewAccount">Sign-up</a></li>
+					<li><a href="goToLoginPage">Log-in</a></li>
+					<c:if test="${not empty user}">
+						<li><a href="logout">Log-out</a></li>
+					</c:if>
+				</ul>
+				<!-- /.nav -->
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+	<!-- Home -->
+	
 	<c:if test="${not empty succes}">
 			<div class="close" data-dismiss="alert" aria-label="close">×</div>
 			<div class="alert alert-success"><strong>Succes!</strong> ${succes}</div>
@@ -34,18 +87,52 @@
 		<br>
 	</c:if>
 	
-	<div class="container">
+	<div class="container" style="min-height: 600px">
 
       <form:form class="form-signin" method="POST" action="login" id="loginForm" modelAttribute="login">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="userName" class="sr-only">Email address</label>
-        <form:input path="userName" class="form-control" placeholder="Username"  value="${loginBean.userName}" required="true"/>
+        <form:input path="userName" class="form-control border-radius" placeholder="Username"  value="${loginBean.userName}" required="true"/>
         <label for="password" class="sr-only">Password</label>
-        <form:input path="password" type="password" class="form-control" placeholder="Password" value="${loginBean.password}" required="true"/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" id="login" value="Log In">Log in</button>
-		<br><a href="goToChangePasswordPage">Forgot your password?</a> |<a href="goToCreateNewAccount"> Create account!</a>
+        <form:input path="password" type="password" class="form-control border-radius" placeholder="Password" value="${loginBean.password}" required="true"/>
+        <button class="btn btn-primary border-radius custom-button" type="submit" id="login" value="Log In">Log in</button>
+		<br><a href="goToChangePasswordPage">Forgot your password?</a> | <a href="goToCreateNewAccount"> Create account!</a>
       </form:form>
 
     </div> <!-- /container -->
+    
+    <footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="text-left">
+						&copy; Copyright Euro Travels - 2018 MTAPO project
+					</div>
+				</div>
+				<div class="col-xs-4">
+					
+				</div>
+				<div class="col-xs-4">
+					<div class="top">
+						<a href="#header">
+							<i class="ion-arrow-up-b"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</footer>
+	
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script	src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+		
+  <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/contact.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/script.js"></script>
+
+	<!-- Include Date Range Picker -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 	</body>
 </html>
