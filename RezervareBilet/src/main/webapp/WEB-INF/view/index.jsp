@@ -145,7 +145,7 @@ $(document).ready(function(){
 		<p class="section-subtitle">Where would you like to go?</p>
 		<div class="row">
 			<form:form role="form" class="form-dropdown" id="getRouteForm" method="POST" modelAttribute="cursa">
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<div class="col-md-12">
 						<h4>From:</h4>
 					</div>
@@ -165,7 +165,7 @@ $(document).ready(function(){
 						</form:select>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<div class="col-md-12">
 						<h4>To:</h4>
 					</div>
@@ -185,8 +185,8 @@ $(document).ready(function(){
 						</form:select>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="col-md-9">
+				<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="row">
 							<div class="col-md-12">
 								<h4>Date:</h4>
@@ -201,7 +201,22 @@ $(document).ready(function(){
 							</div>
 						</div>	
 					</div>
-					<div class="col-md-3" hidden="true">
+					<div class="col-md-4" id="flyBackDate">
+						<div class="row">
+							<div class="col-md-12">
+								<h4>Fly back:</h4>
+							</div>
+							<div class="form-group col-md-12">
+								<div class="input-group" style="margin-bottom: 0px">
+									<form:input type="text"	class="form-control border-radius border-right"	placeholder="Fly back" path="flyBack" /> 
+									<span	class="input-group-addon border-radius custom-addon"> 
+										<i class="ion-ios-calendar"></i>
+									</span>
+								</div>
+							</div>
+						</div>	
+					</div>
+					<div class="col-md-4">
 						<div class="row">
 							<div class="col-md-12">
 								<h4>Return?</h4>
@@ -470,12 +485,14 @@ $(document).ready(function(){
 			container: container,
 			todayHighlight: true,
 			autoclose: true,
+			minDate: new Date()
 		});
 		$('#flyBack').datepicker({
 			format: 'dd/mm/yyyy',
 			container: container,
 			todayHighlight: true,
 			autoclose: true,
+			minDate: new Date()
 		});
 		if($('#retur1').is(':checked')){
 			$('#flyBackDate').show();
