@@ -52,7 +52,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
           	<li><a href="#">Users</a></li>
-            <li><a href="#">Logout<span class="sr-only">(current)</span></a></li>
+            <li><a href="logout">Logout<span class="sr-only">(current)</span></a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -69,6 +69,13 @@ function editFlight(flightId) {
 			$("#editFlightRoutes").val(${flight.cursa.id});
 			$("#editFlightCompanies").val(${flight.companie.id});
 			$("#editFlightAirplanes").val(${flight.avion.id});
+			
+			
+			$('#editDatetimepicker4').datetimepicker({});
+			$('#editDatetimepicker4').data("DateTimePicker").date(moment(new Date ).format('DD/MM/YYYY HH:mm'));
+			$('#editDatetimepicker5').datetimepicker({});
+			$('#editDatetimepicker5').data("DateTimePicker").date(moment(new Date ).format('DD/MM/YYYY HH:mm'));
+			
 			var pret = ${flight.pret};
 			document.getElementById("editStandardPrice").value = pret;
 		}
